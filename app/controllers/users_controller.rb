@@ -32,7 +32,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         #added
-        ExampleMailer.sample_email(@user).deliver
+        ExampleMailer.sample_email(@user).deliver.now
         format.html { redirect_to @user, notice: 'user was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
@@ -41,8 +41,6 @@ class UsersController < ApplicationController
       end
     end
   end
-
-
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
