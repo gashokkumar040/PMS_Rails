@@ -1,5 +1,8 @@
 class WelcomesController < ApplicationController
+  
 
+end
+=begin
   before_action :authenticate_user!
 
   before_action :set_welcome, only: [:show, :edit, :update, :destroy]
@@ -42,8 +45,6 @@ class WelcomesController < ApplicationController
     end
   end
 
-
-
   # PATCH/PUT /welcomes/1
   # PATCH/PUT /welcomes/1.json
   def update
@@ -79,3 +80,4 @@ class WelcomesController < ApplicationController
       params.fetch(:welcome, {})
     end
 end
+=end

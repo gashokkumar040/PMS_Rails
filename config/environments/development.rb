@@ -32,26 +32,45 @@ Rails.application.configure do
 
   # Don't care if the mailer can't send.
   #config.action_mailer.raise_delivery_errors = false
-  config.action_mailer.default_url_options = { :host => "http:/127.0.0.1:3000/" }
+  #config.action_mailer.default_url_options = { :host => "http:/127.0.0.1:3000/" }
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path
 #===========
+config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+config.action_mailer.delivery_method = :smtp
+ 
+ #ActionMailer::Base.add_delivery_method :my_test_delivery, Mail::MyTestDelivery
+  #config.action_mailer.delivery_method = :my_test_delivery
 =begin
 ActionMailer::Base.smtp_settings = {
-  :user_name => 'ashok',
-  :password => 'password1',
-  :domain => 'http://127.0.0.1:3000',
-  :address => 'smtp.sendgrid.net',
+  :user_name => 'gashokkumar040@gmail.com',
+  :password => '10l01a0473',
+  :domain => 'gmail.com',
+  :address => 'smtp.gmail.com',
   :port => 587,
-  :authentication => :plain,
+  :authentication => :login,
   :enable_starttls_auto => true
 }
 =end
- #ActionMailer Config
-config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-config.action_mailer.delivery_method = :smtp
+
+#=====
+ #ActionMailer::Base.add_delivery_method :my_test_smtp_delivery, Mail::MyTestSmtpDelivery
+  #config.action_mailer.delivery_method = :my_test_smtp_delivery
+  
+  ActionMailer::Base.smtp_settings = {
+    :address        => "smtp.gmail.com",
+    :port           => 587,
+    :domain         => "gmail.com",
+    :authentication => :plain,
+    :user_name      => "myuser@gmail.com",
+    :password       => "mypass",
+    :enable_starttls_auto => true
+  }
+
+#=====
+
 # change to true to allow email to be sent during development
-config.action_mailer.perform_deliveries = false
+config.action_mailer.perform_deliveries = true
 config.action_mailer.raise_delivery_errors = true
 config.action_mailer.default :charset => "utf-8"
 

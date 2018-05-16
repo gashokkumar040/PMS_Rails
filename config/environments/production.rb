@@ -91,7 +91,7 @@ ActionMailer::Base.smtp_settings = {
 }}
 =end
 
-config.action_mailer.default_url_options = { :host => 'example.com' }
+config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 # ActionMailer Config
 # Setup for production - deliveries, no errors raised
 config.action_mailer.delivery_method = :smtp
@@ -104,12 +104,13 @@ config.action_mailer.default :charset => "utf-8"
 config.action_mailer.smtp_settings = {
   address: "smtp.gmail.com",
   port: 587,
-  domain: "example.com",
-  authentication: "plain",
+  domain: "gmail.com",
+  authentication: "login",
   enable_starttls_auto: true,
   user_name: "gashokkumar040@gmail.com",#ENV["GMAIL_USERNAME"],
   password: "10l01a0473" # ENV["GMAIL_PASSWORD"]
 }
+
 #======
 
   # Ignore bad email addresses and do not raise email delivery errors.
