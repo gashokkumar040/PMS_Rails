@@ -37,6 +37,7 @@ Rails.application.configure do
   config.action_mailer.preview_path
 #===========
 config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+#config.action_mailer.delivery_method = :letter_opener_web
 config.action_mailer.delivery_method = :smtp
  
  #ActionMailer::Base.add_delivery_method :my_test_delivery, Mail::MyTestDelivery
@@ -61,9 +62,9 @@ ActionMailer::Base.smtp_settings = {
     :address        => "smtp.gmail.com",
     :port           => 587,
     :domain         => "gmail.com",
-    :authentication => :plain,
-    :user_name      => "myuser@gmail.com",
-    :password       => "mypass",
+    :authentication => :login,
+    :user_name      => "ashokkumar.sykamcs@gmail.com",
+    :password       => "9000243312",
     :enable_starttls_auto => true
   }
 
@@ -72,7 +73,7 @@ ActionMailer::Base.smtp_settings = {
 # change to true to allow email to be sent during development
 config.action_mailer.perform_deliveries = true
 config.action_mailer.raise_delivery_errors = true
-config.action_mailer.default :charset => "utf-8"
+#config.action_mailer.default :charset => "utf-8"
 
 #===========
 

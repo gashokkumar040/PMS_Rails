@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
+  has_many :posts
   protected
   
 =begin  def confirmation_required?
@@ -22,6 +23,10 @@ class User < ApplicationRecord
 
   validates :email,uniqueness: true 
   #validates :username,uniqueness: true
+
+  def send_welcome_email
+    UserMailer.welcome_email(@user.name).deliver_now
+  end
 
 end
 

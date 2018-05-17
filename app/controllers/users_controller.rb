@@ -32,15 +32,17 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.save
         #added
-        ExampleMailer.sample_email(@user).deliver.now
+        #ExampleMailer.sample_email(@user).deliver.now
         format.html { redirect_to @user, notice: 'user was successfully created.' }
         format.json { render :show, status: :created, location: @user }
+        @user.send_welcome_email
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
+
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json

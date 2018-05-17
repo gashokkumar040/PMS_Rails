@@ -1,4 +1,4 @@
-class UsersMailer < BaseMailer
+=beginclass UsersMailer < BaseMailer
 def welcome_email(user_id)
     @user = User.find(user_id)
 
@@ -11,3 +11,4 @@ def welcome_email(user_id)
     end
   end
 end
+=end
