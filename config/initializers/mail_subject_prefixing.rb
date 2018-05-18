@@ -1,7 +1,8 @@
 class SubjectPrefixInterceptor
 
   def self.delivering_email(message)
-    message.subject = "[#{Rails.env}] #{message.subject}"
+    #message.subject = "[#{Rails.env}] #{message.subject}"
+    #message.subject = "#{message.subject}"
   end
 
 end

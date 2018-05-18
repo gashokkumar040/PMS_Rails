@@ -1,6 +1,6 @@
 class ApplicationMailer < ActionMailer::Base
   #default from: 'gashokkumar040@gmail.com'
-  layout 'mailer'
+  #layout 'mailer'
 
 =begin
   def sample_email(user)
