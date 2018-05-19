@@ -12,13 +12,15 @@
 
   </head>
   <body>
+    
+
 
      <!--  ==== -->
 
       <nav class="navbar navbar-default navbar-static-top" role="navigation">
           <div class="container">
               <div class="navbar-header">
-                  <%= link_to "Demo App", root_path, class: 'navbar-brand' %>
+                  <%= link_to "PMS App", root_path, class: 'navbar-brand' %>
               </div>
 
               <div class="collapse navbar-collapse navbar-responsive-collapse">
@@ -58,16 +60,30 @@
       </div>
 
     </div>
+    <%= render 'layouts/header' %>
  -->
+
+ 
     <div class="container">
       <div class="row">
 
         <div class="col-lg-9">
-          
-          <%= bootstrap_flash %>
 
+          <!-- <p class="notice"><%= notice %></p> -->
+          <!-- <p class="alert"><%= alert %></p> -->
+          <!--
+          <%= bootstrap_flash %>
+            
+          <%= render 'layouts/header' %>
+         -->
+          
+          <%= render 'layouts/messages' %>
           <%= yield %>
+          <!-- <%= render 'layouts/footer' %> -->
+          
         </div>
+
+        
 <!-- 
         <div class="col-lg-3">
           <div class="well sidebar-nav">
@@ -82,8 +98,6 @@
         </div>
          -->
       </div><!--/row-->
-
-    
 <!-- 
       <footer>
         <p>&copy; Company 2018</p>
@@ -93,3 +107,5 @@
 
   </body>
 </html>
+
+
