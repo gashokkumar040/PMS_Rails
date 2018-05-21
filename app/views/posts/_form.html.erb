@@ -1,12 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>This is Form</title>
+  <style type="text/css">
+    /*body{background-color: tomato;padding: 1px auto;width: 1200px auto}*/
+    body{
+    background-color: lightyellow;
+    text-align: center;
+    width: 100%;
+  }
+  .container{background-color: }
+  
+
+  </style>
+</head>
+<body >
+  <div class="container">
+    
 <%= form_with(model: post, local: true) do |form| %>
   <% if post.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
 
       <ul>
-      <% post.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
+        <% post.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
       </ul>
     </div>
   <% end %>
@@ -30,3 +49,9 @@
     <%= form.submit %>
   </div>
 <% end %>
+
+  </div>
+
+</body>
+</html>
+

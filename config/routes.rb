@@ -1,12 +1,21 @@
 Rails.application.routes.draw do
+
+  resources :projects
   resources :posts
   get 'users/name'
   get 'users/email'
  
-  devise_for :users#, controllers: { confirmations: 'confirmations' }
+  #devise_for :users#, controllers: { confirmations: 'confirmations' }
+  
   resources :welcomes
+  resources :users
 
-  root 'posts#index'
+  root 'projects#index'
+
+
+      devise_for :users, controllers: {sessions: 'users/sessions'}
+   
+  #root 'posts#index'
 
   # if Rails.env.development?
   #   mount LetterOpenerWeb::Engine, at: "/letter_opener"

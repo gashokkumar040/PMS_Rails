@@ -4,18 +4,35 @@
   <%= devise_error_messages! %>
 
   <!-- added fields -->
-  <div class="field"><%= f.label :first_name %><br />
-        <%= f.text_field :first_name, autofocus: true %></div>
-    <div class="field"><%= f.label :last_name %><br />
-        <%= f.text_field :last_name, autofocus: true %></div>
 
-    <div><%= f.check_box :is_female, {}, true %> <%= f.label :is_female, "Female" %> </div>
-    <div><%= f.check_box :is_female, {}, false %> <%= f.label :is_female, "Male" %> </div>
+  <div class="field">
+    <%= f.label :first_name %><br />
+    <%= f.text_field :first_name, autofocus: true %>
+  </div>
+  <div class="field">
+    <%= f.label :last_name %><br />
+    <%= f.text_field :last_name, autofocus: true %>
+  </div>
 
-    <div class="field"><%= f.label :date_of_birth %><br />
-        <%= f.date_select :date_of_birth %></div>
+  
+
+  <div class="field"><%= f.label :date_of_birth %><br />
+        <%= f.date_field :date_of_birth %></div>
+
+  <div class="field">Gender:
+    <div><%= f.check_box :is_female, {}, true %> 
+          <%= f.label :is_female, "Female" %> </div>
+    <div><%= f.check_box :is_female, {}, false %> 
+          <%= f.label :is_female, "Male" %> </div>
+  </div>
+
 
   <!-- end fields -->
+  <div class="field"><%= f.label :username %><br />
+        <%= f.text_field :username, autofocus: true %></div>
+
+  <div class="field"><%= f.label :phonenum %><br />
+        <%= f.text_field :phonenum, autofocus: true %></div>
 
   <div class="field">
     <%= f.label :email %><br />
