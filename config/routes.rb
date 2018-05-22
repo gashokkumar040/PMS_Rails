@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get 'users/name'
   get 'users/email'
  
-  #devise_for :users#, controllers: { confirmations: 'confirmations' }
+  devise_for :users, controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations' }
   
   resources :welcomes
   resources :users
@@ -13,8 +13,8 @@ Rails.application.routes.draw do
   root 'projects#index'
 
 
-      devise_for :users, controllers: {sessions: 'users/sessions'}
-   
+  #devise_for :users#, controllers: {sessions: 'users/sessions'}
+  #devise_for :users, controllers: {registrations: 'users/registrations'} 
   #root 'posts#index'
 
   # if Rails.env.development?

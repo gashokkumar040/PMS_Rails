@@ -1,8 +1,19 @@
 class User < ApplicationRecord
+
+
+  # after_save :save_changes
+
+
+  # def save_changes
+
+  #   UserMailer.welcome_email(@user.name).deliver_now
+  # end
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   
   protected
+
+
   
 =begin  def confirmation_required?
     false
@@ -29,6 +40,5 @@ class User < ApplicationRecord
   end
 
   has_many :projects
-
 end
 

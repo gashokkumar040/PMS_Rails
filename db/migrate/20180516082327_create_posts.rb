@@ -1,15 +1,14 @@
 class CreatePosts < ActiveRecord::Migration[5.2]
-  def change
+  def self.up
     create_table :posts do |t|
-      t.integer :user_id
       t.string :name
       t.string :title
       t.text :content
-      
+      t.references :user, foreign_key: true
 
 
       t.timestamps
     end
-    add_index :posts, :user_id
   end
 end
+
