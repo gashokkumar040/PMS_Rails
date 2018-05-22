@@ -1,17 +1,35 @@
 class User < ApplicationRecord
 
 
-  # after_save :save_changes
+  after_update :save_changes
 
+protected
+  def save_changes
 
-  # def save_changes
+    #@user.update(column:value) 
+    #UserMailer.saved_data_email(@user).deliver_later
 
-  #   UserMailer.welcome_email(@user.name).deliver_now
+    #  def update_column(name, value)
+    #   update_columns(name => value)
+    # end
+    #UserMailer.welcome_email(@user.name).deliver_now
+  end
+
+  # after_update :send_email
+  # protected
+
+  # def send_email
+  #   if column_name_changed? && !email_sent?
+  #     # Send email here
+  #     update_attribute :email_sent, true
+  #   end
   # end
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   
-  protected
+  
 
 
   

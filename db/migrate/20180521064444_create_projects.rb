@@ -1,5 +1,5 @@
 class CreateProjects < ActiveRecord::Migration[5.2]
-  def change
+  def self.up
     create_table :projects do |t|
       t.integer :project_id
       t.string :project_title

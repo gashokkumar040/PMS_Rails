@@ -45,7 +45,7 @@ tr:nth-child(even) {background-color:lightgray;}
         <td><%= project.project_id %></td>
         <td><%= project.project_title %></td>
         <td><%= project.project_description %></td>
-        <td><%= project.user_id_was %></td>
+        <td><%= project.user_id %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -7,19 +7,19 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    #@users = user.all
-    @user = user.find(params[:id])
+    @users = User.all
+    #@user = user.find(params[:id])
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = user.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
   def new
-    @user = user.new
+    @user = User.new
   end
 
   # GET /users/1/edit
@@ -27,18 +27,38 @@ class UsersController < ApplicationController
 
   end
 
+# ===
+#  def create
+#     @user = User.new(params[:user])
+ 
+#     respond_to do |format|
+#       if @user.save
+#         # Tell the UserMailer to send a welcome email after save
+#         UserMailer.welcome_email(@user).deliver
+ 
+#         format.html { redirect_to(@user, notice: 'User was successfully created.') }
+#         format.json { render json: @user, status: :created, location: @user }
+#       else
+#         format.html { render action: 'new' }
+#         format.json { render json: @user.errors, status: :unprocessable_entity }
+#       end
+#     end
+#   end
+# ====
   # POST /users
   # POST /users.json
   def create
-    @user = user.new(user_params)
+    @user = User.new(user_params)
 
     respond_to do |format|
       if @user.save
+        UserMailer.signup_confirmation(@user).deliver
+ 
         #added
         #ExampleMailer.sample_email(@user).deliver.now
         format.html { redirect_to @user, notice: 'user was successfully created.' }
         format.json { render :show, status: :created, location: @user }
-        @user.send_welcome_email
+        #@user.send_welcome_email
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -47,14 +67,17 @@ class UsersController < ApplicationController
   end
 
 
+
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
     respond_to do |format|
       if @user.update(user_params)
-        @user.send_welcome_email
+        
         format.html { redirect_to @user, notice: 'user was successfully updated.' }
         format.json { render :show, status: :ok, location: @user }
+
+        #@user.save_changes
       else
         format.html { render :edit }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -75,12 +98,12 @@ class UsersController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      @user = user.find(params[:id])
+      @user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.fetch(:user, {})
+      #params.fetch(:user, {})
+      params.require(:user).permit(:first_name, :last_name, :date_of_birth,:is_female,:phonenum,:email,:encrypted_password)
     end
 end
-
