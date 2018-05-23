@@ -7,13 +7,7 @@ class CustomDeviseMailer < Devise::Mailer
   # Overrides same inside Devise::Mailer
   def confirmation_instructions(record, token, opts={})
     set_organization_of record
-    #super
-    <p>Welcome <%= @email %>!</p>
-
-<p>You can confirm your account email through the link below:</p>
-
-<p><%= link_to 'Confirm my account', confirmation_url(@resource, confirmation_token: @token) %></p>
-
+    super
   end
 
   # Overrides same inside Devise::Mailer

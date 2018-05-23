@@ -77,6 +77,7 @@ ActionMailer::Base.smtp_settings = {
 # change to true to allow email to be sent during development
 config.action_mailer.perform_deliveries = true
 config.action_mailer.raise_delivery_errors = true
+
 #config.action_mailer.default :charset => "utf-8"
 
 #===========
@@ -85,7 +86,7 @@ config.action_mailer.raise_delivery_errors = true
   config.active_support.deprecation = :log
 
   # Raise an error on page load if there are pending migrations.
-  config.active_record.migration_error = :page_load
+  config.active_record.migration_error = true#:page_load
 
   # Highlight code that triggered database queries in logs.
   config.active_record.verbose_query_logs = true
