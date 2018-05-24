@@ -1,14 +1,14 @@
 Rails.application.routes.draw do
 
-  devise_for :admins
+
   resources :projects
-  resources :posts
-  get 'users/name'
-  get 'users/email'
+
+  # get 'users/name'
+  # get 'users/email'
  
   devise_for :users, controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
   
-  resources :welcomes
+  
   #resources :users
 
   root 'projects#index'

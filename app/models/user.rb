@@ -1,31 +1,43 @@
 class User < ApplicationRecord
 
-  before_create :confirmation_token1
+  # after_create :confirmation_token1
+  after_create :after_confirmation_path_for
 
-  # resources :users do
-  #   member do
-  #     get :confirm_email
-  #   end
+  before_save :save_changes
+
+
+
+
+  # def self.find(id)
+  #     puts "===id===="
+  #     puts "#{id}"
   # end
 
-  #  enum role: [:user, :admin]
-  # after_initialize :set_default_role, :if => :new_record?
 
-  # def set_default_role
-  #   self.role ||= :user
-  # end
+  def save_changes
+    
+    puts "====="
+    puts "#{self.email}"
+    puts "======="
+    puts "#{self.changed?}"
+    puts changed.inspect
+    puts "#{changes}"
+    puts "====="
+    puts changes.keys
+    puts "values are"
 
-
-  #validates :login, :email, presence: true
+    puts changes.flatten[0]
+    puts changes.flatten[1]
+    puts "======"
  
-  #before_validation :ensure_login_has_a_value
+    UserMailer.signup_confirmation(changes,self).deliver_now
+  end
+
+  def after_confirmation_path_for
+    UserMailer.after_confirmation(changes.keys, self).deliver_now
+  end
 
   
-
-
-  def will_save_change_to_email?
-    true
-  end
 
   devise :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable
@@ -33,10 +45,10 @@ class User < ApplicationRecord
   validates :email,uniqueness: true 
   #validates :username,uniqueness: true
 
-  def send_welcome_email
-    @user = first_name
-    UserMailer.welcome_email(first_name).deliver_now
-  end
+  # def send_welcome_email
+  #   @user = first_name
+  #   UserMailer.welcome_email(first_name).deliver_now
+  # end
 
   has_many :projects
 
@@ -47,26 +59,7 @@ class User < ApplicationRecord
     #     self.login = email unless email.blank?
     #   end
     # end
-after_save :save_changes
-
-  def save_changes
-    #self.table_name = 'servicename_user'
-    #@email = email
-    @email = email
-    puts "====="
-    puts "#{first_name}"
-    puts "#{email}"
-    puts "#{password}"
-    puts "====="
-    puts "#{username}"
-    puts "====="
-    #@greeting = 'Hi ashok'
-    #  puts "#{@user.id}"
-     #@user.changes
-     #changed.inject({}) { |h, attr| h[attr] = attribute_change(attr); h }
-
-    UserMailer.signup_confirmation.deliver_now
-  end
+  
   
   # def before_save
   #   @was_a_new_record = new_record?
@@ -78,7 +71,6 @@ after_save :save_changes
   #      return @object.instance_variable_get(:@new_record_after_save)
   #    end
   # end
-  
 
 
   # after_update :send_email
@@ -96,19 +88,17 @@ after_save :save_changes
   # :confirmable, :lockable, :timeoutable and :omniauthable
   
   private
-    def confirmation_token1
-      if self.confirm_token.blank?
-          self.confirm_token = SecureRandom.urlsafe_base64.to_s
-      end
-    end
+    # def confirmation_token1
+    #   if self.confirm_token.blank?
+    #       self.confirm_token = SecureRandom.urlsafe_base64.to_s
+    #   end
+    # end
 
   def email_activate
     self.email_confirmed = true
     self.confirm_token = nil
     save!(:validate => false)
   end
-
-
   
 =begin  def confirmation_required?
     false

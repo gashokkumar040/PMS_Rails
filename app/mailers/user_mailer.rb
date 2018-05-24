@@ -1,19 +1,18 @@
 class UserMailer < ApplicationMailer
 
-  default from: 'gashokkumar040@gmail.com'
+  default from: 'ashokkumar.sykamcs@gmail.com'
 
-  def signup_confirmation
-    #@user = user
+  def signup_confirmation(changes,user)
+    @user = user
+    @changes=changes
 
-    #mail to: @user.email, 
-    #mail subject: 'Sign up Confirmation 123!!!'
+    mail(:to => @user.email, :subject => "You updated your profile")
   end
 
-  #default :from => "me@mydomain.com"
-
- def registration_confirmation(user)
+ def after_confirmation(changes, user)
     @user = user
-    mail(:to => "#{user.name} <#{user.email}>", :subject => "Registration Confirmation 111")
+    @changes = changes
+    mail(:to => "#{@user.username} <#{@user.email}>", :subject => "Your Confirmed your mail...")
  end
 
 end

@@ -1,5 +1,67 @@
-<h1>User#signup_confirmation</h1>
+<h1>Dear <%=@user.username%></h1>
+<%=@changes.inspect%>
 
-<p>
- find me in app/views/user_mailer/signup_confirmation.html.erb
-</p>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Your Updated Data</title>
+  <style type="text/css">
+  body{
+    background-color: lightyellow;
+    text-align: center;
+    width: 100%;
+  
+  table {
+    padding: 1px auto; 
+    margin :auto;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  th{
+    background-color:  #00f29f;
+  }
+tr:nth-child(even) {background-color:lightgray;}
+</style>
+</head>
+<body>
+  <table>
+  <thead>
+    <tr>
+      <th>Updated keys</th>
+      <th>Old Data</th>
+      <th>New Data</th>
+    </tr>
+  </thead>
+
+  <tbody>
+      <tr>
+        <td><%= @changes.keys[0] %></td>
+        <td><%= @changes.values[0] %></td>
+        <td><%= @changes.values[1] %></td>
+      </tr>
+      <tr>
+        <td><%= @changes.keys[1] %></td>
+        <td><%= @changes.values[2] %></td>
+        <td><%= @changes.values[3] %></td>
+      </tr>
+      <tr>
+        <td><%= @changes.keys[2] %></td>
+        <td><%= @changes.values[4] %></td>
+        <td><%= @changes.values[5] %></td>
+      </tr>
+      <tr>
+        <td><%= @changes.keys[3] %></td>
+        <td><%= @changes.values[6] %></td>
+        <td><%= @changes.values[7] %></td>
+      </tr>
+  </tbody>
+</table>
+</body>
+</html>
+
+
+
+
+

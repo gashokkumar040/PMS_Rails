@@ -1,0 +1,11 @@
+<p>Hello <%= @resource.first_name %>!</p>
+
+<p>Your recently updated following data.</p>
+
+<div>
+  @resource.changes
+</div>
+
+<p>Click the link below to login your account:</p>
+
+<p><%= link_to 'Login my account', login_url(@resource) %></p>
