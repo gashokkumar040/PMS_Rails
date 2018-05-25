@@ -13,8 +13,8 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
-    #@user = User.find(params[:id])
+    #@users = User.all
+    @user = User.find(params[:id])
   end
 
   # GET /users/1
@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-
+    #@user = User.find(params[:id])
   end
 
 # ===
@@ -110,20 +110,16 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+    private
     # Use callbacks to share common setup or constraints between actions.
     def set_user
-      puts "========================="
-      puts "#{User.find(params[:id])}"
-      puts "end"
-      puts "======="
       @user = User.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      #params.fetch(:user, {})
-      params.require(:user).permit(:first_name, :username, :password_confirmation, :last_name, :date_of_birth,:is_female,:phonenum,:email,:encrypted_password)
+      params.fetch(:user, {})
+      #params.require(:user).permit(:first_name, :username, :password_confirmation, :last_name, :date_of_birth,:is_female,:phonenum,:email,:encrypted_password)
     end
 
     # ===========

@@ -14,11 +14,13 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
+    @projects = current_user.projects
   end
 
   # GET /projects/new
   def new
     @project = Project.new
+  end
 
   # GET /projects/1/edit
   def edit
@@ -81,5 +83,5 @@ class ProjectsController < ApplicationController
       # ensure we won't end up with a post belonging to another user
       current_user.projects.where(:id => params[:id]).first
     end
-end
+
 end
