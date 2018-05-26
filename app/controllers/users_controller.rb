@@ -30,7 +30,7 @@ class UsersController < ApplicationController
 
   # GET /users/1/edit
   def edit
-    #@user = User.find(params[:id])
+    @user = current_user.find(params[:id])
   end
 
 # ===
@@ -51,6 +51,7 @@ class UsersController < ApplicationController
 #     end
 #   end
 # ====
+
   # POST /users
   # POST /users.json
   def create
@@ -86,6 +87,7 @@ class UsersController < ApplicationController
   #     end
   # end
   # =====
+  
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update

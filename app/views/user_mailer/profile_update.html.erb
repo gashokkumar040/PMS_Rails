@@ -1,69 +1,3 @@
-<!-- <h1>Dear <%=@user.username%></h1>
-<%=@changes.inspect%> -->
-<!-- 
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Your Updated Data</title>
-  <style type="text/css">
-  body{
-    background-color: lightyellow;
-    text-align: center;
-    width: 100%;
-  }
-  
-  .new_data_table{
-    padding: 1px auto; 
-    margin :auto;
-    border: 2px solid black;
-  }
-  th, td {
-    text-align: center;
-    padding: 8px;
-  }
-  th{
-    background-color:  #c7d8a7;
-  }
-/*tr:nth-child(even) {background-color:lightgray;}*/
-</style>
-</head> --> <!-- 
-<body> -->
-
-<!--   <% if @status == 'success' %>
-    <div class='success'>
-  <% else %>
-    <div>
-    <% end %>
-        some message here
-  </div>
-    n = @changes -->
-<!-- 
-  <h1>Dear <%=@user.username%></h1>
-  
-  <table>
-  <thead>
-    <tr>
-      <th>Updated fields</th>
-      <th>Previous Data</th>
-      <th>Updated Data</th>
-    </tr>
-  </thead>
-
-  <tbody>
-
-      <tr>
-        <td><%= @changes.keys[0] %></td>
-        <td><%= @changes.values[0][0] %></td>
-        <td><%= @changes.values[0][1] %></td>
-      </tr>
-
-      
-  </tbody>
-</table>
-</body>
-</html>
-
-======== -->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
@@ -153,7 +87,7 @@
                     <table width="100%" border="0" cellspacing="0" cellpadding="0">
                         <tr>
                             <td class="h2" style="text-align: left">
-                                Dear <%= @user.username %>,
+                                Dear <%= @user.first_name %>,
                             </td>
                         </tr>
                         <tr>
@@ -174,23 +108,18 @@
                                 </thead>
 
                                 <tbody>
-                                  
+                                  <% i = 0 %>
+                                  <% n = @changes.count %>
 
-                                  <tr>
-                                    <td><%= @changes.keys[0] %></td>
-                                    <td><%= @changes.values[0][0] %></td>
-                                    <td><%= @changes.values[0][1] %></td>
-                                  </tr>
-                                  <!-- <tr>
-                                    <td><%= @changes.keys[1] %></td>
-                                    <td><%= @changes.values[1][0] %></td>
-                                    <td><%= @changes.values[1][1] %></td>
-                                  </tr>
-                                  <tr>
-                                    <td><%= @changes.keys[2] %></td>
-                                    <td><%= @changes.values[2][0] %></td>
-                                    <td><%= @changes.values[2][1] %></td>
-                                  </tr> -->
+                                  <% @changes.each do |j|%>
+                                    <tr> 
+                                      <td><%= @changes.keys[i] %></td>
+                                      <td><%= @changes.values[i][0][0] %></td>
+                                      <td><%= @changes.values[i][0][1] %></td>
+                                    </tr>
+                                    <% i += 1 %>
+                                  <% end %>
+
                                 </tbody>
                             </table>
                           </td>

@@ -20,60 +20,24 @@ class User < ApplicationRecord
 
     @hash = Hash.new { |hash, key| hash[key] = [] }
 
-    # =====
-    # example: for add one hash to another
-    # hash = Hash.new { |hash, key| hash[key] = [] }
-
-    # raw_data = [ [1, 'a'], [1, 'b'], [1, 'c'],
-    #            [2, 'a'], [2, ['b', 'c']],
-    #            [3, 'c'] ]
-    # raw_data.each { |x,y| hash[x] << y }
-    
-      #another example
-      # Put this in an initializer
-
-      # class Hash
-      #   def filter(*args)
-      #     return nil if args.try(:empty?)
-      #     if args.size == 1
-      #       args[0] = args[0].to_s if args[0].is_a?(Symbol)
-      #       self.select {|key| key.to_s.match(args.first) }
-      #     else
-      #       self.select {|key| args.include?(key)}
-      #     end
-      #   end
-      # end
-      # Then you can do
-
-      # {a: "1", b: "b", c: "c", d: "d"}.filter(:a, :b) # =>  {a: "1", b: "b"}
-    # ======
-
-
-    self.changes.each do |keys, values|
-      if keys.match("first_name" || "last_name" || "username" || "date_of_birth")
-        @hash[keys] = values
-      end
+    self.changes.each{ |k,v| @hash[k] << v }
+    if self.changes.count == 0
+      puts "No updates"
+    elsif self.changes.keys == "first_name" || "last_name" || "date_of_birth" || "username" 
+      UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
+    else
+      puts "do nothing"
     end
-    puts "=========-------"
     
-    puts "#{@hash}"
-    
-    puts "=========-------"
-    #for i in @n.keys
-      if @hash == 0
-        puts "No Updates"
-      else
-        UserMailer.signup_confirmation(@hash,self).deliver_now
-      end
-    #end
+    puts "====="
+    puts "hash data is #{@hash.slice("first_name","last_name","date_of_birth","username")}"
+    puts "====="
 
   end
 
   def after_confirmation_path_for
     UserMailer.after_confirmation(changes.keys, self).deliver_now
   end
-
-  
 
   devise :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable

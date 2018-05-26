@@ -67,11 +67,12 @@ ActionMailer::Base.smtp_settings = {
     :port           => 587,
     :domain         => "gmail.com",
     :authentication => :login,
-    :user_name      => "ashokkumar.sykamcs@gmail.com",
-    :password       => "9000243312",
+    :user_name      => ENV['gmail_username'],
+    :password       => ENV['gmail_password'],
     :enable_starttls_auto => true
   }
 
+    
 #=====
 
 # change to true to allow email to be sent during development

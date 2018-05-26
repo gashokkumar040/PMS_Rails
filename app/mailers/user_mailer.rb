@@ -2,7 +2,7 @@ class UserMailer < ApplicationMailer
 
   default from: 'ashokkumar.sykamcs@gmail.com'
 
-  def signup_confirmation(changes,user)
+  def profile_update(changes,user)
     @user = user
     @changes=changes
 
