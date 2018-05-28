@@ -10,10 +10,19 @@ class ApplicationController < ActionController::Base
     protected
 
     def configure_permitted_parameters
-      devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :first_name, :last_name, :is_female, :date_of_birth, :email, :password) }
+      devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :first_name, :last_name, :is_female, :date_of_birth, :email, :password,:phonenum, :password_confirmation) }
       devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :email, :password, :current_password, :is_female, :date_of_birth,:username,:password_confirmation) }
       devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
     end
+
+    # def after_sign_in_path_for(resource)
+    #   if resource.class == Administrator
+    #     rails_admin_path
+    #   else
+    #     # Change profile_path to where you want regular users to go
+    #     stored_location_for(resource) || profile_path
+    #   end
+    # end
  
 end
 

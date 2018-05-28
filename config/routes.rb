@@ -1,23 +1,28 @@
 Rails.application.routes.draw do
 
 
+  get 'admin/user'
+  devise_for :admins
+  mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :projects
-
-  # get 'users/name'
-  # get 'users/email'
- 
-  devise_for :users, controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
-  
-  
   #resources :users
+
+   # get 'users/name'
+   # get 'users/email'
+ 
+  devise_for :users
+  
+  resources :users
 
   root 'projects#index'
 
-  resources :users do
-    member do
-      get :confirm_email
-    end
-  end
+
+
+  # resources :users do
+  #   member do
+  #     get :confirm_email
+  #   end
+  # end
 
 
   # if Rails.env.development?

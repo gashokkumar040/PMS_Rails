@@ -1,7 +1,7 @@
 class User < ApplicationRecord
 
   # after_create :confirmation_token1
-  after_create :after_confirmation_path_for
+  after_create :after_confirmation_path_for 
 
   before_save :save_changes 
 
@@ -26,7 +26,7 @@ class User < ApplicationRecord
     elsif self.changes.keys == "first_name" || "last_name" || "date_of_birth" || "username" 
       UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
     else
-      puts "do nothing"
+      puts "nothing"
     end
     
     puts "====="
@@ -36,7 +36,12 @@ class User < ApplicationRecord
   end
 
   def after_confirmation_path_for
-    UserMailer.after_confirmation(changes.keys, self).deliver_now
+    if self.confirmation_token =true
+      UserMailer.after_confirmation(changes.keys, self).deliver_now
+    else
+      
+      puts "nothing"
+    end
   end
 
   devise :database_authenticatable, :registerable,:confirmable,

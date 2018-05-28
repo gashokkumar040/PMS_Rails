@@ -1,8 +1,4 @@
 
-<!-- === -->
-<!-- <h1><%= current_user %>'s Projects</h1>  -->
-
-<!-- === -->
 <style type="text/css">
   body{
     background-color: lightyellow;
@@ -31,7 +27,7 @@ tr:nth-child(even) {background-color:lightgray;}
 <table>
   <thead>
     <tr>
-      <th>Project</th>
+
       <th>Project title</th>
       <th>Project description</th>
       <th>User_id</th>
@@ -42,7 +38,7 @@ tr:nth-child(even) {background-color:lightgray;}
   <tbody>
     <% @projects.each do |project| %>
       <tr>
-        <td><%= project.project_id %></td>
+
         <td><%= project.project_title %></td>
         <td><%= project.project_description %></td>
         <td><%= project.user_id %></td>

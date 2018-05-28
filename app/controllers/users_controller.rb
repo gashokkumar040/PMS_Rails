@@ -15,12 +15,15 @@ class UsersController < ApplicationController
   def index
     #@users = User.all
     @user = User.find(params[:id])
+    # if current_user
+    #   redirect_to projects_path
+    # end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    @user = User.find(params[:id])
+    #@user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -60,11 +63,10 @@ class UsersController < ApplicationController
     respond_to do |format|
       #@user.save_changes
       if @user.save
-        #UserMailer.signup_confirmation(@user).deliver
-        #UserMailer.registration_confirmation(@user).deliver
+
         format.html { redirect_to @user, notice: 'user was successfully created.' }
         format.json { render :show, status: :created, location: @user }
-        #@user.send_welcome_email
+
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -72,21 +74,7 @@ class UsersController < ApplicationController
     end
   end
 
-  # =====
-  # def create
-  #       @user = User.new(user_params)
-  #       @user.save_changes    
-  #     if @user.save
-  #       #UserMailer.registration_confirmation(@user).deliver
-  #       flash[:success] = "Registration Completed! Please Confirm your email address."
-  #       redirect_to @user
 
-  #     else
-  #       flash[:error] = "Ooooppss, something went wrong!"
-  #       render 'new'
-  #     end
-  # end
-  # =====
   
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
