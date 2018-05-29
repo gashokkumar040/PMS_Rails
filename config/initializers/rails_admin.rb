@@ -4,12 +4,13 @@ RailsAdmin.config do |config|
   config.authorize_with do
     redirect_to main_app.root_path unless current_user.admin = true
   end
+
   config.authorize_with do |controller|
-  unless current_user.try(:admin?)
-   flash[:error] = "You are not an admin"
-   redirect_to 'projects#index'
- end
-end
+    unless current_user.try(:admin?)
+     flash[:error] = "You are not an admin"
+     redirect_to 'users#index'
+    end
+  end
 
   config.authenticate_with do
     warden.authenticate! :scope => :admin

@@ -86,8 +86,10 @@
           <%= f.date_field :date_of_birth %>
         </div><br>
 
-        <div class="field"><%= f.check_box :is_female, {}, true %> <%= f.label :is_female, "Female" %> </div>
-        <div class="field"><%= f.check_box :is_female, {}, false %> <%= f.label :is_female, "Male" %> </div>
+        <div class="field"><%= f.label :Gender %>
+          <%= f.radio_button :is_female, false, :class => 'radio-inline' %> Male
+          <%= f.radio_button :is_female, true, :class => 'radio-inline' %>Female
+        </div>
 
          <div class="field">
           <%= f.label :username %><br />

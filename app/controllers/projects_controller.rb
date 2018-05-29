@@ -1,8 +1,8 @@
 
 class ProjectsController < ApplicationController
-  
-  before_action :authenticate_user!
-  before_action :set_project, only: [:show, :edit, :update, :destroy]
+  prepend_before_action :authenticate_admin!
+  prepend_before_action :authenticate_user!
+  prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
