@@ -36,10 +36,9 @@ class User < ApplicationRecord
   end
 
   def after_confirmation_path_for
-    if self.confirmation_token =true
+    if self.email_confirmed = true
       UserMailer.after_confirmation(changes.keys, self).deliver_now
-    else
-      
+    else  
       puts "nothing"
     end
   end

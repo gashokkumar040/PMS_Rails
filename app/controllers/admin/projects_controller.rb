@@ -1,5 +1,8 @@
-module Admin
-  class ProjectsController < Admin::ApplicationController
+class Admin::ProjectsController < Admin::ApplicationController
+
+    def index
+      @projects = Project.all   
+    end
     # To customize the behavior of this controller,
     # you can overwrite any of the RESTful actions. For example:
     #
@@ -17,5 +20,5 @@ module Admin
 
     # See https://administrate-prototype.herokuapp.com/customizing_controller_actions
     # for more information
-  end
 end
+

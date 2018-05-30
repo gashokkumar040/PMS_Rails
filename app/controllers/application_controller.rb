@@ -2,10 +2,16 @@ class ApplicationController < ActionController::Base
 
     protect_from_forgery with: :exception 
     protect_from_forgery prepend: true
-    #before_action :authenticate_admin!
-    #before_action :authenticate_user!
   
-    before_action :configure_permitted_parameters, if: :devise_controller?
+    prepend_before_action :configure_permitted_parameters, if: :devise_controller?
+
+    add_flash_types :danger, :info, :success, :warning, :notice
+
+    def current_user
+      @current_user ||= User.where(id: session[:user_id]).first
+    end
+
+    #helper_method :current_user
 
     protected
 
@@ -20,7 +26,7 @@ class ApplicationController < ActionController::Base
         rails_admin_path
       else
         # Change profile_path to where you want regular users to go
-        stored_location_for(resource) || root_path
+        stored_location_for(resource) || user_path
       end
     end
  

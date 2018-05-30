@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
 
-    namespace :admins do
+    namespace :admin do
       resources :admins
       resources :users
       resources :projects
 
-      root to: "admins#index"
+      root to: "projects#index"
     end
-
-    get 'admin/home'
-    #get 'admin/user'
 
     devise_for :admins
 
@@ -18,26 +15,18 @@ Rails.application.routes.draw do
     resources :projects
     #resources :users
 
-    # get 'users/name'
-    # get 'users/email'
+      get 'users/name'
+      get 'users/email'
  
-    devise_for :users
-  
-    resources :users
+    devise_for :users#,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
 
-    root 'projects#index'
-    get 'admin' => 'admin#home'
+    root to: 'projects#index'
 
-    # get 'admin' => 'admin#home'
-
-
-
-    # resources :users do
-    #   member do
-    #     get :confirm_email
-    #   end
-    # end
-
+    resources :users do
+      member do
+        get :confirm_email
+      end
+    end
 
     # if Rails.env.development?
     #   mount LetterOpenerWeb::Engine, at: "/letter_opener"

@@ -1,20 +1,26 @@
 
 class ProjectsController < ApplicationController
-  prepend_before_action :authenticate_admin!
-  prepend_before_action :authenticate_user!
+  
+  before_action :authenticate_user!
+  #prepend_before_action :authenticate_admin!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
   def index
-    #@projects = Project.all
-    @projects = current_user.projects
+    #find_project
+    @projects = Project.all
+    #@projects = current_user.projects
+    #@projects = Project.find(params[:user_id])
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @projects = current_user.projects
+    find_project
+        @users = @project.users.all
+    #@projects = current_user.projects
+    #@projects = Project.find(params[:id])
   end
 
   # GET /projects/new
@@ -68,7 +74,7 @@ class ProjectsController < ApplicationController
 
   
     # Use callbacks to share common setup or constraints between actions.
-    #private
+    private
     def set_project
       @project = Project.find(params[:id])
     end

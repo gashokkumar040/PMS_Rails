@@ -1,23 +1,23 @@
 class UsersController < ApplicationController
-  prepend_before_action :authenticate_admin!
-  prepend_before_action :authenticate_user!
+  #prepend_before_action :authenticate_admin!
+  #before_action :authenticate_user!
 
-  prepend_before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   # GET /users
   # GET /users.json
   def index
-    #@users = User.all
-    # @user = User.find(params[:id])
-    if current_user
-      redirect_to projects_path
-    end
+    @users = User.all
+     #@user = User.find(params[:id])
+    # if current_user
+    #   redirect_to root_path
+    # end
   end
 
   # GET /users/1
   # GET /users/1.json
   def show
-    #@user = User.find(params[:id])
+    @user = User.find(params[:id])
   end
 
   # GET /users/new
@@ -78,8 +78,8 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.fetch(:user, {})
-      #params.require(:user).permit(:first_name, :username, :password_confirmation, :last_name, :date_of_birth,:is_female,:phonenum,:email,:encrypted_password)
+      #params.fetch(:user, {})
+      params.require(:user).permit(:first_name,:last_name, :username,:date_of_birth,:is_female,:phonenum,:email, :password_confirmation,:encrypted_password)
   end
 
   private

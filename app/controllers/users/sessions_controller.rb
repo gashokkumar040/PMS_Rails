@@ -42,4 +42,9 @@ class Users::SessionsController < Devise::SessionsController
         render 'new'
       end
   end
+
+   def destroy
+    session.delete[:user_id]
+    redirect_to root_url, notice: "Successfully Logged out, destroying session ID..."
+  end
 end
