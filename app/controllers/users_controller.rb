@@ -7,11 +7,11 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
-    @users = User.all
+    #@users = User.all
      #@user = User.find(params[:id])
-    # if current_user
-    #   redirect_to root_path
-    # end
+    if current_user
+      redirect_to root_path
+    end
   end
 
   # GET /users/1

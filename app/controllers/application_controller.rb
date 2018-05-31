@@ -7,9 +7,9 @@ class ApplicationController < ActionController::Base
 
     add_flash_types :danger, :info, :success, :warning, :notice
 
-    def current_user
-      @current_user ||= User.where(id: session[:user_id]).first
-    end
+    # def current_user
+    #   @current_user ||= User.where(id: session[:id]).first
+    # end
 
     #helper_method :current_user
 
@@ -24,9 +24,11 @@ class ApplicationController < ActionController::Base
     def after_sign_in_path_for(resource)
       if resource.class == Admin#istrator
         rails_admin_path
+      elsif resource.class == User
+        users_path
       else
         # Change profile_path to where you want regular users to go
-        stored_location_for(resource) || user_path
+        stored_location_for(resource) || root_path
       end
     end
  

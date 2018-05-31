@@ -1,32 +1,26 @@
 Rails.application.routes.draw do
+    devise_for :users,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
+    devise_for :admins,controllers: { confirmations: 'admins/confirmations', registrations: 'admins/registrations',sessions: 'admins/sessions' }
 
-    namespace :admin do
-      resources :admins
-      resources :users
-      resources :projects
 
-      root to: "projects#index"
-    end
-
-    devise_for :admins
-
+    #devise_for :users, path: 'users'
+    #devise_for :admins, path: 'admins'
     mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-
+   
+    #resources :admins
     resources :projects
-    #resources :users
+    resources :users
 
       get 'users/name'
       get 'users/email'
  
-    devise_for :users#,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
-
     root to: 'projects#index'
 
-    resources :users do
-      member do
-        get :confirm_email
-      end
-    end
+    # resources :users do
+    #   member do
+    #     get :confirm_email
+    #   end
+    # end
 
     # if Rails.env.development?
     #   mount LetterOpenerWeb::Engine, at: "/letter_opener"

@@ -105,5 +105,9 @@ config.action_mailer.raise_delivery_errors = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  #config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  config.file_watcher = ActiveSupport::FileUpdateChecker
+
+  #for not reloading again and again the page remove above EventedFileUpdateChecker to FileUpdateChecker
+  config.reload_classes_ony_on_change = false
 end

@@ -1,41 +1,11 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Devise::RegistrationsController
-   #include Accessible
-    #skip_before_action :check_user, only: :destroy
-  #before_action :authenticate_user!
-#===================
-  # before_action :configure_permitted_parameters
-
-  # protected
-
-  # # my custom fields are :name, :heard_how
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.permit(:sign_up) do |u|
-  #     u.permit(:first_name, :last_name,:username, :phonenum,:is_female,:date_of_birth,
-  #           :email, :password, :password_confirmation)
-  #   end
-  #   devise_parameter_sanitizer.permit(:account_update) do |u|
-  #     u.permit(:first_name, :last_name,:username, :phonenum,:is_female,:date_of_birth,
-  #       :email, :password, :password_confirmation, :current_password)
-  #   end
-  # end
-
-  # private
-
-  #   def sign_up_params
-  #       params.require(:user).permit(:first_name, :last_name,:username, :phonenum,:is_female,:date_of_birth,
-  #           :email, :password, :password_confirmation)
-  #   end
-
-  #   def account_update_params
-  #   params.require(:user).permit(:first_name, :last_name,:username, :phonenum,:is_female,:date_of_birth,
-  #           :email, :password, :password_confirmation, :current_password)
-  #   end
-
+class Admins::RegistrationsController < Devise::RegistrationsController
+   include Accessible
+  #skip_before_action :check_user, only: :destroy
   # before_action :configure_sign_up_params, only: [:create]
   # before_action :configure_account_update_params, only: [:update]
-#=========================
+
   # GET /resource/sign_up
   # def new
   #   super
@@ -53,7 +23,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   # def update
-  #  super
+  #   super
   # end
 
   # DELETE /resource

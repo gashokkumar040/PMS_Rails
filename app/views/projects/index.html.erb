@@ -27,7 +27,6 @@ tr:nth-child(even) {background-color:lightgray;}
 <table>
   <thead>
     <tr>
-
       <th>Project title</th>
       <th>Project description</th>
       <th>User_id</th>
@@ -41,7 +40,7 @@ tr:nth-child(even) {background-color:lightgray;}
 
         <td><%= project.project_title %></td>
         <td><%= project.project_description %></td>
-        <td><%= project.user_id %></td>
+        <td><%= project.user.first_name %></td>
         <td><%= link_to 'Show', project %></td>
         <td><%= link_to 'Edit', edit_project_path(project) %></td>
         <td><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %></td>
@@ -52,4 +51,7 @@ tr:nth-child(even) {background-color:lightgray;}
 
 <br>
 
-<%= link_to 'New Project', new_project_path %>
+<%= link_to 'New Project', new_project_path %><br>
+<!-- User: <%= link_to 'Logout', destroy_user_session_path, method: :delete %><br>
+Admin: <%= link_to 'Logout', destroy_admin_session_path, method: :delete %><br>
+Admin: <%= link_to 'Login', admin_session_path, method: :delete %><br> -->

@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+   has_many :projects
 
   # after_create :confirmation_token1
   after_create :after_confirmation_path_for 
@@ -22,11 +23,10 @@ class User < ApplicationRecord
 
     self.changes.each{ |k,v| @hash[k] << v }
     if self.changes.count == 0
-      puts "No updates"
     elsif self.changes.keys == "first_name" || "last_name" || "date_of_birth" || "username" 
       UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
     else
-      puts "nothing"
+      
     end
     
     puts "====="
@@ -37,7 +37,7 @@ class User < ApplicationRecord
 
   def after_confirmation_path_for
     if self.email_confirmed = true
-      UserMailer.after_confirmation(changes.keys, self).deliver_now
+      #UserMailer.after_confirmation(changes.keys, self).deliver_now
     else  
       puts "nothing"
     end
@@ -54,7 +54,7 @@ class User < ApplicationRecord
   #   UserMailer.welcome_email(first_name).deliver_now
   # end
 
-  has_many :projects
+ 
 
 
   #private

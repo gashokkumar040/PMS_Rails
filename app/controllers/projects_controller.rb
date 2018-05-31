@@ -1,25 +1,31 @@
 
 class ProjectsController < ApplicationController
+  load_and_authorize_resource
   
-  before_action :authenticate_user!
+  prepend_before_action :authenticate_user!
   #prepend_before_action :authenticate_admin!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
   # GET /projects.json
   def index
+
     #find_project
-    @projects = Project.all
-    #@projects = current_user.projects
-    #@projects = Project.find(params[:user_id])
+    #@projects = Project.all
+   @projects = current_user.projects
+    #@projects = Project.find(params[:id])
+    #SELECT  "users".* FROM "users" WHERE "users"."id"
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    find_project
-        @users = @project.users.all
-    #@projects = current_user.projects
+    #find_project
+     #   @users = @project.users.all
+    @projects = current_user.projects
+    # unless confirmation_url
+      
+    # end
     #@projects = Project.find(params[:id])
   end
 
@@ -36,6 +42,7 @@ class ProjectsController < ApplicationController
   # POST /projects.json
   def create
     @project = Project.new(project_params)
+    @project.user_id = current_user.id
 
     respond_to do |format|
       if @project.save
@@ -72,22 +79,19 @@ class ProjectsController < ApplicationController
     end
   end
 
-  
-    # Use callbacks to share common setup or constraints between actions.
-    private
-    def set_project
-      @project = Project.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  private
+  def set_project
+    @project = Project.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def project_params
-      params.require(:project).permit(:project_id, :project_title, :project_description, :user_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def project_params
+    params.require(:project).permit(:project_id, :project_title, :project_description, :user_id)
+  end
 
-    def find_project
-      # by calling posts in this manner vs. `Post.find_by_id(params[:id])`, we
-      # ensure we won't end up with a post belonging to another user
-      current_user.projects.where(:id => params[:id]).first
-    end
+  def find_project
+    current_user.projects.where(:user_id => params[:user_id]).first
+  end
 
 end
