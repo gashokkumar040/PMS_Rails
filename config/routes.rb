@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
+  
     devise_for :users,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
     devise_for :admins,controllers: { confirmations: 'admins/confirmations', registrations: 'admins/registrations',sessions: 'admins/sessions' }
-
 
     #devise_for :users, path: 'users'
     #devise_for :admins, path: 'admins'

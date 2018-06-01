@@ -1,18 +1,21 @@
 class User < ApplicationRecord
-   has_many :projects
+  # attr_encrypted :encrypted_token, :key => Rails.env.test? ? 'ssn_secret' : ENV['SSN_SECRET']
+  # for devise_two_factor authentication
+  # devise :two_factor_authenticatable,
+  #        :otp_secret_encryption_key => ENV['ssn_secret']
+  #attr_encrypted :ssn, :key => 'a secret key'
+
+  devise :registerable,:confirmable,  :trackable,
+         :recoverable, :rememberable, :validatable
+
+  validates :email,uniqueness: true 
+  
+  has_many :projects
 
   # after_create :confirmation_token1
   after_create :after_confirmation_path_for 
 
   before_save :save_changes 
-
-
-  def changed_data
-    for i in self.changes
-        
-    end
-  end
-
 
   def save_changes
     @n = self.changes.count
@@ -25,8 +28,8 @@ class User < ApplicationRecord
     if self.changes.count == 0
     elsif self.changes.keys == "first_name" || "last_name" || "date_of_birth" || "username" 
       UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
-    else
-      
+    else 
+      puts "nothing"
     end
     
     puts "====="
@@ -43,19 +46,13 @@ class User < ApplicationRecord
     end
   end
 
-  devise :database_authenticatable, :registerable,:confirmable,
-         :recoverable, :rememberable, :trackable, :validatable
-
-  validates :email,uniqueness: true 
+  
   #validates :username,uniqueness: true
 
   # def send_welcome_email
   #   @user = first_name
   #   UserMailer.welcome_email(first_name).deliver_now
   # end
-
- 
-
 
   #private
     # def ensure_login_has_a_value

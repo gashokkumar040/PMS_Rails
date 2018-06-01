@@ -10,12 +10,14 @@ class ApplicationController < ActionController::Base
     # def current_user
     #   @current_user ||= User.where(id: session[:id]).first
     # end
-
-    #helper_method :current_user
+    # helper_method :current_user
 
     protected
 
     def configure_permitted_parameters
+      #for device two factor authenicator
+      #devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
+      #devise_parameter_sanitizer.permit(:sign_in, keys: [:otp_attempt])
       devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :first_name, :last_name, :is_female, :date_of_birth, :email, :password,:phonenum, :password_confirmation) }
       devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :email, :password, :current_password, :is_female, :date_of_birth,:username,:password_confirmation) }
       devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }

@@ -1,6 +1,6 @@
 
 class ProjectsController < ApplicationController
-  load_and_authorize_resource
+  #load_and_authorize_resource
   
   prepend_before_action :authenticate_user!
   #prepend_before_action :authenticate_admin!
@@ -9,12 +9,8 @@ class ProjectsController < ApplicationController
   # GET /projects
   # GET /projects.json
   def index
-
-    #find_project
     #@projects = Project.all
-   @projects = current_user.projects
-    #@projects = Project.find(params[:id])
-    #SELECT  "users".* FROM "users" WHERE "users"."id"
+    @projects = current_user.projects
   end
 
   # GET /projects/1

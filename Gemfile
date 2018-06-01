@@ -77,5 +77,12 @@ gem 'rails_admin', '~> 1.3'
 gem 'therubyracer'
 gem 'cancancan', '~> 2.0'
 
+#gem 'devise-two-factor'
+#gem 'devise_google_authenticator'
+#gem 'rqrcode'
+
+#gem 'google-authenticator-rails'
+
+
 
 
