@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
 class Users::SessionsController < Devise::SessionsController
-  before_action :authenticate_user!
    #include Accessible
     #skip_before_action :check_user, only: :destroy
-  before_action :configure_sign_in_params, only: [:create]
+   prepend_before_action :configure_sign_in_params, only: [:create]
 
   # # GET /resource/sign_in
   # def new
@@ -27,6 +26,7 @@ class Users::SessionsController < Devise::SessionsController
   def configure_sign_in_params
     devise_parameter_sanitizer.permit(:sign_in, keys: [:email,:password,:remember_me])
   end
+
 
   # def create
   #     user = User.find_by_email(params[:email].downcase)

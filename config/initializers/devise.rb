@@ -3,7 +3,7 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
-  #for two factor authentication
+
   config.reconfirmable = false
   config.sign_out_all_scopes = false
   # The secret key used by Devise. Devise uses this key to generate
@@ -284,4 +284,27 @@ Devise.setup do |config|
   # When using OmniAuth, Devise cannot automatically set OmniAuth path,
   # so you need to do it manually. For the users scope, it would be:
   # config.omniauth_path_prefix = '/my_engine/users/auth'
+
+  # ==> Devise Google Authenticator Extension
+  # Configure extension for devise
+
+  # How long should the user have to enter their token. To change the default, uncomment and change the below:
+  # config.ga_timeout = 3.minutes
+
+  # Change time drift settings for valid token values. To change the default, uncomment and change the below:
+  # config.ga_timedrift = 3
+
+  # Change setting to how long to remember device before requiring another token. Change to nil to turn feature off.
+  # To change the default, uncomment and change the below:
+  # config.ga_remembertime = 1.month
+
+  # Change setting to assign the application name used by code generator. Defaults to Rails.application.class.parent_name.
+  # To change the default, uncomment and change the below:
+  # config.ga_appname = 'example.com'
+
+  # Change setting to bypass the Display QR page immediately after a user sign's up
+  # To change the default, uncomment and change the below. Defaults to false:
+  # config.ga_bypass_signup = true
+
+
 end

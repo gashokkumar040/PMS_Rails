@@ -1,9 +1,6 @@
-
 class ProjectsController < ApplicationController
-  #load_and_authorize_resource
   
   prepend_before_action :authenticate_user!
-  #prepend_before_action :authenticate_admin!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
@@ -16,13 +13,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    #find_project
-     #   @users = @project.users.all
     @projects = current_user.projects
-    # unless confirmation_url
-      
-    # end
-    #@projects = Project.find(params[:id])
   end
 
   # GET /projects/new
@@ -64,7 +55,7 @@ class ProjectsController < ApplicationController
       end
     end
   end
-
+  
   # DELETE /projects/1
   # DELETE /projects/1.json
   def destroy

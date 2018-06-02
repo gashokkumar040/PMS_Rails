@@ -70,7 +70,6 @@ end
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
-
 #adding specific gems
 gem "administrate"
 gem 'rails_admin', '~> 1.3'
@@ -78,7 +77,7 @@ gem 'therubyracer'
 gem 'cancancan', '~> 2.0'
 
 #gem 'devise-two-factor'
-#gem 'devise_google_authenticator'
+gem 'devise_google_authenticator', path: '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/lib/devise_google_authenticator-master 2'
 #gem 'rqrcode'
 
 #gem 'google-authenticator-rails'

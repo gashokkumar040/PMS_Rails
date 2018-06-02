@@ -18,9 +18,10 @@
 
   <div class="field"><%= f.label :Gender %>
     <%= f.radio_button :is_female, false, :class => 'radio-inline' %> Male
-    <%= f.radio_button :is_female, true, :class => 'radio-inline' %> Female
+    <%= f.radio_button :is_female, true, :class => 'radio-inline' %>Female
   </div><br/>
 
+  <!-- end fields -->
   <div class="field"><%= f.label :username %>
         <%= f.text_field :username, autofocus: true %></div><br/>
 
@@ -30,14 +31,14 @@
   <div class="field">
     <%= f.label :email %>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
-  </div><br/>
+  </div><br />
 
   <div class="field">
     <%= f.label :password %>
     <%= f.password_field :password, autocomplete: "off" %><br>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %>
+    <% end %> 
   </div><br />
 
   <div class="field">

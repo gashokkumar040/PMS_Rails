@@ -1,7 +1,5 @@
 <p id="notice"><%= notice %></p>
 
-
-
 <p>
   <strong>Project title:</strong>
   <%= @project.project_title %>
@@ -14,7 +12,7 @@
 
 <p>
   <strong>User:</strong>
-  <%= @project.user_id %>
+  <%= @project.user %>
 </p>
 
 <% if can? :update, @project %>

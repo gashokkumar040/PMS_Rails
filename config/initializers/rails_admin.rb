@@ -11,7 +11,7 @@ RailsAdmin.config do |config|
   # end
 
   # config.authorize_with do |controller|
-  #   unless current_admin.try(:admin?)
+  #   unless current_user.try(:admin?)
   #    flash[:error] = "You are not an admin"
   #    redirect_to 'root_path'
   #   end
