@@ -1,6 +1,7 @@
 class ProjectsController < ApplicationController
   
   prepend_before_action :authenticate_user!
+  #prepend_before_action :authorize!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects

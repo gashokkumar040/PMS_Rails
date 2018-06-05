@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-    devise_for :users#,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
+    devise_for :users,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
     devise_for :admins,controllers: { confirmations: 'admins/confirmations', registrations: 'admins/registrations',sessions: 'admins/sessions' }
 
 
@@ -9,18 +9,18 @@ Rails.application.routes.draw do
    
     #resources :admins
     resources :projects
-    #resources :users
-
-      get 'users/name'
-      get 'users/email'
+    resources :users
+    #get 'users/checkga'
+      # get 'users/name'
+      # get 'users/email'
  
     root to: 'projects#index'
 
-    resources :users do
-      member do
-        get :confirm_email
-      end
-    end
+    # resources :users do
+    #   member do
+    #     get :confirm_email
+    #   end
+    # end
 
     # if Rails.env.development?
     #   mount LetterOpenerWeb::Engine, at: "/letter_opener"

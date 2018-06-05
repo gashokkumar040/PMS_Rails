@@ -1,6 +1,5 @@
 class User < ApplicationRecord
 	attr_accessor :gauth_token
-  devise :google_authenticatable, :database_authenticatable, :registerable,:confirmable,:recoverable, :rememberable, :trackable, :validatable
 
   # after_create :confirmation_token1
   after_create :after_confirmation_path_for 
@@ -45,6 +44,10 @@ class User < ApplicationRecord
     end
   end
 
+  # devise :google_authenticatable, :database_authenticatable, :registerable,:confirmable,
+  #        :recoverable, :rememberable, :trackable, :validatable
+  devise :database_authenticatable, :registerable,:confirmable,
+         :recoverable, :rememberable, :trackable, :validatable
 
   validates :email,uniqueness: true 
   #validates :username,uniqueness: true

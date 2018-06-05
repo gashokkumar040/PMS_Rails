@@ -3,7 +3,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
    #include Accessible
     #skip_before_action :check_user, only: :destroy
-  #before_action :authenticate_user!
+  before_action :authenticate_user!
 #===================
   # before_action :configure_permitted_parameters
 

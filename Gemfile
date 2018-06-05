@@ -71,14 +71,16 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #adding specific gems
-gem "administrate"
+#gem "administrate"
 gem 'rails_admin', '~> 1.3'
 gem 'therubyracer'
+
+#for autherization 
 gem 'cancancan', '~> 2.0'
 
-#gem 'devise-two-factor'
-gem 'devise_google_authenticator', path: '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/lib/devise_google_authenticator-master 2'
-#gem 'rqrcode'
+#for two-factor-authentication
+#gem 'devise_google_authenticator', :path => '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/lib/devise_google_authenticator-master 2'
+
 
 #gem 'google-authenticator-rails'
 
