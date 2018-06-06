@@ -1,3 +1,15 @@
+<style type="text/css">
+  body{
+    background-color: lightyellow;
+    text-align: center;
+    width: 100%;
+  }
+  p{
+    padding-top: 5px;
+  }
+</style>
+
+
 <p id="notice"><%= notice %></p>
 
 <p>
@@ -14,9 +26,14 @@
   <strong>User:</strong>
   <%= @project.user %>
 </p>
-
-<% if can? :update, @project %>
+<button>
+  <% if can? :update, @project %>
   <%= link_to 'Edit', edit_project_path(@project) %>
 <% end %>
+</button>
+<button>
+  <%= link_to 'Back', projects_path %>
+</button>
+
  
-<%= link_to 'Back', projects_path %>
+

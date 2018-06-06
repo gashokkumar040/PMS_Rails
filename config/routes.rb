@@ -16,6 +16,8 @@ Rails.application.routes.draw do
  
     root to: 'projects#index'
 
+    
+
     # resources :users do
     #   member do
     #     get :confirm_email

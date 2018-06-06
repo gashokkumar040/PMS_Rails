@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  load_and_authorize_resource
   #prepend_before_action :authenticate_admin!
   before_action :authenticate_user!
 
@@ -7,12 +8,17 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+    @users = User.where.not(:id => current_user.id)
     #@users = User.all
      #@user = User.find(params[:id])
-    if current_user
-      redirect_to root_path
-    end
+    # if current_user
+    #   redirect_to root_path
+    # end
   end
+  
+  # def index
+  #   @users = User.where.not(:id => current_user.id)
+  # end
 
   # GET /users/1
   # GET /users/1.json
@@ -22,12 +28,13 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new(user_params)
+    @user = User.new
   end
 
   # GET /users/1/edit
   def edit
-    @user = current_user.find(params[:id])
+    @user = User.find(params[:id])
+    #@user = current_user.find(params[:id])
   end
 
   # POST /users
@@ -49,6 +56,10 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
   def update
+    @user = User.find(params[:id])
+    params[:user].delete(:encrypted_password) if params[:user][:encrypted_password].blank?
+    params[:user].delete(:password_confirmation) if params[:user][:encrypted_password].blank? and params[:user][:password_confirmation].blank?
+    
     respond_to do |format|
       if @user.update(user_params) 
         format.html { redirect_to @user, notice: 'user was successfully updated.' }
@@ -59,6 +70,19 @@ class UsersController < ApplicationController
       end
     end
   end
+
+  # def update
+  #   @user = User.find(params[:id])
+  #   params[:user].delete(:password) if params[:user][:password].blank?
+  #   params[:user].delete(:password_confirmation) if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
+    
+  #   if @user.update(user_params)
+  #     flash[:notice] = "Successfully updated User."
+  #     redirect_to root_path
+  #   else
+  #     render :action => 'edit'
+  #   end
+  # end
 
   # DELETE /users/1
   # DELETE /users/1.json

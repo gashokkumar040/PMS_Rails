@@ -7,13 +7,6 @@ class User < ApplicationRecord
   before_save :save_changes 
 
 
-  def changed_data
-    for i in self.changes
-        
-    end
-  end
-
-
   def save_changes
     @n = self.changes.count
 
@@ -37,86 +30,61 @@ class User < ApplicationRecord
   end
 
   def after_confirmation_path_for
-    if self.email_confirmed = true
+    if self.email_confirmed = true #user_signed_in?
       #UserMailer.after_confirmation(changes.keys, self).deliver_now
     else  
       puts "nothing"
     end
   end
 
-  # devise :google_authenticatable, :database_authenticatable, :registerable,:confirmable,
-  #        :recoverable, :rememberable, :trackable, :validatable
   devise :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :email,uniqueness: true 
-  #validates :username,uniqueness: true
-
-  # def send_welcome_email
-  #   @user = first_name
-  #   UserMailer.welcome_email(first_name).deliver_now
-  # end
 
   has_many :projects
 
-
-  #private
-    # def ensure_login_has_a_value
-    #   if login.nil?
-    #     self.login = email unless email.blank?
-    #   end
-    # end
-  
-  
-  # def before_save
-  #   @was_a_new_record = new_record?
-  #   return true
-  # end
-
-  # def after_save
-  #    if @was_a_new_record
-  #      return @object.instance_variable_get(:@new_record_after_save)
-  #    end
-  # end
-
-
-  # after_update :send_email
-  # protected
-
-  # def send_email
-  #   if column_name_changed? && !email_sent?
-  #     # Send email here
-  #     update_attribute :email_sent, true
-  #   end
-  # end
-
-
-  # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+ 
   
   private
-    # def confirmation_token1
-    #   if self.confirm_token.blank?
-    #       self.confirm_token = SecureRandom.urlsafe_base64.to_s
-    #   end
-    # end
 
   def email_activate
     self.email_confirmed = true
     self.confirm_token = nil
     save!(:validate => false)
   end
-  
-=begin  def confirmation_required?
-    false
-    #true
-  end
-  def email_required?
-    false
-  end
-=end
 
-  # use this instead of email_changed? for rails >= 5.1
+  #=========
+  #for Confirmed accounts
+  def password_match?
+     self.errors[:password] << I18n.t('errors.messages.blank') if password.blank?
+     self.errors[:password_confirmation] << I18n.t('errors.messages.blank') if password_confirmation.blank?
+     self.errors[:password_confirmation] << I18n.translate("errors.messages.confirmation", attribute: "password") if password != password_confirmation
+     password == password_confirmation && !password.blank?
+  end
+
+  # new function to set the password without knowing the current 
+  # password used in our confirmation controller. 
+  def attempt_set_password(params)
+    p = {}
+    p[:password] = params[:password]
+    p[:password_confirmation] = params[:password_confirmation]
+    update_attributes(p)
+  end
+
+  # new function to return whether a password has been set
+  def has_no_password?
+    self.encrypted_password.blank?
+  end
+
+  # Devise::Models:unless_confirmed` method doesn't exist in Devise 2.0.0 anymore. 
+  # Instead you should use `pending_any_confirmation`.  
+  def only_if_unconfirmed
+    pending_any_confirmation {yield}
+  end
+  #=========
+  
+
   
 end
 
