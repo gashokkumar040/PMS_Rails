@@ -1,7 +1,6 @@
 class ProjectsController < ApplicationController
-  
+  before_action :authorize_user!, only: [:create, :index]
   prepend_before_action :authenticate_user!
-  #prepend_before_action :authorize!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
   # GET /projects
@@ -81,5 +80,10 @@ class ProjectsController < ApplicationController
   def find_project
     current_user.projects.where(:user_id => params[:user_id]).first
   end
+
+  def authorize_user!
+      return unless !current_user
+      redirect_to root_path, alert: 'current users only!'
+    end
 
 end

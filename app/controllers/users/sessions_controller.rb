@@ -5,7 +5,7 @@ class Users::SessionsController < Devise::SessionsController
     skip_before_action :check_user, only: :destroy
 
     prepend_before_action :authenticate_user!
-   prepend_before_action :configure_sign_in_params, only: [:create]
+    prepend_before_action :configure_sign_in_params, only: [:create]
 
   # # GET /resource/sign_in
   # def new

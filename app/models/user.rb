@@ -1,50 +1,38 @@
 class User < ApplicationRecord
 	attr_accessor :gauth_token
 
-  # after_create :confirmation_token1
-  after_create :after_confirmation_path_for 
-
-  before_save :save_changes 
-
-
-  def save_changes
-    @n = self.changes.count
-
-    puts "Changes Count is : #{@n}"
-
-    @hash = Hash.new { |hash, key| hash[key] = [] }
-
-    self.changes.each{ |k,v| @hash[k] << v }
-    if self.changes.count == 0
-      puts "No updates"
-    elsif self.changes.keys == "first_name" || "last_name" || "date_of_birth" || "username" 
-      #UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
-    else
-      puts "nothing"
-    end
-    
-    puts "====="
-    puts "hash data is #{@hash.slice("first_name","last_name","date_of_birth","username")}"
-    puts "====="
-
-  end
-
-  def after_confirmation_path_for
-    if self.email_confirmed = true #user_signed_in?
-      #UserMailer.after_confirmation(changes.keys, self).deliver_now
-    else  
-      puts "nothing"
-    end
-  end
-
+  has_many :projects
+  belongs_to :organization
+  #has_many :organizations through: :admin
+  
   devise :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :email,uniqueness: true 
 
-  has_many :projects
+  after_create :after_confirmation_path_for 
+  before_save :save_changes 
 
- 
+  #Mail to user with Updated data
+  def save_changes
+    @hash = Hash.new { |hash, key| hash[key] = [] }
+    self.changes.each{ |k,v| @hash[k] << v }
+
+    if self.changes.count == 0 && self.changes.keys != [:first_name, :last_name, :date_of_birth,:username]
+      puts "No updates"
+    else 
+      UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
+    end
+  end
+  #end Updated Changes mail
+
+  def after_confirmation_path_for
+    if self.email_confirmed = true 
+      #UserMailer.after_confirmation(changes.keys, self).deliver_now
+    else  
+      puts "nothing"
+    end
+  end
   
   private
 

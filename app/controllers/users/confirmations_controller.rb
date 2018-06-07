@@ -28,8 +28,8 @@ class Users::ConfirmationsController < Devise::ConfirmationsController
     super(changes, user)
   end
 
-  skip_before_filter :require_no_authentication
-  skip_before_filter :authenticate_user!
+  #skip_before_action :require_no_authentication
+  skip_before_action :authenticate_user!
 
   # PUT /resource/confirmation
   def update

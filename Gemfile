@@ -84,6 +84,8 @@ gem 'cancancan', '~> 2.0'
 
 #gem 'google-authenticator-rails'
 
+gem "table_print"
+
 
 
 
