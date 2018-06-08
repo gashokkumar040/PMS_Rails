@@ -86,6 +86,8 @@ gem 'cancancan', '~> 2.0'
 
 gem "table_print"
 
+#gem 'foundation-rails'
+
 
 
 

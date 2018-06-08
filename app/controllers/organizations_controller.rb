@@ -1,4 +1,5 @@
 class OrganizationsController < ApplicationController
+  prepend_before_action :authenticate_admin!
   before_action :authorize_admin, only: :create
   before_action :set_organization, only: [:show, :edit, :update, :destroy]
 

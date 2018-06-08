@@ -1,6 +1,4 @@
 Rails.application.configure do
-
-
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on
@@ -38,28 +36,16 @@ Rails.application.configure do
   config.action_mailer.perform_caching = false
   config.action_mailer.preview_path
 #===========
-config.action_mailer.default_url_options = { :host => 'localhost:3000' }
-config.action_mailer.asset_host = 'http://localhost:3000' #Or your domain
-config.action_mailer.asset_host = config.action_controller.asset_host
-#config.action_mailer.delivery_method = :letter_opener_web
-config.action_mailer.delivery_method = :smtp
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+  config.action_mailer.asset_host = 'http://localhost:3000' #Or your domain
+  config.action_mailer.asset_host = config.action_controller.asset_host
+  #config.action_mailer.delivery_method = :letter_opener_web
+  config.action_mailer.delivery_method = :smtp
  
- #ActionMailer::Base.add_delivery_method :my_test_delivery, Mail::MyTestDelivery
+  #ActionMailer::Base.add_delivery_method :my_test_delivery, Mail::MyTestDelivery
   #config.action_mailer.delivery_method = :my_test_delivery
-=begin
-ActionMailer::Base.smtp_settings = {
-  :user_name => 'gashokkumar040@gmail.com',
-  :password => '10l01a0473',
-  :domain => 'gmail.com',
-  :address => 'smtp.gmail.com',
-  :port => 587,
-  :authentication => :login,
-  :enable_starttls_auto => true
-}
-=end
-
 #=====
- #ActionMailer::Base.add_delivery_method :my_test_smtp_delivery, Mail::MyTestSmtpDelivery
+  #ActionMailer::Base.add_delivery_method :my_test_smtp_delivery, Mail::MyTestSmtpDelivery
   #config.action_mailer.delivery_method = :my_test_smtp_delivery
   
   ActionMailer::Base.smtp_settings = {
@@ -74,13 +60,10 @@ ActionMailer::Base.smtp_settings = {
 
     
 #=====
-
-# change to true to allow email to be sent during development
-config.action_mailer.perform_deliveries = true
-config.action_mailer.raise_delivery_errors = true
-
-#config.action_mailer.default :charset => "utf-8"
-
+  #change to true to allow email to be sent during development
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.raise_delivery_errors = true
+  #config.action_mailer.default :charset => "utf-8"
 #===========
 
   # Print deprecation notices to the Rails logger.
@@ -105,9 +88,11 @@ config.action_mailer.raise_delivery_errors = true
 
   # Use an evented file watcher to asynchronously detect changes in source code,
   # routes, locales, etc. This feature depends on the listen gem.
-  #config.file_watcher = ActiveSupport::EventedFileUpdateChecker
+  # config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
-  #for not reloading again and again the page remove above EventedFileUpdateChecker to FileUpdateChecker
-  config.reload_classes_ony_on_change = false
+  # for not reloading again and again the page remove above EventedFileUpdateChecker to FileUpdateChecker
+  config.reload_classes_only_on_change = false
+
+
 end

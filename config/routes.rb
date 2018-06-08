@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       # get 'users/email'
  
     root to: 'projects#index'
+    #root to: 'organizations#index'
 
     
 

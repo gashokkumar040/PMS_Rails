@@ -5,6 +5,12 @@
   <%= devise_error_messages! %>
 
   <div class="field">
+    <%= f.label :organization_id %>
+    <%= f.search_field :organization_name %>
+
+  </div><br>
+
+  <div class="field">
     <%= f.label :first_name %>
     <%= f.text_field :first_name, autofocus: true %>
   </div><br/>
@@ -54,8 +60,9 @@
   </div><br/>
 
   <div class="actions">
-    <%= f.submit "Sign up" %>
+    <%= f.submit "Sign up"  %>
   </div><br/>
+
 
 <% end %>
 
