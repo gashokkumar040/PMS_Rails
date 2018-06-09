@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :authorize_user!, only: [:create, :index]
+  before_action :authorize_user!#, only: [:create, :index]
   prepend_before_action :authenticate_user!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 

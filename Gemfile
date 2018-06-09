@@ -71,7 +71,7 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #adding specific gems
-#gem "administrate"
+gem "administrate"
 gem 'rails_admin', '~> 1.3'
 gem 'therubyracer'
 
@@ -86,7 +86,9 @@ gem 'cancancan', '~> 2.0'
 
 gem "table_print"
 
-#gem 'foundation-rails'
+#file attachment gems
+gem 'paperclip', '~> 6.0'
+
 
 
 

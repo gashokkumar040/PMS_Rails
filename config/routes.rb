@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+
+  resources :tasks
+  namespace :dashboard do
+      resources :users
+      resources :projects
+      root to: "users#index"
+    end
     resources :organizations
     devise_for :users,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
     devise_for :admins,controllers: { confirmations: 'admins/confirmations', registrations: 'admins/registrations',sessions: 'admins/sessions' }

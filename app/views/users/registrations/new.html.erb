@@ -5,9 +5,8 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :organization_id %>
-    <%= f.search_field :organization_name %>
-
+    <%= f.label :Organization %>
+    <%= f.select(:organization_id, organizations_for_select, :prompt => 'Select') %>
   </div><br>
 
   <div class="field">

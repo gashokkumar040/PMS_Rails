@@ -5,7 +5,6 @@ class UserMailer < ApplicationMailer
   def profile_update(changes,user)
     @user = user
     @changes=changes
-
     mail(:to => @user.email, :subject => "You updated your profile")
   end
 
