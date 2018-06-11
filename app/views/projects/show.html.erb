@@ -26,6 +26,16 @@
   <strong>User:</strong>
   <%= @project.user %>
 </p>
+
+<p>
+  <strong>Attachment</strong>
+  <% if @project.attachment?%>
+    <%= image_tag @project.attachment.url %><br>
+    <%= link_to @project.attachment.url, @project.attachment.url %>
+  <% end %>
+
+</p>
+
 <button>
   <% if can? :update, @project %>
   <%= link_to 'Edit', edit_project_path(@project) %>

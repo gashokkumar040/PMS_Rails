@@ -12,6 +12,7 @@ class ProjectDashboard < Administrate::BaseDashboard
     id: Field::Number,
     project_title: Field::String,
     project_description: Field::Text,
+    attachment: Field::String,
     created_at: Field::DateTime,
     updated_at: Field::DateTime,
   }.freeze
@@ -26,6 +27,7 @@ class ProjectDashboard < Administrate::BaseDashboard
     :id,
     :project_title,
     :project_description,
+    :attachment,
   ].freeze
 
   # SHOW_PAGE_ATTRIBUTES
@@ -35,6 +37,7 @@ class ProjectDashboard < Administrate::BaseDashboard
     :id,
     :project_title,
     :project_description,
+    :attachment,
   ].freeze
 
   # FORM_ATTRIBUTES
@@ -44,6 +47,7 @@ class ProjectDashboard < Administrate::BaseDashboard
     :user,
     :project_title,
     :project_description,
+    :attachment,
   ].freeze
 
   # Overwrite this method to customize how projects are displayed

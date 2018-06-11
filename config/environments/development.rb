@@ -1,4 +1,6 @@
 Rails.application.configure do
+  #config.paperclip_defaults = { storage: :fog, fog_credentials: { provider: "Local", local_root: "#{Rails.root}/public"}, fog_directory: "", fog_host: "localhost"}
+  #Paperclip.options[:command_path] = "/usr/local/bin/"
   # Settings specified here will take precedence over those in config/application.rb.
 
   # In the development environment your application's code is reloaded on

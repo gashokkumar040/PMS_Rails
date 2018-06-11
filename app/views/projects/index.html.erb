@@ -29,7 +29,8 @@ tr:nth-child(even) {background-color:lightgray;}
     <tr>
       <th>Project title</th>
       <th>Project description</th>
-      <th>User_id</th>
+      <th>User</th>
+      <th>Attachment</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -41,6 +42,7 @@ tr:nth-child(even) {background-color:lightgray;}
         <td><%= project.project_title %></td>
         <td><%= project.project_description %></td>
         <td><%= project.user.first_name %></td>
+        <td><%= project.attachment %></td>
         <td><%= link_to 'Show', project %></td>
         <td><% if can? :update, project %><%= link_to 'Edit', edit_project_path(project) %><% end %></td>
         <td><% if can? :destroy, project %><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>

@@ -1,8 +1,9 @@
 
 <style type="text/css">
+
   body{
     background-color: lightyellow;
-    text-align: center;
+    text-align: left;
     width: 100%;
   }
   div{
@@ -12,7 +13,7 @@
 </style>
 
 
-<%= form_with(model: project, local: true, :html => {:multipart => true}) do |form| %>
+<%= form_with(model: project, local: true, html: { multipart: true }) do |form| %>
   
   <% if project.errors.any? %>
     <div id="error_explanation">
@@ -39,8 +40,10 @@
 
   <div class="field">
     <%= form.label :attachment %>
-    <%= form.file_field :attachment %>
+    <%= form.file_field :attachment, multiple: true %>
   </div>
+
+
 
 <!--   <div class="field">
     <%= form.label :user_id %>
@@ -50,4 +53,5 @@
   <div class="actions">
     <%= form.submit %>
   </div>
+
 <% end %>

@@ -13,15 +13,16 @@ class User < ApplicationRecord
   after_create :after_confirmation_path_for 
   before_save :save_changes 
 
-  #Mail to user with Updated data
+  # Mail to user with Updated data
   def save_changes
     @hash = Hash.new { |hash, key| hash[key] = [] }
     self.changes.each{ |k,v| @hash[k] << v }
-
-    if self.changes.count == 0 && self.changes.keys != [:first_name, :last_name, :date_of_birth,:username]
-      puts "No updates"
-    else 
-      UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
+    unless email_confirmed?
+      if self.changes.count == 0 && self.changes.keys != [:first_name, :last_name, :date_of_birth,:username]
+        puts "No updates"
+      else 
+        UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
+      end    
     end
   end
   #end Updated Changes mail
@@ -70,9 +71,5 @@ class User < ApplicationRecord
   def only_if_unconfirmed
     pending_any_confirmation {yield}
   end
-  #=========
-  
-
-  
+  #=========  
 end
-

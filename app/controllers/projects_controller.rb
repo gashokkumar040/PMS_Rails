@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :authorize_user!#, only: [:create, :index]
+  before_action :authorize_user!
   prepend_before_action :authenticate_user!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
@@ -74,7 +74,7 @@ class ProjectsController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def project_params
-    params.require(:project).permit(:project_id, :project_title, :project_description, :user_id)
+    params.require(:project).permit(:project_id, :project_title, :project_description, :user_id,:organization_id,:attachment)
   end
 
   def find_project

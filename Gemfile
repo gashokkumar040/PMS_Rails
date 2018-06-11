@@ -88,6 +88,7 @@ gem "table_print"
 
 #file attachment gems
 gem 'paperclip', '~> 6.0'
+gem 'mini_magick'
 
 
 
