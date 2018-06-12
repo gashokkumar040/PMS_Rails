@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_11_094008) do
+ActiveRecord::Schema.define(version: 2018_06_12_063044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,13 @@ ActiveRecord::Schema.define(version: 2018_06_11_094008) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "assets", force: :cascade do |t|
+    t.bigint "project_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_assets_on_project_id"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.string "name"
     t.bigint "admin_id"
@@ -79,10 +86,10 @@ ActiveRecord::Schema.define(version: 2018_06_11_094008) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "organization_id"
-    t.string "attachment_file_name"
-    t.string "attachment_content_type"
-    t.integer "attachment_file_size"
-    t.datetime "attachment_updated_at"
+    t.string "asset_file_name"
+    t.string "asset_content_type"
+    t.integer "asset_file_size"
+    t.datetime "asset_updated_at"
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
@@ -136,6 +143,7 @@ ActiveRecord::Schema.define(version: 2018_06_11_094008) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "assets", "projects"
   add_foreign_key "organizations", "admins"
   add_foreign_key "projects", "organizations"
   add_foreign_key "projects", "users"

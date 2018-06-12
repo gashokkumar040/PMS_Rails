@@ -42,7 +42,7 @@ tr:nth-child(even) {background-color:lightgray;}
         <td><%= project.project_title %></td>
         <td><%= project.project_description %></td>
         <td><%= project.user.first_name %></td>
-        <td><%= project.attachment %></td>
+        <td><%= link_to project.asset_file_name, project.asset.url %></td>
         <td><%= link_to 'Show', project %></td>
         <td><% if can? :update, project %><%= link_to 'Edit', edit_project_path(project) %><% end %></td>
         <td><% if can? :destroy, project %><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %><% end %></td>

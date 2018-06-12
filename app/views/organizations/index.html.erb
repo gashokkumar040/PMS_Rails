@@ -27,7 +27,7 @@ tr:nth-child(even) {background-color:lightgray;}
   <thead>
     <tr>
       <th>Name</th>
-      <th>Admin</th>
+      <!-- <th>Admin</th> -->
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -36,7 +36,7 @@ tr:nth-child(even) {background-color:lightgray;}
     <% @organizations.each do |organization| %>
       <tr>
         <td><%= organization.name %></td>
-        <td><%= organization.admin %></td>
+        <!-- <td><%= organization.admin %></td> -->
         <td><%= link_to 'Show', organization %></td>
         <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
         <td><%= link_to 'Destroy', organization, method: :delete, data: { confirm: 'Are you sure?' } %></td>

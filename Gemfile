@@ -79,7 +79,7 @@ gem 'therubyracer'
 gem 'cancancan', '~> 2.0'
 
 #for two-factor-authentication
-#gem 'devise_google_authenticator', :path => '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/lib/devise_google_authenticator-master 2'
+gem 'devise_google_authenticator', :path => '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/lib/devise_google_authenticator-master 2'
 
 
 #gem 'google-authenticator-rails'

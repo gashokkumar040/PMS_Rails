@@ -2,15 +2,19 @@ class Project < ApplicationRecord
 
   belongs_to :user
   has_many :tasks
+  has_many :assets
+  #has_many :attachments
+  # attr_accessor :task_fields
+  # @tasks = Task.new
 
   validate :project_title,:project_description,:user_id
-  validates :attachment, attachment_presence: true
+  validates :asset, attachment_presence: true
   
-  # validates_with AttachmentPresenceValidator, attributes: :attachment
-  # validates_with AttachmentSizeValidator, attributes: :attachment, less_than: 10.megabytes
+  validates_with AttachmentPresenceValidator, attributes: :asset
+  validates_with AttachmentSizeValidator, attributes: :asset, less_than: 11.megabytes
 
-  has_attached_file :attachment, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/images/:style/missing.png"
-  validates_attachment_content_type :attachment, content_type: [
+  has_attached_file :asset, styles: { medium: "300x300", :small  => "150x150>", thumb: "100x100#" }, default_url: "/images/:style/missing.png"
+  validates_attachment_content_type :asset, content_type: [
   'image/jpeg', 
   'image/png', 
   'image/gif', 

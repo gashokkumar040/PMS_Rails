@@ -28,12 +28,11 @@
 </p>
 
 <p>
-  <strong>Attachment</strong>
-  <% if @project.attachment?%>
-    <%= image_tag @project.attachment.url %><br>
-    <%= link_to @project.attachment.url, @project.attachment.url %>
+  <strong>Attachment :</strong>
+  <% if @project.asset?%>
+    <%= image_tag @project.asset.url(:small) %><br>
+    <%= link_to @project.asset_file_name, @project.asset.url %>
   <% end %>
-
 </p>
 
 <button>

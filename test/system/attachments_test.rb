@@ -14,6 +14,7 @@ class AttachmentsTest < ApplicationSystemTestCase
     visit attachments_url
     click_on "New Attachment"
 
+    fill_in "Project", with: @attachment.project_id
     click_on "Create Attachment"
 
     assert_text "Attachment was successfully created"
@@ -24,6 +25,7 @@ class AttachmentsTest < ApplicationSystemTestCase
     visit attachments_url
     click_on "Edit", match: :first
 
+    fill_in "Project", with: @attachment.project_id
     click_on "Update Attachment"
 
     assert_text "Attachment was successfully updated"

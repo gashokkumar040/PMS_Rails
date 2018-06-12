@@ -5,7 +5,7 @@ class User < ApplicationRecord
   belongs_to :organization
   #has_many :organizations through: :admin
   
-  devise :database_authenticatable, :registerable,:confirmable,
+  devise :google_authenticatable, :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :email,uniqueness: true 
