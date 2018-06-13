@@ -6,6 +6,7 @@ class DeviseGoogleAuthenticatorAddToUsers < ActiveRecord::Migration[5.2]
       t.string  :gauth_tmp
       t.datetime  :gauth_tmp_datetime
     end
+
   end
   
   def self.down

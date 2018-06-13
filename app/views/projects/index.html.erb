@@ -1,5 +1,4 @@
-
-<style type="text/css">
+<!-- <style type="text/css">
   body{
     background-color: lightyellow;
     text-align: center;
@@ -53,8 +52,54 @@ tr:nth-child(even) {background-color:lightgray;}
 </table>
 
 <br>
-<button><b><%= link_to 'New Project', new_project_path %></button></b></button>
+<button><b><%= link_to 'New Project', new_project_path %></button></b></button> -->
 
 <!-- User: <%= link_to 'Logout', destroy_user_session_path, method: :delete %><br>
 Admin: <%= link_to 'Logout', destroy_admin_session_path, method: :delete %><br>
 Admin: <%= link_to 'Login', admin_session_path, method: :delete %><br> -->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+   <div class="row">
+
+        <div class="col-lg-3">
+          <div class="well sidebar-nav">
+            <ul class="nav nav-list">
+              <li class="nav-header"><h2>Projects List</h2></li>
+              <% @projects.each do |project| %>
+                <li><%= link_to project.project_title, tasks_path  %></li>
+              <% end%>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
+          <div class="center" >
+            <!--
+            <% @projects.each do |project| %>
+              <div class="row">
+                <%= project.project_description %>
+              </div>
+              <div class="row" style="margin-top: 20px;margin-bottom: 20px">
+                <%= image_tag project.asset.url(:small) %><br>
+                <%= link_to project.asset.url, project.asset.url %>
+              </div>
+              <div>
+                <% if can? :update, project %><%= link_to 'Edit', edit_project_path(project) %><% end %>
+              </div>
+              <div>
+                <% if can? :destroy, project %><%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %><% end %>
+              </div>
+            <% end%>
+          -->
+                 
+          </div> 
+        </div> 
+        
+      </div><!--/row-->
+</body>
+</html>

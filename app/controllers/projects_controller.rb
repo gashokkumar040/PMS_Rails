@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  before_action :authorize_user!
+  prepend_before_action :authorize_user!
   prepend_before_action :authenticate_user!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
 
@@ -8,6 +8,7 @@ class ProjectsController < ApplicationController
   def index
     #@projects = Project.all
     @projects = current_user.projects
+    
   end
 
   # GET /projects/1
@@ -30,6 +31,7 @@ class ProjectsController < ApplicationController
   def create
     @project = Project.new(project_params)
     @project.user_id = current_user.id
+
 
     respond_to do |format|
       if @project.save
@@ -82,8 +84,8 @@ class ProjectsController < ApplicationController
   end
 
   def authorize_user!
-      return unless !current_user
-      redirect_to root_path, alert: 'current users only!'
-    end
+    return unless !current_user
+    redirect_to root_path, alert: 'current users only!'
+  end
 
 end

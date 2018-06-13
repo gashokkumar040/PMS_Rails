@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_12_063044) do
+ActiveRecord::Schema.define(version: 2018_06_13_112800) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -68,7 +68,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_063044) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["project_id"], name: "index_assets_on_project_id"
+    t.index ["user_id"], name: "index_assets_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -103,7 +105,9 @@ ActiveRecord::Schema.define(version: 2018_06_12_063044) do
     t.bigint "project_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -131,11 +135,11 @@ ActiveRecord::Schema.define(version: 2018_06_12_063044) do
     t.boolean "email_confirmed", default: false
     t.string "confirm_token"
     t.boolean "admin", default: false
+    t.bigint "organization_id"
     t.string "gauth_secret"
     t.string "gauth_enabled", default: "f"
     t.string "gauth_tmp"
     t.datetime "gauth_tmp_datetime"
-    t.bigint "organization_id"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
@@ -144,9 +148,11 @@ ActiveRecord::Schema.define(version: 2018_06_12_063044) do
   end
 
   add_foreign_key "assets", "projects"
+  add_foreign_key "assets", "users"
   add_foreign_key "organizations", "admins"
   add_foreign_key "projects", "organizations"
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "users"
   add_foreign_key "users", "organizations"
 end

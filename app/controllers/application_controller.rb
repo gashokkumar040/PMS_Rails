@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
 
     protect_from_forgery with: :exception 
+    #include Error::ErrorHandler
     protect_from_forgery prepend: true
     prepend_before_action :authenticate_user!
     
@@ -26,8 +27,8 @@ class ApplicationController < ActionController::Base
       devise_parameter_sanitizer.permit(:sign_in) { |u| u.permit(:email, :password, :remember_me) }
     end
 
-    def check_gauth
-      if self.resource.class == User
+    def check_gauth(resource)
+      if resource.class == User
         user_checkga_path
       end
     end

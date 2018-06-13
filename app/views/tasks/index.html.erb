@@ -1,3 +1,23 @@
+ <style type="text/css">
+  body{
+    background-color: lightyellow;
+    text-align: center;
+    width: 100%;
+  }
+  table {
+    padding: 1px auto; 
+    margin :auto;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  th{
+    background-color:  #00f29f;
+  }
+tr:nth-child(even) {background-color:lightgray;}
+</style>
+
 <p id="notice"><%= notice %></p>
 
 <h1>Tasks</h1>
@@ -23,7 +43,7 @@
         <td><%= task.due_date %></td>
         <td><%= task.status %></td>
         <td><%= task.description %></td>
-        <td><%= task.project %></td>
+        <td><%= task.project_id %></td>
         <td><%= link_to 'Show', task %></td>
         <td><%= link_to 'Edit', edit_task_path(task) %></td>
         <td><%= link_to 'Destroy', task, method: :delete, data: { confirm: 'Are you sure?' } %></td>

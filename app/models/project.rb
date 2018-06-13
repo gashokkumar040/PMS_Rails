@@ -3,8 +3,8 @@ class Project < ApplicationRecord
   belongs_to :user
   has_many :tasks
   has_many :assets
-  #has_many :attachments
-  # attr_accessor :task_fields
+  
+  attr_accessor :task_fields, :asset_fields
   # @tasks = Task.new
 
   validate :project_title,:project_description,:user_id

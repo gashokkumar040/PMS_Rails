@@ -1,15 +1,21 @@
 class TasksController < ApplicationController
+  prepend_before_action :authorize_user!
+  prepend_before_action :authenticate_user!
   before_action :set_task, only: [:show, :edit, :update, :destroy]
 
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all
+    #@tasks = Task.all
+
+    @tasks = current_user.tasks
+    #@tasks = Task.where(:project_id => params[:project_id]).first
   end
 
   # GET /tasks/1
   # GET /tasks/1.json
   def show
+     @tasks = current_user.tasks
   end
 
   # GET /tasks/new
@@ -25,6 +31,7 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.user_id = current_user.id
 
     respond_to do |format|
       if @task.save
@@ -69,6 +76,15 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :subject, :due_date, :status, :description, :project_id)
+      params.require(:task).permit(:name, :subject, :due_date, :status, :description,:user_id, :project_id)
+    end
+
+    def authorize_user!
+      return unless !current_user
+      redirect_to root_path, alert: 'current users only!'
+    end
+
+    def find_project
+      current_user.tasks.where(:user_id => params[:user_id]).first
     end
 end

@@ -2,6 +2,8 @@ class User < ApplicationRecord
 	attr_accessor :gauth_token
 
   has_many :projects
+  has_many :tasks
+  has_many :assets
   belongs_to :organization
   #has_many :organizations through: :admin
   
@@ -21,7 +23,7 @@ class User < ApplicationRecord
       if self.changes.count == 0 && self.changes.keys != [:first_name, :last_name, :date_of_birth,:username]
         puts "No updates"
       else 
-        UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
+        #UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now   
       end    
     end
   end
