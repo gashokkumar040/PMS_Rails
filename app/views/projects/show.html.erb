@@ -34,7 +34,7 @@
     <%= link_to @project.asset_file_name, @project.asset.url %>
   <% end %>
 </p>
-
+<!-- 
 <button>
   <% if can? :update, @project %>
   <%= link_to 'Edit', edit_project_path(@project) %>
@@ -43,6 +43,12 @@
 <button>
   <%= link_to 'Back', projects_path %>
 </button>
+ -->
+
+<!-- /projects/:project_id/tasks/ -->
+<%= link_to 'Tasks', project_tasks_path(@project) %> |
+<%= link_to 'Edit', edit_project_path(@project) %> |
+<%= link_to 'Back', projects_path %>
 
  
 

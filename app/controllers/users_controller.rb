@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     #@users = User.where.not(:id => current_user.id)
-    #@users = User.all
+    @users = User.all
      #@user = User.find(params[:id])
     # if current_user
     #   redirect_to root_path

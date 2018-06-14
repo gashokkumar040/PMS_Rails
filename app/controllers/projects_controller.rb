@@ -1,4 +1,5 @@
 class ProjectsController < ApplicationController
+  
   prepend_before_action :authorize_user!
   prepend_before_action :authenticate_user!
   prepend_before_action :set_project, only: [:show, :edit, :update, :destroy]
@@ -7,19 +8,30 @@ class ProjectsController < ApplicationController
   # GET /projects.json
   def index
     #@projects = Project.all
-    @projects = current_user.projects
-    
+    #@projects = current_user.projects
+    #================
+    #url for this is : https://stackoverflow.com/questions/38819445/missing-required-keys-rails
+    @projects = current_user.projects unless current_user.nil?
+
+    @task = Task.find_by(params[:project_id])
+    #================
   end
 
   # GET /projects/1
   # GET /projects/1.json
   def show
-    @projects = current_user.projects
+    #@projects = current_user.projects
+    #================
+     @tasks = @project.tasks
+     #================
   end
 
   # GET /projects/new
   def new
-    @project = Project.new
+    #@project = Project.new
+    #================
+    @project = current_user.projects.new
+    #================
   end
 
   # GET /projects/1/edit
@@ -29,9 +41,12 @@ class ProjectsController < ApplicationController
   # POST /projects
   # POST /projects.json
   def create
-    @project = Project.new(project_params)
-    @project.user_id = current_user.id
+    #@project = Project.new(project_params)
 
+    #==============
+    @project = current_user.projects.create(project_params)
+    #==============
+    @project.user_id = current_user.id
 
     respond_to do |format|
       if @project.save
@@ -42,6 +57,18 @@ class ProjectsController < ApplicationController
         format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
+
+    #==============
+    #  @project = current_user.projects.create(project_params)
+
+    # if @project.save
+    #   redirect_to root_path
+    # else
+    #   render :new
+    # end
+    #================
+
+
   end
 
   # PATCH/PUT /projects/1
@@ -71,7 +98,14 @@ class ProjectsController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   private
   def set_project
-    @project = Project.find(params[:id])
+    #@project = Project.find(params[:id])
+
+  begin
+    @project = Project.find(params[:id]) #raises an exception if project not found        
+  rescue ActiveRecord::RecordNotFound
+    redirect_to projects_path
+  end
+
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.
@@ -87,5 +121,6 @@ class ProjectsController < ApplicationController
     return unless !current_user
     redirect_to root_path, alert: 'current users only!'
   end
+
 
 end

@@ -25,10 +25,18 @@
   <%= @task.description %>
 </p>
 
-<p>
+<!-- <p>
   <strong>Project:</strong>
   <%= @task.project %>
-</p>
+</p> -->
 
-<%= link_to 'Edit', edit_task_path(@task) %> |
-<%= link_to 'Back', tasks_path %>
+
+<!-- /posts/:post_id/comments/:id/edit -->
+<%= link_to 'Edit', edit_project_task_path(@task.project, @task) %> |
+<!-- /posts/:post_id/comments/ -->
+<%= link_to 'Back', project_tasks_path(@task.project) %>
+
+
+
+
+

@@ -1,7 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :attachments
-  resources :tasks
+  resources :projects do
+    resources :attachments
+    resources :tasks
+  end
 
   namespace :dashboard do
     resources :users
@@ -16,8 +18,10 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
    
   #resources :admins
-  resources :projects
-  resources :users
+  
+  resources :users do
+    resources :projects
+  end
 
   root to: 'projects#index'
 
