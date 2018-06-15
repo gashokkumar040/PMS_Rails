@@ -1,19 +1,18 @@
 <div class="project_container">
-<% current_user.projects.each do |project|%>
-  <div>
-    User:<%= project.user_id %>
-    <%= project.user.first_name %>,<hr>
-  </div>
-
-  <div class="col-lg-3">
-    <div class="well">
-      <div class="p_title">
-        Project: <%= project.id %>,
-        <%= project.project_title %>
-      </div>
-
+  <% current_user.projects.each do |project|%>
+    <div>
+      User:<%= project.user_id %>
+      <%= project.user.first_name %>,<hr>
     </div>
-  </div>
+
+    <div class="col-lg-3">
+      <div class="well">
+        <div class="p_title">
+          Project: <%= project.id %>,
+          <%= project.project_title %>
+        </div>
+      </div>
+    </div>
     
   <div class="col-lg-9">
 
@@ -31,6 +30,7 @@
     <h3><strong>Tasks :</strong></h3><br>
 
     <div class="task_main">
+
         <!-- Task Starts -->
       <% project.tasks.each do |task| %>
         <div class="t_name well" style="background-color: white">
@@ -46,15 +46,18 @@
         </div>
         <div class="task_actions">
 
-          <!-- /posts/:post_id/comments/:id -->
-        <td><%= link_to 'Show', [task.project, task] %></td>
-        <!-- /posts/:post_id/comments/:id/edit -->
-        <td><%= link_to 'Edit', edit_project_task_path(task.project, task)%></td>
-        <!-- /posts/:post_id/comments/:id -->
-        <td><%= link_to 'Destroy', [task.project, task], :confirm => 'Are you sure?', :method => :delete %></td>
 
+          <!-- /posts/:post_id/comments/:id -->
+        <button><%= link_to 'Show', [task.project, task] %></button>
+        <!-- /posts/:post_id/comments/:id/edit -->
+        <button><%= link_to 'Edit', edit_project_task_path(task.project, task)%></button>
+        <!-- /posts/:post_id/comments/:id -->
+        <button><%= link_to 'Destroy', [task.project, task], :confirm => 'Are you sure?', :method => :delete %></button>
         </div><br>
       <% end %>
+
+      <button><%= link_to 'New Task', new_project_task_path(@task.project,@task) %></button> 
+
       </div> 
       </div><br><!--Task end--> 
       <!-- Attachments -->
@@ -70,10 +73,8 @@
   </div> 
 <% end %><br>
 </div><!-- project container ends -->
+<br>
 
-
-<div class="button" style="text-align: center;">
-  <button class="well" style="background-color:lightgreen">
+<div class="btn btn-lg well">
     <b><%= link_to 'New Project', new_project_path %></b>
-  </button>
-</div><br>
+</div>

@@ -1,24 +1,26 @@
-<table width="600" align="center" bgcolor="#f6f8f1" border="0" cellpadding="0" cellspacing="0">
+<nav class="navbar navbar-default navbar-static-top" >
+  <!-- <div class="navbar-inner"> -->
+    <div class="container">
 
-          <tr>
-            <td class="header" bgcolor="#c7d8a7">
-    
-              <table width="15%" align="left" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                  <td height="70" width="70" height="70" border="0" alt=""  style="padding: 0 20px 20px 0;">
-                    <img src="http://sykamcs.com/img/logo-header.png" width="70" height="70" border="2px solid red" alt="" / > 
-                  </td>
-                </tr>
-              </table> 
-              <table width="75%" align="left" padding-left="30" border="0" cellspacing="0" cellpadding="0">
-                  <tr>
-            <td class="h1" style="padding: 0 0 0 3px; text-align: center;">SCS</td>
-              </tr>
-                        <tr>
-                            <td class="h2" style="padding: 5px 0 0 0; text-align: center;">
-                                Sykam Consultancy Services
-                            </td>
-                        </tr>
-                    </table>
-                </td>
-            </tr>
+      <h2 class="span1"><%= link_to "PMS App", users_path %></h2>
+
+      <div class="nav-collapse span8">
+        <ul class="nav navbar-right">
+          <!-- <li><%= link_to "PMS App", users_path %></li> -->
+         <li><%= link_to 'Projects', root_path %></li>
+          <% if current_user %>
+            <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>
+            <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to "Cart" %></li>
+            <li><%= link_to "Contact Us" %></li>
+
+          <% else %>
+            <li><%= link_to 'Login', new_user_session_path %></li>
+            <li><%= link_to 'Signup', new_user_registration_path %></li>
+            <li><%= link_to "Contact Us" %></li>
+          <% end %>          
+        </ul>
+      </div>
+    <!-- </div> -->
+  </div> 
+</nav> 

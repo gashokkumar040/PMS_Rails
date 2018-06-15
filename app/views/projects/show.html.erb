@@ -31,7 +31,9 @@
   <strong>Attachment :</strong>
   <% if @project.asset?%>
     <%= image_tag @project.asset.url(:small) %><br>
-    <%= link_to @project.asset_file_name, @project.asset.url %>
+    <div class="btn btn-lg well">
+      <%= link_to @project.asset_file_name, @project.asset.url %>
+    </div>
   <% end %>
 </p>
 <!-- 
@@ -51,4 +53,3 @@
 <%= link_to 'Back', projects_path %>
 
  
-

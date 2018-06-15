@@ -24,7 +24,7 @@ class TasksController < ApplicationController
     #first you retrive the project from params[:project_id] 
     @project = Project.find(params[:project_id])
     #2nd you retrieve the task thanks to params[:id]
-    @task = project.tasks.find(params[:id])
+    @task = @project.tasks.find(params[:id])
 
     respond_to do |format|
       format.html # show.html.erb
@@ -37,12 +37,11 @@ class TasksController < ApplicationController
     #first you retrive the project from params[:project_id] 
     @project = Project.find(params[:project_id])
     #2nd you build a new one
-    @task = project.tasks.build
-
-    respond_to do |format|
-      format.html # new.html.erb
-      format.json  { render :json => @task }
-    end
+    @task = @project.tasks.build
+    # respond_to do |format|
+    #   format.html {} # new.html.erb
+    #   format.json  { render :json => @task }
+    # end
   end
 
   # GET /projects/:project_id/tasks/:id/edit
@@ -50,7 +49,7 @@ class TasksController < ApplicationController
     #first you retrive the project from params[:project_id] 
     @project = Project.find(params[:project_id])
     #2nd you retrieve the task thanks to params[:id]
-    @task = project.tasks.find(params[:id])
+    @task = @project.tasks.find(params[:id])
   end
 
   # POST /projects/:project_id/tasks
@@ -73,7 +72,7 @@ class TasksController < ApplicationController
     @project = Project.find(params[:project_id])
 
     #2nd you create the task with arguments in params[:task]
-    @task = project.tasks.create(params[:task])
+    @task = @project.tasks.create(task_params)
 
     respond_to do |format|
       if @task.save
@@ -109,10 +108,10 @@ class TasksController < ApplicationController
     @project = Project.find(params[:project_id])
 
     #you retrive the task from params[:id]
-    @task = project.tasks.find(params[:id])
+    @task = @project.tasks.find(params[:id])
 
     respond_to do |format|
-      if @task.update_attributes(params[:task])
+      if @task.update_attributes(task_params)
         #1st argument of redirect_to is an array, in order to build the correct route to the nested resource comment
         format.html{redirect_to([@task.project,@task], :notice=>'task was successfully updated.')}
         format.json{head :ok}
@@ -137,9 +136,9 @@ class TasksController < ApplicationController
     @project = Project.find(params[:project_id])
 
     #2nd you retrive the task from params[:id]
-    @task = project.tasks.find(params[:id])
+    @task = @project.tasks.find(params[:id])
 
-    @task = project.tasks.find(params[:id])
+    @task = @project.tasks.find(params[:id])
     @task.destroy
 
     respond_to do |format|
@@ -154,13 +153,13 @@ class TasksController < ApplicationController
   private
 
     def set_project
-      @project = current_user.projects.find(params[:project_id])
-      @project.user_id = current_user.id
+      @project = Project.find(params[:project_id])
+      #@project.user_id = current_user.id
     end
     #Use callbacks to share common setup or constraints between actions.
     def set_task
       begin
-        @task = project.tasks.find(params[:id]) #raises an exception if project not found        
+        @task = @project.tasks.find(params[:id]) #raises an exception if project not found        
       rescue ActiveRecord::RecordNotFound
         redirect_to tasks_path
       end  
@@ -168,7 +167,7 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:name, :subject, :due_date, :status, :description, :project_id)
+      params.require(:task).permit(:name, :subject, :due_date, :status, :description, :project_id, :user_id)
     end
 
 end

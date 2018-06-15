@@ -24,11 +24,16 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     #@user = User.find(params[:id])
+    UserMailer.after_confirmation(changes.keys, self).deliver_now
   end
 
   # GET /users/new
   def new
     @user = User.new
+    respond_to do |format|
+      format.html{render new, notice: 'Please login for continue and enjoy my services... thank you'}
+    end
+
   end
 
   # GET /users/1/edit
@@ -43,6 +48,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       #@user.save_changes
+      
       if @user.save
         format.html { redirect_to @user, notice: 'user was successfully created.' }
         format.json { render :show, status: :created, location: @user }
@@ -57,8 +63,8 @@ class UsersController < ApplicationController
   # PATCH/PUT /users/1.json
   def update
     @user = User.find(params[:id])
-    params[:user].delete(:encrypted_password) if params[:user][:encrypted_password].blank?
-    params[:user].delete(:password_confirmation) if params[:user][:encrypted_password].blank? and params[:user][:password_confirmation].blank?
+    # params[:user].delete(:encrypted_password) if params[:user][:encrypted_password].blank?
+    # params[:user].delete(:password_confirmation) if params[:user][:encrypted_password].blank? and params[:user][:password_confirmation].blank?
     
     respond_to do |format|
       if @user.update(user_params) 
@@ -69,6 +75,7 @@ class UsersController < ApplicationController
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
+    UserMailer.profile_update(@hash.slice("first_name","last_name","date_of_birth","username"),self).deliver_now
   end
 
   # def update

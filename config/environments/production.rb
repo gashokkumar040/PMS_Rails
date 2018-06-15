@@ -64,18 +64,19 @@ Rails.application.configure do
   # config.active_job.queue_name_prefix = "PMS_Three_#{Rails.env}"
 
   config.action_mailer.perform_caching = false
-=begin  # added for mails
+#============
+ # added for mails
   config.action_mailer.delivery_method = :smtp
 # SMTP settings for gmail
-config.action_mailer.smtp_settings = {
- :address              => "smtp.gmail.com",
- :port                 => 587,
- :user_name            => ENV['gmail_username'],
- :password             => ENV['gmail_password'],
- :authentication       => "plain",
-:enable_starttls_auto => true
-}
-=end
+  config.action_mailer.smtp_settings = {
+     :address              => "smtp.gmail.com",
+     :port                 => 587,
+     :user_name            => ENV['gmail_username'],
+     :password             => ENV['gmail_password'],
+     :authentication       => "plain",
+     :enable_starttls_auto => true
+  }
+
 
 #=====
 =begin
