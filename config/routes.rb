@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     resources :projects
   end
 
+  #root to: "users#index"
+
   root to: 'projects#index'
 
   # if Rails.env.development?

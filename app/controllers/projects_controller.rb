@@ -12,10 +12,11 @@ class ProjectsController < ApplicationController
     #================
     #url for this is : https://stackoverflow.com/questions/38819445/missing-required-keys-rails
     @projects = current_user.projects unless current_user.nil?
-      
+
+    #@project = current_user.projects.create(project_params)
     if current_user.tasks.empty?
       respond_to do |format|
-        format.html{ redirect_to users_path, :danger=>'You are not yet created any tasks...'}
+        format.html{ redirect_to new_user_project_path(current_user.id), :danger=>'You are not yet created any projects and tasks...'}
       end
     else 
       @task = current_user.tasks.find_by(params[:project_id]) unless current_user.tasks.nil?
@@ -27,9 +28,9 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.json
   def show
-    #@projects = current_user.projects
+    @projects = current_user.projects
     #================
-     @tasks = @project.tasks
+    @tasks = @project.tasks unless current_user .nil?
      #================
   end
 
