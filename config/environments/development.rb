@@ -94,7 +94,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::FileUpdateChecker
 
   # for not reloading again and again the page remove above EventedFileUpdateChecker to FileUpdateChecker
-  config.reload_classes_only_on_change = false
+  config.reload_classes_only_on_change = true
 
 
 end

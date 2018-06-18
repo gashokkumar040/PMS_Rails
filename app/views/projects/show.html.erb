@@ -47,6 +47,47 @@
 </button>
  -->
 
+
+<!--  <div class="media">
+  <div class="media-body">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Subject</th>
+          <th>Due date</th>
+          <th>Status</th>
+          <th>Description</th>
+          <th>Project</th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>      
+      </thead>
+
+      <tbody>
+        <% @tasks.each do |task| %>
+          <tr>
+            <td><%= task.name %></td>
+            <td><%= task.subject %></td>
+            <td><%= task.due_date %></td>
+            <td><%= task.status %></td>
+            <td><%= task.description %></td>
+            <td><%= task.project_id %></td>
+
+             /posts/:post_id/comments/:id --
+            <td><%= link_to 'Show', [task.project, task] %></td>
+            <-- /posts/:post_id/comments/:id/edit --
+            <td><%= link_to 'Edit', edit_project_task_path(task.project, task)%></td>
+            <-- /posts/:post_id/comments/:id --
+            <td><%= link_to 'Destroy', [task.project, task], :confirm => 'Are you sure?', :method => :delete %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+ </div> -->
+
 <!-- /projects/:project_id/tasks/ -->
 <%= link_to 'Tasks', project_tasks_path(@project) %> |
 <%= link_to 'Edit', edit_project_path(@project) %> |

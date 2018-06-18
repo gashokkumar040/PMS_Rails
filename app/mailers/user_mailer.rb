@@ -14,9 +14,14 @@ class UserMailer < ApplicationMailer
     mail(:to => "#{@user.username} <#{@user.email}>", :subject => "Your Confirmed your mail...")
  end
 
- def welcome_email(user)
-   @user = user
-   mail(:to @user.email), :subject=> 'Sample mail')
+ # def welcome_email(user)
+ #   @user = user
+ #   mail(:to @user.email), :subject=> 'Sample mail')
+ # end
+
+ def registration_confirmation(user)
+    @user = user
+    mail(:to => "#{user.name} <#{user.email}>", :subject => "Registration Confirmation")
  end
 
 end

@@ -1,0 +1,79 @@
+<!--  index.html.erb: remove :post member and update link 
+<p id="notice"><%= notice %></p>
+
+<h1>Tasks</h1>
+
+<table>
+
+    <tr>
+      <th>Name</th>
+      <th>Subject</th>
+      <th>Due date</th>
+      <th>Status</th>
+      <th>Description</th>
+      <th>Project</th>
+      <th></th>
+      <th></th>
+      <th></th>
+       <th colspan="3"></th> 
+    </tr>
+
+
+
+    <% @tasks.each do |task| %>
+      <tr>
+        <td><%= task.name %></td>
+        <td><%= task.subject %></td>
+        <td><%= task.due_date %></td>
+        <td><%= task.status %></td>
+        <td><%= task.description %></td>
+        <td><%= task.project_id %></td>
+
+         /posts/:post_id/comments/:id --
+        <td><%= link_to 'Show', [task.project, task] %></td>
+        <-- /posts/:post_id/comments/:id/edit --
+        <td><%= link_to 'Edit', edit_project_task_path(task.project, task)%></td>
+        <-- /posts/:post_id/comments/:id --
+        <td><%= link_to 'Destroy', [task.project, task], :confirm => 'Are you sure?', :method => :delete %></td>
+      </tr>
+    <% end %>
+ 
+</table>
+
+<br>
+
+<%= link_to 'New Task', new_project_task_path %> 
+<-- /projects/:project_id/tasks/new --> 
+
+
+<div class="task_main">
+
+        <!-- Task Starts -->
+      <% @tasks.each do |task| %>
+        <div class="t_name well" style="background-color: white">
+          Task: <%= task.id %>,
+          <h4><b><%= task.name %></b></h4>
+        </div>
+
+        <div>            
+            <b>Subject:</b>     <%= task.subject %><br>
+            <b>Due Date: </b>   <%= task.due_date %><br>
+            <b>Status: </b>     <%= task.status %><br>
+            <b>Description:</b> <p><%= task.description %></p><br>
+        </div>
+        <div class="task_actions">
+
+
+          <!-- /posts/:post_id/comments/:id -->
+        <button><%= link_to 'Show', [task.project, task] %></button>
+        <!-- /posts/:post_id/comments/:id/edit -->
+        <button><%= link_to 'Edit', edit_project_task_path(task.project, task)%></button>
+        <!-- /posts/:post_id/comments/:id -->
+        <button><%= link_to 'Destroy', [task.project, task], :confirm => 'Are you sure?', :method => :delete %></button>
+        </div><br>
+      <% end %>
+
+      <button><%= link_to 'New Task', new_project_task_path %></button> 
+
+      </div> 
+      </div><br><!--Task end--> 

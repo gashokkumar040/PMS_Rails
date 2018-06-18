@@ -90,6 +90,9 @@ gem "table_print"
 gem 'paperclip', '~> 6.0'
 gem 'mini_magick'
 
+#file attachment mail
+gem 'receipts'
+
 
 
 

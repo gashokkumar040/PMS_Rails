@@ -1,0 +1,42 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @task.name %>
+</p>
+
+<p>
+  <strong>Subject:</strong>
+  <%= @task.subject %>
+</p>
+
+<p>
+  <strong>Due date:</strong>
+  <%= @task.due_date %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @task.status %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @task.description %>
+</p>
+
+<!-- <p>
+  <strong>Project:</strong>
+  <%= @task.project %>
+</p> -->
+
+
+<!-- /posts/:post_id/comments/:id/edit -->
+<%= link_to 'Edit', edit_project_task_path(@task.project, @task) %> |
+<!-- /posts/:post_id/comments/ -->
+<%= link_to 'Back', project_tasks_path(@task.project) %>
+
+
+
+
+

@@ -1,0 +1,8 @@
+<h1>Editing Task</h1>
+<!-- edit.html.erb: update link -->
+<%= render 'form' %>
+
+<!-- /posts/:post_id/comments/:id -->
+<%= link_to 'Show', [@task.project, @task] %> |
+<!-- /posts/:post_id/comments/ -->
+<%= link_to 'Back', project_tasks_path(@task.project) %>

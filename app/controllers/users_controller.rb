@@ -50,14 +50,32 @@ class UsersController < ApplicationController
       #@user.save_changes
       
       if @user.save
+        UserMailer.registration_confirmation(@user).deliver
+        flash[:success] = "Please confirm your email address to continue"
         format.html { redirect_to @user, notice: 'user was successfully created.' }
         format.json { render :show, status: :created, location: @user }
       else
+        flash[:error] = "Ooooppss, something went wrong!"
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
+
+  #====
+  # def create
+  #       @user = User.new(user_params)    
+  #     if @user.save
+  #       UserMailer.registration_confirmation(@user).deliver
+  #       flash[:success] = "Please confirm your email address to continue"
+  #       redirect_to root_url
+  #     else
+  #       flash[:error] = "Ooooppss, something went wrong!"
+  #       render 'new'
+  #     end
+  # end
+  #=====
+
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
@@ -117,7 +135,7 @@ class UsersController < ApplicationController
 
   def confirm_email
     user = User.find_by_confirm_token(params[:id])
-    if user_params
+    if user
       user.email_activate
       flash[:success] = "Welcome to the Sample App! Your email has been confirmed.
       Please sign in to continue."
@@ -127,4 +145,19 @@ class UsersController < ApplicationController
       redirect_to root_url
     end
   end
+
+  # =============
+  # def confirm_email
+  #   user = User.find_by_confirm_token(params[:id])
+  #   if user
+  #     user.email_activate
+  #     flash[:success] = "Welcome to the Sample App! Your email has been confirmed.
+  #     Please sign in to continue."
+  #     redirect_to signin_url
+  #   else
+  #     flash[:error] = "Sorry. User does not exist"
+  #     redirect_to root_url
+  #   end
+  # end
+  # =============
 end

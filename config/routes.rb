@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
 
   resources :projects do
-    resources :attachments
-    resources :tasks
+    resources :attachments #, except: [:index]
+    resources :tasks #,  controller: 'projects/tasks' #, model: 'projects/task'
   end
 
   namespace :dashboard do
@@ -20,12 +20,21 @@ Rails.application.routes.draw do
   #resources :admins
   
   resources :users do
-    resources :projects
+    member do
+      get :confirm_email
+    end
+    # resources :projects do
+    #   resources :attachments #, except: [:index]
+    #   resources :tasks
+    # end
   end
+
 
   #root to: "users#index"
 
   root to: 'projects#index'
+
+  # get ':controller(/:action(/:id(.:format)))'
 
   # if Rails.env.development?
   #   mount LetterOpenerWeb::Engine, at: "/letter_opener"

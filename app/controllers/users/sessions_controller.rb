@@ -47,6 +47,7 @@ class Users::SessionsController < Devise::SessionsController
         render 'new'
       end
   end
+ 
 
   #  def destroy
   #   session.delete

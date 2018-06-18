@@ -14,7 +14,7 @@ class Project < ApplicationRecord
   validates_with AttachmentSizeValidator, attributes: :asset, less_than: 11.megabytes
 
   belongs_to :user
-  has_many :tasks
+  has_many :tasks #, dependent: :destroy
   has_many :assets
 
 
