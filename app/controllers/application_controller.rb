@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-    protect_from_forgery with: :exception 
+
     #include Error::ErrorHandler
     protect_from_forgery prepend: true
     prepend_before_action :authenticate_user!
@@ -35,6 +35,8 @@ class ApplicationController < ActionController::Base
 
     def after_sign_in_path_for(resource)
       if resource.class == Admin#istrator
+           devise_parameter_sanitizer.permit(:sign_up) { |u| u.permit(:username, :first_name, :last_name, :is_female, :date_of_birth, :email, :password,:phonenum, :password_confirmation,:organization_id,:approved) }
+      devise_parameter_sanitizer.permit(:account_update) { |u| u.permit(:first_name, :last_name, :email, :password,:phonenum, :current_password, :is_female, :date_of_birth,:username,:password_confirmation,:approved) }
         rails_admin_path
       elsif resource.class == User
         users_path
@@ -44,7 +46,11 @@ class ApplicationController < ActionController::Base
       end
     end
 
-    
+    rescue_from CanCan::AccessDenied do |exception|
+      redirect_to root_url, :alert => exception.message
+    end
+
+    protect_from_forgery with: :exception 
     
 end
 

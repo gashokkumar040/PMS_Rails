@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_14_090123) do
+ActiveRecord::Schema.define(version: 2018_06_19_100916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,7 @@ ActiveRecord::Schema.define(version: 2018_06_14_090123) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "approve"
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
@@ -71,6 +72,17 @@ ActiveRecord::Schema.define(version: 2018_06_14_090123) do
     t.bigint "user_id"
     t.index ["project_id"], name: "index_assets_on_project_id"
     t.index ["user_id"], name: "index_assets_on_user_id"
+  end
+
+  create_table "credit_checkers", force: :cascade do |t|
+    t.integer "count"
+    t.text "history"
+    t.bigint "project_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["project_id"], name: "index_credit_checkers_on_project_id"
+    t.index ["user_id"], name: "index_credit_checkers_on_user_id"
   end
 
   create_table "organizations", force: :cascade do |t|
@@ -92,6 +104,7 @@ ActiveRecord::Schema.define(version: 2018_06_14_090123) do
     t.string "asset_content_type"
     t.integer "asset_file_size"
     t.datetime "asset_updated_at"
+    t.boolean "approved", default: false
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
@@ -140,6 +153,7 @@ ActiveRecord::Schema.define(version: 2018_06_14_090123) do
     t.string "gauth_enabled", default: "f"
     t.string "gauth_tmp"
     t.datetime "gauth_tmp_datetime"
+    t.integer "credits"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"
@@ -149,6 +163,8 @@ ActiveRecord::Schema.define(version: 2018_06_14_090123) do
 
   add_foreign_key "assets", "projects"
   add_foreign_key "assets", "users"
+  add_foreign_key "credit_checkers", "projects"
+  add_foreign_key "credit_checkers", "users"
   add_foreign_key "organizations", "admins"
   add_foreign_key "projects", "organizations"
   add_foreign_key "projects", "users"

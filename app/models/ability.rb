@@ -3,13 +3,25 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-
-      if user.admin?
+        #resource.class == Admin
+       if user.admin?
         can :manage, :all
+        #cannot :approve_review, :all
+        #can :approve_review, [UserReview]
       else
         can :manage, Project, user_id: user.id 
         can :read, :all
       end
+
+
+  #     include CanCan::Ability
+  # def initialize(user)
+  #   if user && user.is_admin?
+  #     ...
+  #     cannot :approve_review, :all
+  #     can :approve_review, [UserReview]
+  #   end
+  # end
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

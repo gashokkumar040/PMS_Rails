@@ -1,4 +1,6 @@
 class User < ApplicationRecord
+
+  #accepts_nested_attributes_for :credit_checker
   # BLACKLIST_FOR_SERIALIZATION =[:encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :password_salt, :confirmation_token, :confirmed_at, :confirmation_sent_at, :remember_token, :unconfirmed_email, :failed_attempts, :unlock_token, :locked_at]
   # if you want to de_serialize use serializable_hash(options = nil) add blacklists for this method by calling marge super(options).merge(encrypted_password: encrypted_password,....) 
 	
@@ -6,7 +8,9 @@ class User < ApplicationRecord
   #User.first.serializable_hash(force_except: true)
   
   attr_accessor :gauth_token
-
+  attr_accessor :project_fields
+  
+  has_one :credit_checker, dependent: :destroy
   has_many :projects
   has_many :tasks
   has_many :assets
@@ -21,8 +25,8 @@ class User < ApplicationRecord
   # before_create :confirmation_token
 
   after_create :after_confirmation_path_for 
-  before_save :save_changes 
-
+  before_save :save_changes
+  
  
   # Mail to user with Updated data
   def save_changes
@@ -46,9 +50,6 @@ class User < ApplicationRecord
     end
   end
   
-  
-
-
   #=========
   #for Confirmed accounts
   # def password_match?

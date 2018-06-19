@@ -1,8 +1,11 @@
+require Rails.root.join('lib', 'rails_admin_approve_review.rb')
+
 RailsAdmin.config do |config|
+
   # sort_reverse=true
 
   #config.total_columns_width = 1000
-  config.total_columns_width = 9999999
+  #config.total_columns_width = 9999999
   ### Popular gems integration
   config.authenticate_with do
     warden.authenticate! scope: :admin
@@ -30,6 +33,8 @@ RailsAdmin.config do |config|
     navigation_icon ' icon-user '
   end
 
+
+  
   # config.navigation_static_links = {
   # 'myLinks' => 'http://www.facebook.com'
   # }
@@ -56,7 +61,7 @@ RailsAdmin.config do |config|
   # config.current_user_method(&:current_user)
 
   ## == Cancan ==
-  #config.authorize_with :cancan
+  # config.authorize_with :cancan
 
   ## == Pundit ==
   # config.authorize_with :pundit
@@ -82,6 +87,9 @@ RailsAdmin.config do |config|
     #dashboard                     # mandatory
     index                         # mandatory
     new
+
+    #approve 
+
     export
     bulk_delete
     show
@@ -97,22 +105,28 @@ RailsAdmin.config do |config|
 
 
   #Models with control show fields
-  # config.model User do 
-  #    list do
-  #      field :id
-  #      field :first_name 
-  #      field :last_name 
-  #      field :username
-  #      field :email
-  #      field :phonenum 
-  #      field :date_of_birth 
-  #      field :is_female 
-  #      field :admin
+  config.model User do 
+     list do
+       field :id
+       field :credits
+       field :first_name 
+       field :last_name 
+       field :username
+       field :email
+       field :phonenum 
+       field :date_of_birth 
+       field :is_female 
+       
+       field :credit_checker #do
+      #   field :count
+      #   field :history
+      # end
+       #field :admin
 
-  #      sort_by :id 
-  #      items_per_page 5 
-  #    end 
-  # end
+       sort_by :id 
+       items_per_page 5 
+     end 
+  end
 
   config.model Organization do 
      list do
@@ -128,18 +142,28 @@ RailsAdmin.config do |config|
   end  
 
   config.model Project do
+    # include_all_fields
+    # nested do
+    #   field :count
+    #   field :history 
+    # end
     list do
       field :id
+      field :approved
       field :project_title
       field :tasks
       field :asset
       field :user
+      
 
       sort_by :id
       sort_reverse=false
       items_per_page 5
     end
   end
+
+
+
 
   config.model Admin do
     list do
