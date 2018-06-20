@@ -153,7 +153,8 @@ ActiveRecord::Schema.define(version: 2018_06_19_100916) do
     t.string "gauth_enabled", default: "f"
     t.string "gauth_tmp"
     t.datetime "gauth_tmp_datetime"
-    t.integer "credits"
+    t.integer "credits", default: 0
+    t.string "credit_history"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"

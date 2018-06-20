@@ -13,6 +13,12 @@ module PMSThree
 
     config.time_zone = 'Central Time (US & Canada)'
 
+    # config.session_store :cookie_store
+    # config.middleware.use ActionDispatch::Cookies
+    # config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
+    # config.middleware.use Rack::MethodOverride
+
+    
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading

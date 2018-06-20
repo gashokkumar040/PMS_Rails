@@ -109,6 +109,7 @@ RailsAdmin.config do |config|
      list do
        field :id
        field :credits
+       field :credit_history
        field :first_name 
        field :last_name 
        field :username
@@ -117,11 +118,7 @@ RailsAdmin.config do |config|
        field :date_of_birth 
        field :is_female 
        
-       field :credit_checker #do
-      #   field :count
-      #   field :history
-      # end
-       #field :admin
+       field :credit_checker 
 
        sort_by :id 
        items_per_page 5 

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
-
+  resources :credit_checkers 
+  
   resources :projects do
     resources :attachments #, except: [:index]
     resources :tasks #,  controller: 'projects/tasks' #, model: 'projects/task'
@@ -12,6 +13,7 @@ Rails.application.routes.draw do
   end
 
   resources :organizations
+  
   devise_for :users,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
   devise_for :admins,controllers: { confirmations: 'admins/confirmations', registrations: 'admins/registrations',sessions: 'admins/sessions' }
 
