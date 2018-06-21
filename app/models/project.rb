@@ -30,22 +30,44 @@ class Project < ApplicationRecord
   #before_save :validate_approval#, if: :approved_changed?  #only: [:approved] 
   before_save :validate_approval, on: :update, if: :approved_changed?
   
+
   def validate_approval
-    @hash = Hash.new{ |h,k| h[k] = []}
-    self.changes.each{ |k,v| @hash[k] << v }
-    
-    if @hash.fetch('approved')[0][1] == true
+
+    if self.approved == true
       puts "@@@@@@"
       puts "calling 1......"
+      if user.credit_info.nil?
+        user.credit_info = "credits on projects : " + self.id.to_s
+      else
+        user.credit_info = user.credit_info + " , " + self.id.to_s   
+      end
       user.credits += 1
       user.save
+
+      user.account_info = user.credits.to_s
+      #@u = user.credits
+
+      puts "@u======#{@u}"
+      
+      CreditChecker.create(amount: 1,count: user.credits, history: "credits for : #{self.id}", user_id: user.id, project_id: self.id)   
     else
       puts "@@@@@@"
       puts "calling 2......"
+      if user.debit_info.nil?
+        user.debit_info = "debits on projects : " + self.id.to_s
+      else
+        user.debit_info = user.debit_info + " , " + self.id.to_s   
+      end
       user.credits -= 1
       user.save
+
+      user.account_info = user.credits.to_s
+
+      CreditChecker.create(amount: 1, count: user.credits, history: "credits for : #{self.id}", user_id: user.id, project_id: self.id) 
     end
   end
+
+  
 
 #   def validate_approval
 #     @hash = Hash.new{ |h,k| h[k]=[] }

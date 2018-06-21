@@ -72,7 +72,7 @@ class CreditCheckersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def credit_checker_params
       # params.fetch(:credit_checker, {})
-      params.require(:credit_checker).permit(:id,:user_id,:project_id,:count,:history)
+      params.require(:credit_checker).permit(:id,:user_id,:project_id,:count,:history, :amount)
 
     end
 end

@@ -109,16 +109,16 @@ RailsAdmin.config do |config|
      list do
        field :id
        field :credits
-       field :credit_history
        field :first_name 
-       field :last_name 
+       field :last_name
+       field :credit_checker   
        field :username
        field :email
        field :phonenum 
-       field :date_of_birth 
-       field :is_female 
+       field :account_info
+       field :debit_info
+       field :credit_info
        
-       field :credit_checker 
 
        sort_by :id 
        items_per_page 5 
@@ -192,6 +192,15 @@ RailsAdmin.config do |config|
       sort_reverse=false
       items_per_page 5
     end
+  end
+
+  config.model CreditChecker do
+    field :id
+    field :amount
+    field :count
+    field :history
+    field :user
+    field :project
   end
   # ============= Horizontal Scrolling columns ========= 
   # # Use default horizontal scroll settings of 3 frozen columns (checkboxes, links/actions, ID) with a border on the right:

@@ -3,6 +3,7 @@ class CreateCreditCheckers < ActiveRecord::Migration[5.2]
     create_table :credit_checkers do |t|
       t.integer :count
       t.text :history
+      t.integer :amount
       t.references :project, foreign_key: true
       t.references :user, foreign_key: true
 

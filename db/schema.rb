@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_100916) do
+ActiveRecord::Schema.define(version: 2018_06_21_093513) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2018_06_19_100916) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "amount"
     t.index ["project_id"], name: "index_credit_checkers_on_project_id"
     t.index ["user_id"], name: "index_credit_checkers_on_user_id"
   end
@@ -154,7 +155,9 @@ ActiveRecord::Schema.define(version: 2018_06_19_100916) do
     t.string "gauth_tmp"
     t.datetime "gauth_tmp_datetime"
     t.integer "credits", default: 0
-    t.string "credit_history"
+    t.string "account_info"
+    t.string "credit_info"
+    t.string "debit_info"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"

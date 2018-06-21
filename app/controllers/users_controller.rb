@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   # GET /users.json
   def index
     #@users = User.where.not(:id => current_user.id)
-    @users = User.all
+    @users = User.with_pending_projects
      #@user = User.find(params[:id])
     # if current_user
     #   redirect_to root_path
@@ -128,7 +128,7 @@ class UsersController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
       #params.fetch(:user, {})
-      params.require(:user).permit(:first_name,:last_name, :username,:date_of_birth,:is_female,:phonenum,:email, :password_confirmation,:encrypted_password,:organization_id)
+      params.require(:user).permit(:first_name,:last_name,:account_info, :username,:date_of_birth,:is_female,:phonenum,:email, :password_confirmation,:encrypted_password,:organization_id,:credit_info,:debit_info)
   end
 
   private
