@@ -88,7 +88,11 @@ RailsAdmin.config do |config|
     index                         # mandatory
     new
  
-    approved_projects 
+    approved_projects do
+      visible do
+        bindings[:abstract_model].model.to_s == "User"
+      end
+    end
 
     export
     bulk_delete
