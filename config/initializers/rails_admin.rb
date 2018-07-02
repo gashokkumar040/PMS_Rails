@@ -1,4 +1,4 @@
-require Rails.root.join('lib', 'rails_admin_approve_review.rb')
+require Rails.root.join('lib', 'rails_admin_approved_projects.rb')
 
 RailsAdmin.config do |config|
 
@@ -87,8 +87,8 @@ RailsAdmin.config do |config|
     #dashboard                     # mandatory
     index                         # mandatory
     new
-
-    #approve 
+ 
+    approved_projects 
 
     export
     bulk_delete
@@ -116,9 +116,6 @@ RailsAdmin.config do |config|
        field :email
        field :phonenum 
        field :account_info
-       field :debit_info
-       field :credit_info
-       
 
        sort_by :id 
        items_per_page 5 
@@ -151,7 +148,6 @@ RailsAdmin.config do |config|
       field :tasks
       field :asset
       field :user
-      
 
       sort_by :id
       sort_reverse=false
@@ -201,6 +197,8 @@ RailsAdmin.config do |config|
     field :history
     field :user
     field :project
+    field :debit_info
+    field :credit_info
   end
   # ============= Horizontal Scrolling columns ========= 
   # # Use default horizontal scroll settings of 3 frozen columns (checkboxes, links/actions, ID) with a border on the right:

@@ -6,11 +6,11 @@ Rails.application.routes.draw do
     resources :tasks #,  controller: 'projects/tasks' #, model: 'projects/task'
   end
 
-  namespace :dashboard do
-    resources :users
-    resources :projects
-    root to: "users#index"
-  end
+  # namespace :dashboard do
+  #   resources :users
+  #   resources :projects
+  #   root to: "users#index"
+  # end
 
   resources :organizations
   
