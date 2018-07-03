@@ -10,8 +10,9 @@ class User < ApplicationRecord
   
   attr_accessor :gauth_token
   attr_accessor :project_fields
+  attr_accessor :credit_checkers_fields
   
-  has_one :credit_checker, dependent: :destroy
+  has_many :credit_checkers, dependent: :destroy
   has_many :projects
   has_many :tasks
   has_many :assets

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_02_050158) do
+ActiveRecord::Schema.define(version: 2018_07_03_082027) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,15 +75,13 @@ ActiveRecord::Schema.define(version: 2018_07_02_050158) do
   end
 
   create_table "credit_checkers", force: :cascade do |t|
-    t.integer "count"
-    t.text "history"
+    t.integer "balance"
     t.bigint "project_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "amount"
-    t.string "credit_info"
-    t.string "debit_info"
+    t.integer "amount", default: 0
+    t.string "account_status", default: ""
     t.index ["project_id"], name: "index_credit_checkers_on_project_id"
     t.index ["user_id"], name: "index_credit_checkers_on_user_id"
   end
@@ -157,7 +155,6 @@ ActiveRecord::Schema.define(version: 2018_07_02_050158) do
     t.string "gauth_tmp"
     t.datetime "gauth_tmp_datetime"
     t.integer "credits", default: 0
-    t.string "account_info"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["organization_id"], name: "index_users_on_organization_id"

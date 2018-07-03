@@ -1,4 +1,5 @@
 require Rails.root.join('lib', 'rails_admin_approved_projects.rb')
+require Rails.root.join('lib/user_records', 'rails_admin_user_balance.rb')
 
 RailsAdmin.config do |config|
 
@@ -81,18 +82,17 @@ RailsAdmin.config do |config|
     # dashboard do
     #   statistics true
     # end
-    dashboard do
-      authorization_key :customized
-    end
-    #dashboard                     # mandatory
+    # dashboard do
+    #   authorization_key :customized
+    # end
+    dashboard                     # mandatory
     index                         # mandatory
     new
- 
-    approved_projects do
-      visible do
-        bindings[:abstract_model].model.to_s == "User"
-      end
-    end
+    
+
+    approved_projects
+
+    user_balance
 
     export
     bulk_delete
@@ -115,11 +115,10 @@ RailsAdmin.config do |config|
        field :credits
        field :first_name 
        field :last_name
-       field :credit_checker   
+       field :credit_checkers
        field :username
        field :email
        field :phonenum 
-       field :account_info
 
        sort_by :id 
        items_per_page 5 
@@ -159,9 +158,6 @@ RailsAdmin.config do |config|
     end
   end
 
-
-
-
   config.model Admin do
     list do
       field :id
@@ -187,7 +183,6 @@ RailsAdmin.config do |config|
       field :due_date
       field :status
       field :project
-
       sort_by :id
       sort_reverse=false
       items_per_page 5
@@ -197,12 +192,11 @@ RailsAdmin.config do |config|
   config.model CreditChecker do
     field :id
     field :amount
-    field :count
-    field :history
+    field :balance
     field :user
     field :project
-    field :debit_info
-    field :credit_info
+    field :account_status
+
   end
   # ============= Horizontal Scrolling columns ========= 
   # # Use default horizontal scroll settings of 3 frozen columns (checkboxes, links/actions, ID) with a border on the right:

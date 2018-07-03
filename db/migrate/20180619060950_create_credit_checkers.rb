@@ -1,7 +1,7 @@
 class CreateCreditCheckers < ActiveRecord::Migration[5.2]
   def self.up
     create_table :credit_checkers do |t|
-      t.integer :count
+      t.integer :balance
       t.text :history
       t.integer :amount
       t.references :project, foreign_key: true
@@ -13,7 +13,7 @@ class CreateCreditCheckers < ActiveRecord::Migration[5.2]
 
   def self.down
     drop_table :credit_checkers do |t|
-      t.integer :count
+      t.integer :balance
       t.text :history
       t.references :project, foreign_key: true
       t.references :user, foreign_key: true

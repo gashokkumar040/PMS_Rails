@@ -11,7 +11,7 @@ class Project < ApplicationRecord
   validates_with AttachmentSizeValidator, attributes: :asset, less_than: 11.megabytes
 
   belongs_to :user
-  has_one :credit_checker, dependent: :destroy
+  has_many :credit_checkers, dependent: :destroy
   has_many :tasks #, dependent: :destroy
   has_many :assets 
   
@@ -30,40 +30,19 @@ class Project < ApplicationRecord
   #before_save :validate_approval#, if: :approved_changed?  #only: [:approved] 
   before_save :validate_approval, on: :update, if: :approved_changed?
   
-
   def validate_approval
-
     if self.approved == true
       puts "@@@@@@"
       puts "calling 1......"
-      # if user.credit_info.nil?
-      #   user.credit_info = "credits on projects : " + self.id.to_s
-      # else
-      #   user.credit_info = user.credit_info + " , " + self.id.to_s   
-      # end
       user.credits += 1
-      user.account_info = "credit"
       user.save
-
-      
-      #@u = user.credits
-
-      puts "@u======#{@u}"
-      
-      CreditChecker.create(amount: 1,count: user.credits, history: "credits for : #{self.id}", user_id: user.id, project_id: self.id,credit_info:"#{self.id} credited ",debit_info:"0")   
+      CreditChecker.create(amount: 1,  balance: user.credits, user_id: user.id, project_id: self.id,account_status: "credit")   
     else
       puts "@@@@@@"
       puts "calling 2......"
-      # if user.debit_info.nil?
-      #   user.debit_info = "debits on projects : " + self.id.to_s
-      # else
-      #   user.debit_info = user.debit_info + " , " + self.id.to_s   
-      # end
       user.credits -= 1
-      user.account_info = "debit"
       user.save
-
-      CreditChecker.create(amount: 1.to_s, count: user.credits, history: "debit's for : #{self.id}", user_id: user.id, project_id: self.id,credit_info:"0",debit_info:"#{self.id} debited") 
+      CreditChecker.create(amount: 1, balance: user.credits, user_id: user.id, project_id: self.id,account_status: "debit") 
     end
   end
 

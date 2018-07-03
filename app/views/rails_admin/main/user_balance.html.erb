@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Balance Sheet </title>
+  <style type="text/css">
+    
+    table {
+      /*padding: auto; */
+      /*margin :auto;*/
+    }
+    th, td {
+      text-align: center;
+      padding:0 100px;
+    }
+    th{
+      background-color:  #00f29f;
+    }
+    tr:nth-child(even) {background-color:lightgray;}
+  </style>
+</head>
+<body>
+  <h1>User Balance ...</h1>
+  <table>
+    <tr>
+      <th>User_id</th>
+      <th>User_name</th>
+      <th>Balance</th>
+      <th>Credit/Debit</th>
+    </tr>
+
+    <tr>
+      <% @object.credit_checkers.each do |cc|%>
+
+          <tr>
+            <td><%= @object.id %></td>
+            <td><%= @object.first_name %></td>
+            <td><%= cc.balance%></td>
+            <td><%= cc.account_status %></td>
+          </tr>
+
+      <% end %>
+    </tr>
+  </table>
+
+</body>
+</html>
