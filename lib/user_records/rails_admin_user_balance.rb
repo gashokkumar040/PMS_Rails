@@ -28,9 +28,7 @@ module RailsAdmin
 
         register_instance_option :controller do
           Proc.new do
-            #Project.where("approved = ? AND user_id = ?",true, params[:user_id])
-            # @object.find(:id).credit_checkers
-            # @object.credit_checkers
+             @object.credit_checkers
           end
         end
 

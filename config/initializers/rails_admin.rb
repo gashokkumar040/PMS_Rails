@@ -2,7 +2,6 @@ require Rails.root.join('lib', 'rails_admin_approved_projects.rb')
 require Rails.root.join('lib/user_records', 'rails_admin_user_balance.rb')
 
 RailsAdmin.config do |config|
-
   # sort_reverse=true
 
   #config.total_columns_width = 1000
@@ -31,47 +30,34 @@ RailsAdmin.config do |config|
   config.navigation_static_label = "My Links"
 
   config.model 'User' do
-    navigation_icon ' icon-user '
+    navigation_icon 'icon-user '
   end
 
+  config.model 'Organization' do
+    navigation_icon 'icon-th-list'
+  end 
 
+  config.model 'Project' do
+    navigation_icon 'icon-list-alt'
+  end 
+
+  config.model 'Task' do
+    navigation_icon 'icon-tasks'
+  end
+
+  config.model 'Asset' do
+    navigation_icon 'icon-file'
+  end
+
+  config.model 'Admin' do
+    navigation_icon 'icon-user'
+  end
+
+  config.model 'CreditChecker' do
+    navigation_icon 'icon-briefcase'
+  end
   
-  # config.navigation_static_links = {
-  # 'myLinks' => 'http://www.facebook.com'
-  # }
-
-  # config.authorize_with do
-  #   redirect_to main_app.root_path unless current_user.admin = true
-  # end
-
-  # config.authorize_with do |controller|
-  #   unless current_user.try(:admin?)
-  #    flash[:error] = "You are not an admin"
-  #    redirect_to 'root_path'
-  #   end
-  # end
-
-  # config.authenticate_with do
-  #   warden.authenticate! :scope => :admin
-  # end
-
-  ## == Devise ==
-  # config.authenticate_with do
-  #   warden.authenticate! scope: :user
-  # end
-  # config.current_user_method(&:current_user)
-
-  ## == Cancan ==
-  # config.authorize_with :cancan
-
-  ## == Pundit ==
-  # config.authorize_with :pundit
-
-  ## == PaperTrail ==
-  # config.audit_with :paper_trail, 'User', 'PaperTrail::Version' # PaperTrail >= 3.0.0
-
-  ### More at https://github.com/sferik/rails_admin/wiki/Base-configuration
-
+  
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
    config.show_gravatar = true
@@ -79,19 +65,11 @@ RailsAdmin.config do |config|
 
 
   config.actions do
-    # dashboard do
-    #   statistics true
-    # end
-    # dashboard do
-    #   authorization_key :customized
-    # end
     dashboard                     # mandatory
     index                         # mandatory
     new
-    
 
     approved_projects
-
     user_balance
 
     export
@@ -101,6 +79,9 @@ RailsAdmin.config do |config|
     delete
     show_in_app
 
+    # rails_admin_charts for rails_admin
+    # all
+    # charts
 
     ## With an audit adapter, you can add:
     # history_index
@@ -139,11 +120,6 @@ RailsAdmin.config do |config|
   end  
 
   config.model Project do
-    # include_all_fields
-    # nested do
-    #   field :count
-    #   field :history 
-    # end
     list do
       field :id
       field :approved

@@ -1,6 +1,25 @@
 class User < ApplicationRecord
+  # # for rails_admin_charts to this model
+  # # ====================
+  # include RailsAdminCharts
 
-  
+  # def self.graph_data since=30.days.ago
+  #   [
+  #     {
+  #         name: 'Admin Users',
+  #         pointInterval: point_interval = 1.day * 1000,
+  #         pointStart: start_point = since.to_i * 1000,
+  #         data: self.where(type: 'Admin').delta_records_since(since)
+  #     },
+  #     {
+  #         name: 'Standard Users',
+  #         pointInterval: point_interval,
+  #         pointStart: start_point,
+  #         data: self.where(type: nil).delta_records_since(since)
+  #     }
+  #   ]
+  # end
+  # # =================
   #accepts_nested_attributes_for :credit_checker
   # BLACKLIST_FOR_SERIALIZATION =[:encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :password_salt, :confirmation_token, :confirmed_at, :confirmation_sent_at, :remember_token, :unconfirmed_email, :failed_attempts, :unlock_token, :locked_at]
   # if you want to de_serialize use serializable_hash(options = nil) add blacklists for this method by calling marge super(options).merge(encrypted_password: encrypted_password,....) 

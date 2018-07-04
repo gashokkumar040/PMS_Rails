@@ -8,8 +8,14 @@ class UsersController < ApplicationController
   # GET /users
   # GET /users.json
   def index
+
+    @users = User.all
+
+    respond_to do |format|
+      format.html
+    end
     #@users = User.where.not(:id => current_user.id)
-    @users = User.with_pending_projects
+    # @users = User.with_pending_projects
      #@user = User.find(params[:id])
     # if current_user
     #   redirect_to root_path
@@ -24,7 +30,7 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     #@user = User.find(params[:id])
-    UserMailer.after_confirmation(changes.keys, self).deliver_now
+    # UserMailer.after_confirmation(changes.keys, self).deliver_now
   end
 
   # GET /users/new

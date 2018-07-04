@@ -1,9 +1,48 @@
 <!DOCTYPE html>
 <html>
+<title>User Balance Sheet </title>
 <head>
-  <title>User Balance Sheet </title>
+  <!-- library javascript -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/modules/exporting.js"></script>
+  <script src="https://code.highcharts.com/modules/export-data.js"></script>
+  <!-- library js end -->
+
+  <!-- custom JS -->
+  <script>
+    $(function () { 
+        var myChart = Highcharts.chart('container', {
+            chart: {
+                type: 'bar'
+            },
+            title: {
+                text: 'user balance sheet'
+            },
+            xAxis: {
+
+                
+                // categories: ['Apples', 'Bananas', 'Oranges']
+            },
+            yAxis: {
+                // title: {
+                //     text: 'Fruit eaten'
+                // }
+            },
+            // series: [{
+            //     name: 'Jane',
+            //     data: [1, 0, 4]
+            // }, {
+            //     name: 'John',
+            //     data: [5, 7, 3]
+            // }]
+        });
+    });
+  </script>
+  <!-- custom JS end -->
+
+  <!-- table styles -->
   <style type="text/css">
-    
     table {
       /*padding: auto; */
       /*margin :auto;*/
@@ -17,30 +56,37 @@
     }
     tr:nth-child(even) {background-color:lightgray;}
   </style>
+  <!-- table styles end -->
 </head>
 <body>
-  <h1>User Balance ...</h1>
+  <!-- for high chart area -->
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto; border-width: 2px;border-style: dotted;border-color: blue"></div>
+
+  <!-- for table data -->
+  <div class="container">
+  <h1><%= @object.email %>, Balance Sheet</h1>
   <table>
     <tr>
-      <th>User_id</th>
-      <th>User_name</th>
-      <th>Balance</th>
+      <th>Email</th>
+      <th>Amount</th>
       <th>Credit/Debit</th>
+      <th>Balance</th>
     </tr>
 
     <tr>
       <% @object.credit_checkers.each do |cc|%>
 
           <tr>
-            <td><%= @object.id %></td>
-            <td><%= @object.first_name %></td>
-            <td><%= cc.balance%></td>
+            <td><%= @object.email %></td>
+            <td><%= cc.amount %></td>
             <td><%= cc.account_status %></td>
+            <td><%= cc.balance%></td>
           </tr>
 
       <% end %>
     </tr>
   </table>
+  </div>
 
 </body>
 </html>

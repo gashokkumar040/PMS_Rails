@@ -93,6 +93,18 @@ gem 'mini_magick'
 #file attachment mail
 gem 'receipts'
 
+# highcharts-rails taken from url: https://github.com/PerfectlyNormal/highcharts-rails
+# gem "highcharts-rails"
+
+# highcharts for rails_admin taken from url: https://github.com/pgeraghty/rails_admin_charts
+# gem 'rails_admin_charts'
+
+# Highcharts in Rails 5
+gem 'chartkick'
+gem 'groupdate'
+
+
+
 
 
 

@@ -24,13 +24,17 @@ Rails.application.routes.draw do
   resources :users do
     member do
       get :confirm_email
-      
     end
     # resources :projects do
     #   resources :attachments #, except: [:index]
     #   resources :tasks
     # end
   end
+
+  # namespace :charts do
+  #   get "new_users"
+  #   get "by_month_users"
+  # end
 
 
   #root to: "users#index"
