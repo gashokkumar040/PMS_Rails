@@ -1,92 +1,117 @@
 <!DOCTYPE html>
 <html>
-<title>User Balance Sheet </title>
+<title>User Balance Sheet </title> 
 <head>
-  <!-- library javascript -->
+  <!-- JS libraries -->
   <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://code.highcharts.com/highcharts.js"></script>
-  <script src="https://code.highcharts.com/modules/exporting.js"></script>
-  <script src="https://code.highcharts.com/modules/export-data.js"></script>
-  <!-- library js end -->
+  <!-- JS libraries end -->
 
   <!-- custom JS -->
   <script>
-    $(function () { 
+   $(function () { 
         var myChart = Highcharts.chart('container', {
             chart: {
-                type: 'bar'
+                zoomType: 'x'
             },
             title: {
-                text: 'user balance sheet'
+                text: 'Projects Approved'
             },
             xAxis: {
-
-                
                 // categories: ['Apples', 'Bananas', 'Oranges']
+                title: {
+                  text: 'no. of projects'
+                }
             },
             yAxis: {
-                // title: {
-                //     text: 'Fruit eaten'
-                // }
+                title: {
+                    text: 'count'
+                }
             },
-            // series: [{
-            //     name: 'Jane',
-            //     data: [1, 0, 4]
-            // }, {
-            //     name: 'John',
-            //     data: [5, 7, 3]
-            // }]
+            legend: {
+
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+             plotOptions: {
+                  series: {
+                      label: {
+                          connectorAllowed: false
+                      },
+                      pointStart: 1
+                  }
+              },
+                
+            series: [{
+                name: 'list of credit_checkers',
+                data: <%= CreditChecker.ids%>//
+            }, {
+                name: 'list of projects',
+                data: <%= Project.where("approved = false").ids%>
+            }, {
+                name: 'count',
+                data: <%= CreditChecker.where("user_id =? AND project_id =?",@object.id,35).count%>
+            }
+            ]
         });
     });
   </script>
-  <!-- custom JS end -->
+ 
+  <!-- custom JS end --> 
 
   <!-- table styles -->
-  <style type="text/css">
+   <style type="text/css">
+    
     table {
-      /*padding: auto; */
-      /*margin :auto;*/
+      padding: auto; 
+      margin : 0 auto;
     }
     th, td {
       text-align: center;
-      padding:0 100px;
+      padding:0 110px;
     }
     th{
       background-color:  #00f29f;
     }
-    tr:nth-child(even) {background-color:lightgray;}
+    tr:nth-child(even) { background-color:lightgray; }
   </style>
   <!-- table styles end -->
 </head>
+
+
+
 <body>
   <!-- for high chart area -->
-  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto; border-width: 2px;border-style: dotted;border-color: blue"></div>
+  <h1><%= @object.first_name.capitalize%>, Projects</h1>
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto; border-width: 1px;border-style: dotted;border-color: black">
+  </div>
 
   <!-- for table data -->
-  <div class="container">
-  <h1><%= @object.email %>, Balance Sheet</h1>
-  <table>
-    <tr>
-      <th>Email</th>
-      <th>Amount</th>
-      <th>Credit/Debit</th>
-      <th>Balance</th>
-    </tr>
+  <div class="user balance table">
+    <h1 style="padding-left: 10px"><%= @object.email %>, Balance Sheet</h1><br>
+    <table>
+      <tr>
+        <th>Project ID</th>
+        <th>Amount</th>
+        <th>Credit/Debit</th>
+        <th>Balance</th>
+      </tr>
 
-    <tr>
-      <% @object.credit_checkers.each do |cc|%>
+      <tr>
+        <% @object.credit_checkers.each do |cc|%>
+            <tr>
+              <td><%= cc.project_id %></td>
+              <td><%= cc.amount %></td>
+              <td><%= cc.account_status %></td>
+              <td><%= cc.balance%></td>
+            </tr>
+        <% end %>
+      </tr>
+    </table>
+  </div><!--/user balance table -->
 
-          <tr>
-            <td><%= @object.email %></td>
-            <td><%= cc.amount %></td>
-            <td><%= cc.account_status %></td>
-            <td><%= cc.balance%></td>
-          </tr>
-
-      <% end %>
-    </tr>
-  </table>
-  </div>
+  <div style="min-width: 310px; height: 400px; margin: 0 auto;"></div>
 
 </body>
 </html>

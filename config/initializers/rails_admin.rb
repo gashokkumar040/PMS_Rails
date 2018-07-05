@@ -1,5 +1,5 @@
-require Rails.root.join('lib', 'rails_admin_approved_projects.rb')
-require Rails.root.join('lib/user_records', 'rails_admin_user_balance.rb')
+require Rails.root.join('lib/custom_actions/approved_projects', 'rails_admin_approved_projects.rb')
+require Rails.root.join('lib/custom_actions/user_records', 'rails_admin_user_balance.rb')
 
 RailsAdmin.config do |config|
   # sort_reverse=true

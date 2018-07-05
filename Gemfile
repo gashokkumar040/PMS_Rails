@@ -100,8 +100,9 @@ gem 'receipts'
 # gem 'rails_admin_charts'
 
 # Highcharts in Rails 5
-gem 'chartkick'
 gem 'groupdate'
+gem 'chartkick'
+gem 'highcharts-rails'
 
 
 

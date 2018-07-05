@@ -22,9 +22,9 @@ module RailsAdmin
           'icon-envelope'
         end
 
-        register_instance_option :pjax? do
-          false
-        end
+        # register_instance_option :pjax? do
+        #   false
+        # end
 
         register_instance_option :controller do
           Proc.new do

@@ -7,6 +7,10 @@ class CreditCheckersController < ApplicationController
   # GET /credit_checkers.json
   def index
     @credit_checkers = CreditChecker.all
+
+    respond_to do |format|
+      format.html
+    end
   end
 
   # GET /credit_checkers/1
@@ -74,4 +78,5 @@ class CreditCheckersController < ApplicationController
       # params.fetch(:credit_checker, {})
       params.require(:credit_checker).permit(:id,:user_id,:project_id,:balance, :amount,:account_status)   
     end
+
 end

@@ -2,15 +2,88 @@
 <html>
 <head>
   <title>approved projects</title>
+  <!-- JS libraries -->
+  <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <!-- JS libraries end -->
+
+  <!-- custom JS -->
+  <script>
+   $(function () { 
+        var myChart = Highcharts.chart('container', {
+            chart: {
+                zoomType: 'x'
+            },
+            title: {
+                text: 'Projects Approved'
+            },
+            xAxis: {
+                title: {
+                  text: 'no. of projects'
+                }
+            },
+            yAxis: {
+                title: {
+                    text: 'count'
+                }
+            },
+            legend: {
+
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle'
+            },
+             plotOptions: {
+                  series: {
+                      label: {
+                          connectorAllowed: false
+                      },
+                      pointStart: 1
+                  }
+              },
+                
+            series: [{
+                name: 'list of credit_checkers',
+                data: <%= CreditChecker.ids%>//
+            }, {
+                name: 'Approved Projects',
+                data: <%= Project.where("approved = true").ids%>
+            }, {
+                name: 'Non Approved Projects',
+                data: <%= Project.where("approved = false").ids%>
+                          
+                //<%= CreditChecker.where("user_id =? AND project_id =?",@object.id,35).count%>
+            }],
+             responsive: {
+                  rules: [{
+                      condition: {
+                          maxWidth: 500
+                      },
+                      chartOptions: {
+                          legend: {
+                              layout: 'horizontal',
+                              align: 'center',
+                              verticalAlign: 'bottom'
+                          }
+                      }
+                  }]
+              }
+
+        });//high chart end
+    });//function end
+  </script>
+ 
+  <!-- custom JS end --> 
   <style type="text/css">
     
     table {
-      /*padding: auto; */
-      /*margin :auto;*/
+      align-self: center;
+      padding: auto; 
+      margin : 0 auto;
     }
     th, td {
       text-align: left;
-      padding:0 100px;
+      padding:0 150px;
     }
     th{
       background-color:  #00f29f;
@@ -19,21 +92,24 @@
   </style>
 </head>
 <body>
-  <h1>Approved Projects</h1>
+  <!-- for high chart area -->
+  <h1><%= @object.first_name.capitalize%>,Approved Projects</h1>
+  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto; border-width: 1px;border-style: dotted;border-color: black">
+
+  </div>
+  <h1 style="padding-left: 10px"><%= @object.email %>, Approved Projects</h1><br>
   <table>  
     <tr>
       <th>User id</th>
-      <th>User name</th>
       <th>Project id</th>
       <th>Project title</th>
-
     </tr>
+
     <tr>
       <% @object.projects.each do |project|%>
         <% if project.approved == true %>
           <tr>
-            <td><%= @object.id %></td>
-            <td><%= @object.first_name %></td>
+            <td><%= project.user_id %></td>
             <td><%= project.id%></td>
             <td><%= project.project_title %></td>
           </tr>
@@ -41,5 +117,6 @@
       <% end %>
     </tr>
   </table>
+  <div id="container" style="min-width: 310px; height: 400px; "></div>
 </body>
 </html>

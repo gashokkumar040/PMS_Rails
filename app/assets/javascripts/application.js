@@ -11,11 +11,14 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery_ujs
+// require datepicker
 //= require rails-ujs
 //= require activestorage
 //= require turbolinks
 //= require Chart.bundle
-//= rewuire chartkick
+//= require highcharts
+//= require chartkick
 
 //= require_tree .
 

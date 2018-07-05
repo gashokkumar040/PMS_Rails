@@ -6,12 +6,6 @@ Rails.application.routes.draw do
     resources :tasks #,  controller: 'projects/tasks' #, model: 'projects/task'
   end
 
-  # namespace :dashboard do
-  #   resources :users
-  #   resources :projects
-  #   root to: "users#index"
-  # end
-
   resources :organizations
   
   devise_for :users,controllers: { confirmations: 'users/confirmations', registrations: 'users/registrations',sessions: 'users/sessions' }
@@ -22,6 +16,8 @@ Rails.application.routes.draw do
   #resources :admins
   
   resources :users do
+
+     # get 'projects_by_approval_date'
     member do
       get :confirm_email
     end

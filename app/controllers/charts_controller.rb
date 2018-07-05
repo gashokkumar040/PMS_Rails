@@ -6,4 +6,13 @@ class ChartsController < ApplicationController
   # def by_month_users
   #   render json: User.group_by_month_of_year(:created_at).count
   # end
+
+  # def approved_projects
+  #   render json: Project.group_by_day(:created_at).count
+  # end
+
+  # def projects_by_approval_date
+  #   result = CreditChecker.group(:project_id).count
+  #   render json: [{name: 'Count', data: result}]
+  # end
 end

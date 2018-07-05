@@ -5,6 +5,18 @@ class CreditChecker < ApplicationRecord
   belongs_to :user
   belongs_to :project
 
+    def self.most_purchased
+      #   .group("self.id'")
+      #   .order("quantity_sum desc").limit(10)
+      #   .pluck("credit_checkers.name, sum(line_items.quantity) as quantity_sum")
+    end
+
+    # def self.most_purchased
+    #   .group("self.id'")
+    #   .order("quantity_sum desc").limit(10)
+    #   .pluck("credit_checkers.name, sum(line_items.quantity) as quantity_sum")
+    # end
+
   # validate :count
   # validate :history
 
