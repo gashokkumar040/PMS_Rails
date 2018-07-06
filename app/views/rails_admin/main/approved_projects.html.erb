@@ -15,7 +15,7 @@
                 zoomType: 'x'
             },
             title: {
-                text: 'Projects Approved'
+                text: 'Projects Details'
             },
             xAxis: {
                 title: {
@@ -27,12 +27,32 @@
                     text: 'count'
                 }
             },
-            legend: {
+            tooltip: {
+            
+              shared: true,
+              useHTML: true,
+              headerFormat: '<small>count id: {point.key}</small><table>'
+              ,pointFormat: '<tr><td style="color: {series.color}">{series.name} id : </td>' +
+                      '<td style="text-align: left;"><b>{point.y} </b></td></tr>',
+              footerFormat: '</table>',
+              //valueDecimals: 2,
 
-                layout: 'vertical',
-                align: 'right',
-                verticalAlign: 'middle'
+                  //simple string format
+              // formatter: function() {
+              // return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
+              // },
+              //crosshairs: [true, false],
+              backgroundColor: '#FCFFC5',
+              borderColor: 'black',
+              borderRadius: 10,
+              borderWidth: 3
             },
+            // legend: {
+
+            //     layout: 'vertical',
+            //     align: 'right',
+            //     verticalAlign: 'middle'
+            // },
              plotOptions: {
                   series: {
                       label: {
@@ -42,18 +62,19 @@
                   }
               },
                 
-            series: [{
-                name: 'list of credit_checkers',
-                data: <%= CreditChecker.ids%>//
-            }, {
+            series: [ {
                 name: 'Approved Projects',
                 data: <%= Project.where("approved = true").ids%>
             }, {
-                name: 'Non Approved Projects',
+                name: 'Un Approved Projects',
                 data: <%= Project.where("approved = false").ids%>
                           
                 //<%= CreditChecker.where("user_id =? AND project_id =?",@object.id,35).count%>
-            }],
+            },{
+                name: 'list of credit_checkers',
+                data: <%= CreditChecker.ids%>//
+            }
+            ],
              responsive: {
                   rules: [{
                       condition: {
@@ -70,11 +91,40 @@
               }
 
         });//high chart end
+
+       
+
     });//function end
+
   </script>
+
+  <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
  
   <!-- custom JS end --> 
   <style type="text/css">
+  /* high chart styles */
+    #container {
+      height: 400px;
+      margin: 0 auto;
+      min-width: 310px; 
+
+      border-width: 1px;
+      border-style: dotted;
+      border-color: black;
+    }
+    .highcharts-title {
+        fill: #434348;
+        font-weight: bold;
+        letter-spacing: 0.3em;
+        font-size: 3em;
+    }
+    .highcharts-subtitle {
+        font-family: 'Courier New', monospace;
+        font-style: italic;
+        fill: #7cb5ec;
+    }*//* End high chart styles*/
+      
+      /* table styles */
     
     table {
       align-self: center;
@@ -94,9 +144,8 @@
 <body>
   <!-- for high chart area -->
   <h1><%= @object.first_name.capitalize%>,Approved Projects</h1>
-  <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto; border-width: 1px;border-style: dotted;border-color: black">
+  <div id="container"></div><br>
 
-  </div>
   <h1 style="padding-left: 10px"><%= @object.email %>, Approved Projects</h1><br>
   <table>  
     <tr>
@@ -106,7 +155,7 @@
     </tr>
 
     <tr>
-      <% @object.projects.each do |project|%>
+      <% @result.each do |project|%>
         <% if project.approved == true %>
           <tr>
             <td><%= project.user_id %></td>

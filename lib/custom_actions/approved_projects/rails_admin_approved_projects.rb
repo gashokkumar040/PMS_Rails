@@ -44,10 +44,9 @@ module RailsAdmin
         #   end
         # end
 
-
         register_instance_option :controller do
           Proc.new do
-              Project.where("approved = ? AND user_id = ?",true, params[:user_id])
+              @result=Project.where("approved = ? AND user_id = ?",true, params[:user_id])
           end
         end
 
