@@ -7,9 +7,9 @@
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <!-- JS libraries end -->
 
- 
   <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
-  <!-- table styles -->
+
+  <!-- CSS Styles -->
    <style type="text/css">
     /* high chart styles */
     #container {
@@ -33,7 +33,7 @@
         fill: #7cb5ec;
     }/* End high chart styles*/
       
-      /* table styles */
+    /* table styles */
     table {
       padding: auto; 
       margin : 0 auto;
@@ -47,14 +47,12 @@
     }
     tr:nth-child(even) { background-color:lightgray; }
   </style>
-  <!-- table styles end -->
+  
 </head>
-
-
 
 <body>
   <!-- for high chart area -->
-  <h1><%= @object.first_name.capitalize%>, Projects</h1>
+  <!-- <h1><%= @object.first_name.capitalize%>, Projects</h1> -->
   <div id="container"></div>
 
   <!-- for table data -->
@@ -79,91 +77,75 @@
         <% end %>
       </tr>
     </table>
-  </div><!--/user balance table -->
+  </div>
+  <!-- table end -->
 
   <div style="height: 400px;"></div>
 
-
-    <!-- custom JS -->
+  <!-- custom JS -->
   <script>
    $(function () { 
         var myChart = Highcharts.chart('container', {
             chart: {
-                //zoomType: 'x'
-                type : 'line'
+              //zoomType: 'x'
+              type: 'column'
             },
             title: {
-                text: 'Projects Graph'
+              text: '<%= @object.first_name.capitalize%>, Projects'
             },
 
             xAxis: {
-                // categories: ['Apples', 'Bananas', 'Oranges']
-                title: {
-                  text: 'no. of projects'
-                }
+              title: { text: 'Credit Checkers' },
+              categories: <%= CreditChecker.ids%>
             },
-            yAxis: {
-                title: {
-                    text: 'count'
-                }
-            },
-            tooltip: {
-            
-                  // shared: true,
-                  // useHTML: true,
-                  // headerFormat: '<small>count id: {point.key}</small><table>',
-                  // pointFormat: '<tr><td style="color: {series.color}">{series.name} id : </td>' +
-                  //     '<td style="text-align: left"><b>{point.y} </b></td></tr>',
-                  // footerFormat: '</table>',
-                  // valueDecimals: 2,
-                formatter: function() {
-                return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
-                },
 
-                //crosshairs: [true, false],
-                backgroundColor: '#FCFFC5',
-                borderColor: 'black',
-                borderRadius: 10,
-                borderWidth: 3
-            },
-            // legend: {
-
-            //     layout: 'vertical',
-            //     align: 'right',
-            //     verticalAlign: 'middle'
+            // yAxis: {
+            //   title: { text: 'Projects' },
+            //   categories: <%= Project.ids.count %>
             // },
-             plotOptions: {
-                  series: {
-                      label: {
-                          connectorAllowed: false
-                      },
-                      pointStart: 1
-                  }
+            yAxis: [{
+                className: 'highcharts-color-0',
+                title: {
+                    text: 'Primary axis'
+                }
+            }, {
+                className: 'highcharts-color-1',
+                opposite: true,
+                title: {
+                    text: 'Secondary axis'
+                }
+            }],
+            tooltip: {
+              formatter: function() {
+                return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
               },
-                
+              //crosshairs: [true, false],
+              backgroundColor: '#FCFFC5',
+              borderColor: 'black',
+              borderRadius: 10,
+              borderWidth: 3
+            },
+            plotOptions: {
+              column: { borderRadius: 5 },
+              series: { 
+                label: { connectorAllowed: false },
+                pointStart: 1 
+              }
+            },
+            // series: [{
+            //   name: 'Credit Checkers',
+            //   data:  <%#= CreditChecker.where("account_status = 'credit' AND user_id = ?",@object.id).ids%>
+            // }]
             series: [{
-                name: 'Credit Checkers',
-                data:  <%= CreditChecker.ids%>//
-
-            }, 
-            {
-                name: 'Projects',
-                //un approved projects
-                data: <%= Project.where("approved = false").ids%>
-            }, 
-            // {
-            //   name: 'Balance'
-            //   data: <%= CreditChecker.where("").ids %>
-            // }
-            // {
-            //     name: 'count',
-            //     data: <%= CreditChecker.where("user_id =? AND project_id =?",@object.id,35).count%>
-            // }
-            ]
+                name: 'credit',
+                data: <%= CreditChecker.where("account_status = 'credit' AND user_id = ?",@object.id).ids%>
+            }, {
+                name: 'debit',
+                data: <%= CreditChecker.where("account_status = 'debit' AND user_id = ?",@object.id).ids%>,
+                yAxis: 1
+            }]
         });
     });
-  </script>
- 
-  <!-- custom JS end -->
+  </script><!-- custom JS end -->
 </body>
 </html>

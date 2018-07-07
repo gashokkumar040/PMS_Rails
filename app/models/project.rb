@@ -1,4 +1,10 @@
 class Project < ApplicationRecord
+  belongs_to :user
+  has_many :credit_checkers, dependent: :destroy
+  has_many :tasks #, dependent: :destroy
+  has_many :assets 
+  
+  include RailsAdminCharts
 
   attr_accessor :credit_checker_fields, :user_fields
   attr_accessor :task_fields, :asset_fields, :project_fields
@@ -10,11 +16,7 @@ class Project < ApplicationRecord
   validates_with AttachmentPresenceValidator, attributes: :asset
   validates_with AttachmentSizeValidator, attributes: :asset, less_than: 11.megabytes
 
-  belongs_to :user
-  has_many :credit_checkers, dependent: :destroy
-  has_many :tasks #, dependent: :destroy
-  has_many :assets 
-  
+
   has_attached_file :asset, styles: { medium: "300x300", :small  => "150x150>", thumb: "100x100#" }, default_url: "/images/:style/missing.png"
   validates_attachment_content_type :asset, content_type: [
   'image/jpeg', 
@@ -44,6 +46,18 @@ class Project < ApplicationRecord
       user.save
       CreditChecker.create(amount: 1, balance: user.credits, user_id: user.id, project_id: self.id,account_status: "debit") 
     end
+  end
+
+
+  def self.graph_data since=30.days.ago
+    [
+        {
+            name: 'Projects',
+            pointInterval: 1.day * 1000,
+            pointStart: since.to_i * 1000,
+            data: self.where(approved: true, user_id:11).delta_records_since(since)
+         }
+    ]
   end
 
   

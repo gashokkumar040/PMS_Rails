@@ -1,4 +1,4 @@
-(function(){
+$(function(){
 
   var horizontalScrollList = function(){
     var $table = $('#bulk_form').find('table');

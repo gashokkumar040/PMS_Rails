@@ -81,7 +81,7 @@ RailsAdmin.config do |config|
 
     # rails_admin_charts for rails_admin
     # all
-    # charts
+    charts
 
     ## With an audit adapter, you can add:
     # history_index

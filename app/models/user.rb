@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # # for rails_admin_charts to this model
   # # ====================
-  # include RailsAdminCharts
+  include RailsAdminCharts
 
   # def self.graph_data since=30.days.ago
   #   [
@@ -19,6 +19,10 @@ class User < ApplicationRecord
   #     }
   #   ]
   # end
+  
+  def self.label_rotation
+    # "-45"
+  end
   # # =================
   #accepts_nested_attributes_for :credit_checker
   # BLACKLIST_FOR_SERIALIZATION =[:encrypted_password, :reset_password_token, :reset_password_sent_at, :remember_created_at, :sign_in_count, :current_sign_in_at, :last_sign_in_at, :current_sign_in_ip, :last_sign_in_ip, :password_salt, :confirmation_token, :confirmed_at, :confirmation_sent_at, :remember_token, :unconfirmed_email, :failed_attempts, :unlock_token, :locked_at]

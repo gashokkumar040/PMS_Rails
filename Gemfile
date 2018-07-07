@@ -97,7 +97,7 @@ gem 'receipts'
 # gem "highcharts-rails"
 
 # highcharts for rails_admin taken from url: https://github.com/pgeraghty/rails_admin_charts
-# gem 'rails_admin_charts'
+gem 'rails_admin_charts'
 
 # Highcharts in Rails 5
 gem 'groupdate'

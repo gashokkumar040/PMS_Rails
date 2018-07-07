@@ -12,10 +12,11 @@
    $(function () { 
         var myChart = Highcharts.chart('container', {
             chart: {
-                zoomType: 'x'
+                // zoomType: 'x'
+                type: 'line'
             },
             title: {
-                text: 'Projects Details'
+                text: '<%= @object.first_name.capitalize%>,Approved Projects'
             },
             xAxis: {
                 title: {
@@ -23,76 +24,47 @@
                 }
             },
             yAxis: {
+                categories: <%= CreditChecker.ids.count %>,
+
                 title: {
-                    text: 'count'
+                    text: 'Count'
                 }
             },
             tooltip: {
-            
-              shared: true,
-              useHTML: true,
-              headerFormat: '<small>count id: {point.key}</small><table>'
-              ,pointFormat: '<tr><td style="color: {series.color}">{series.name} id : </td>' +
-                      '<td style="text-align: left;"><b>{point.y} </b></td></tr>',
-              footerFormat: '</table>',
-              //valueDecimals: 2,
-
-                  //simple string format
-              // formatter: function() {
-              // return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
-              // },
+              formatter: function() {
+              return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
+              },
               //crosshairs: [true, false],
               backgroundColor: '#FCFFC5',
               borderColor: 'black',
               borderRadius: 10,
               borderWidth: 3
             },
-            // legend: {
-
-            //     layout: 'vertical',
-            //     align: 'right',
-            //     verticalAlign: 'middle'
-            // },
-             plotOptions: {
-                  series: {
-                      label: {
-                          connectorAllowed: false
-                      },
-                      pointStart: 1
-                  }
-              },
+            plotOptions: {
+              series: {
+                label: { connectorAllowed: false },
+                pointStart: 1
+              }
+            },
                 
             series: [ {
                 name: 'Approved Projects',
-                data: <%= Project.where("approved = true").ids%>
-            }, {
-                name: 'Un Approved Projects',
-                data: <%= Project.where("approved = false").ids%>
-                          
-                //<%= CreditChecker.where("user_id =? AND project_id =?",@object.id,35).count%>
-            },{
-                name: 'list of credit_checkers',
-                data: <%= CreditChecker.ids%>//
+                data: <%= Project.where("approved = true AND user_id = ?",@object.id).ids%>
+            }],
+            responsive: {
+              rules: [{
+                condition: { maxWidth: 500 },
+                chartOptions: {
+                  legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                  }
+                }
+              }]
             }
-            ],
-             responsive: {
-                  rules: [{
-                      condition: {
-                          maxWidth: 500
-                      },
-                      chartOptions: {
-                          legend: {
-                              layout: 'horizontal',
-                              align: 'center',
-                              verticalAlign: 'bottom'
-                          }
-                      }
-                  }]
-              }
 
         });//high chart end
-
-       
 
     });//function end
 
@@ -122,7 +94,7 @@
         font-family: 'Courier New', monospace;
         font-style: italic;
         fill: #7cb5ec;
-    }*//* End high chart styles*/
+    }/* End high chart styles*/
       
       /* table styles */
     
@@ -143,11 +115,11 @@
 </head>
 <body>
   <!-- for high chart area -->
-  <h1><%= @object.first_name.capitalize%>,Approved Projects</h1>
+  <!-- <h1><%= @object.first_name.capitalize%>,Approved Projects</h1> -->
   <div id="container"></div><br>
 
   <h1 style="padding-left: 10px"><%= @object.email %>, Approved Projects</h1><br>
-  <table>  
+  <table>
     <tr>
       <th>User id</th>
       <th>Project id</th>
@@ -155,9 +127,10 @@
     </tr>
 
     <tr>
-      <% @result.each do |project|%>
+      <% @object.projects.each do |project|  %>
+      <%# @result.each do |project|%>
         <% if project.approved == true %>
-          <tr>
+       <tr>
             <td><%= project.user_id %></td>
             <td><%= project.id%></td>
             <td><%= project.project_title %></td>
@@ -166,6 +139,8 @@
       <% end %>
     </tr>
   </table>
-  <div id="container" style="min-width: 310px; height: 400px; "></div>
+  <div style="min-width: 310px; height: 400px; "></div>
+
+  
 </body>
 </html>

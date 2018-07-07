@@ -20,5 +20,9 @@
 //= require highcharts
 //= require chartkick
 
+
+//= require highcharts/highcharts
+//= require highcharts/modules/exporting
+
 //= require_tree .
 

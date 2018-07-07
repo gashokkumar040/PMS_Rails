@@ -30,6 +30,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
-  approved_projects:
-    title: "approved_projects"
+  admin:
+    actions:
+      charts:
+        title: High Charts 
+        menu: Charts
+        breadcrumb: Charts

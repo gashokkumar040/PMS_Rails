@@ -62,7 +62,7 @@ en:
       message: "Message"
     actions:
       dashboard:
-        title: "Site Administration"
+        title: "PMS Admin"
         menu: "Dashboard"
         breadcrumb: "Dashboard"
       index:

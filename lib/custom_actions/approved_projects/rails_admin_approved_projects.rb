@@ -8,6 +8,7 @@ module RailsAdmin
   module Config
     module Actions
       class ApprovedProjects < RailsAdmin::Config::Actions::Base
+        
         RailsAdmin::Config::Actions.register(self)
 
         register_instance_option :visible? do
