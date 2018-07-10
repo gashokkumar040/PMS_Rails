@@ -7,69 +7,6 @@
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <!-- JS libraries end -->
 
-  <!-- custom JS -->
-  <script>
-   $(function () { 
-        var myChart = Highcharts.chart('container', {
-            chart: {
-                // zoomType: 'x'
-                type: 'line'
-            },
-            title: {
-                text: '<%= @object.first_name.capitalize%>,Approved Projects'
-            },
-            xAxis: {
-                title: {
-                  text: 'no. of projects'
-                }
-            },
-            yAxis: {
-                categories: <%= CreditChecker.ids.count %>,
-
-                title: {
-                    text: 'Count'
-                }
-            },
-            tooltip: {
-              formatter: function() {
-              return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
-              },
-              //crosshairs: [true, false],
-              backgroundColor: '#FCFFC5',
-              borderColor: 'black',
-              borderRadius: 10,
-              borderWidth: 3
-            },
-            plotOptions: {
-              series: {
-                label: { connectorAllowed: false },
-                pointStart: 1
-              }
-            },
-                
-            series: [ {
-                name: 'Approved Projects',
-                data: <%= Project.where("approved = true AND user_id = ?",@object.id).ids%>
-            }],
-            responsive: {
-              rules: [{
-                condition: { maxWidth: 500 },
-                chartOptions: {
-                  legend: {
-                    layout: 'horizontal',
-                    align: 'center',
-                    verticalAlign: 'bottom'
-                  }
-                }
-              }]
-            }
-
-        });//high chart end
-
-    });//function end
-
-  </script>
-
   <link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
  
   <!-- custom JS end --> 
@@ -90,21 +27,16 @@
         letter-spacing: 0.3em;
         font-size: 3em;
     }
-    .highcharts-subtitle {
-        font-family: 'Courier New', monospace;
-        font-style: italic;
-        fill: #7cb5ec;
-    }/* End high chart styles*/
-      
-      /* table styles */
-    
+    /* End high chart styles*/
+
+    /* table styles */
     table {
       align-self: center;
       padding: auto; 
       margin : 0 auto;
     }
     th, td {
-      text-align: left;
+      text-align: center;
       padding:0 150px;
     }
     th{
@@ -115,7 +47,7 @@
 </head>
 <body>
   <!-- for high chart area -->
-  <!-- <h1><%= @object.first_name.capitalize%>,Approved Projects</h1> -->
+  <h1><%= @object.email %>,Approved Projects Graph</h1>
   <div id="container"></div><br>
 
   <h1 style="padding-left: 10px"><%= @object.email %>, Approved Projects</h1><br>
@@ -141,6 +73,56 @@
   </table>
   <div style="min-width: 310px; height: 400px; "></div>
 
+<!-- custom JS -->
+  <script>
+   $(function () { 
+        var myChart = Highcharts.chart('container', {
+            chart: { zoomType: 'x'},
+            title: {
+              text: '<%= @object.first_name.capitalize%>,Approved Projects'
+            },
+            xAxis: {
+              title: { text: 'List of Projects' }
+            },
+            yAxis: {
+              categories: <%= CreditChecker.ids.count %>,
+              title: { text: 'Count' }
+            },
+            tooltip: {
+              formatter: function() {
+              return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
+              },
+              backgroundColor: '#FCFFC5',
+              borderColor: 'black',
+              borderRadius: 10,
+              borderWidth: 3
+            },
+            plotOptions: {
+              column: { borderRadius: 5 },
+              series: {
+                label: { connectorAllowed: false },
+                pointStart: 1
+              }
+            },
+            series: [ {
+                name: 'Approved Projects',
+                data: <%= Project.where("approved = true AND user_id = ?",@object.id).ids %>
+            }],
+            responsive: {
+              rules: [{
+                condition: { maxWidth: 500 },
+                chartOptions: {
+                  legend: {
+                    layout: 'horizontal',
+                    align: 'center',
+                    verticalAlign: 'bottom'
+                  }
+                }
+              }]
+            }
+        });//high chart end
+    });//function end
+  </script>
   
 </body>
 </html>

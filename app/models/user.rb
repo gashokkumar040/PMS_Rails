@@ -1,6 +1,6 @@
+
 class User < ApplicationRecord
-  # # for rails_admin_charts to this model
-  # # ====================
+ 
   include RailsAdminCharts
 
   # def self.graph_data since=30.days.ago
@@ -40,14 +40,11 @@ class User < ApplicationRecord
   has_many :tasks
   has_many :assets
   belongs_to :organization
-  #has_many :organizations through: :admin
   
   devise :google_authenticatable, :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
   validates :email,uniqueness: true 
-
-  # before_create :confirmation_token
 
   scope :with_pending_projects, -> { joins(:projects).where('projects.approved = false') }
 
@@ -77,50 +74,6 @@ class User < ApplicationRecord
     end
   end
   
-  #=========
-  #for Confirmed accounts
-  # def password_match?
-  #    self.errors[:password] << I18n.t('errors.messages.blank') if password.blank?
-  #    self.errors[:password_confirmation] << I18n.t('errors.messages.blank') if password_confirmation.blank?
-  #    self.errors[:password_confirmation] << I18n.translate("errors.messages.confirmation", attribute: "password") if password != password_confirmation
-  #    password == password_confirmation && !password.blank?
-  # end
-
-  # new function to set the password without knowing the current 
-  # password used in our confirmation controller. 
-  # def attempt_set_password(params)
-  #   p = {}
-  #   p[:password] = params[:password]
-  #   p[:password_confirmation] = params[:password_confirmation]
-  #   update_attributes(p)
-  # end
-
-  # new function to return whether a password has been set
-  # def has_no_password?
-  #   self.encrypted_password.blank?
-  # end
-
-  # Devise::Models:unless_confirmed` method doesn't exist in Devise 2.0.0 anymore. 
-  # Instead you should use `pending_any_confirmation`.  
-  # def only_if_unconfirmed
-  #   pending_any_confirmation {yield}
-  # end
-  #=========
-
-  # private
-  #   def confirmation_token
-  #     if self.confirm_token.blank?
-  #         self.confirm_token = SecureRandom.urlsafe_base64.to_s
-  #     end
-  #   end 
-
-  #   def email_activate
-  #     self.email_confirmed = true
-  #     self.confirm_token = nil
-  #     save!(:validate => false)
-  #   end
-
-
   protected
 
   def serializable_hash(options = nil) 

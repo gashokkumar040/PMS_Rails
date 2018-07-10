@@ -8,10 +8,12 @@ Bundler.require(*Rails.groups)
 
 module PMSThree
   class Application < Rails::Application
+    # config.api_only = true
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
-    config.time_zone = 'Central Time (US & Canada)'
+    # config.time_zone = 'Central Time (US & Canada)'
+    config.time_zone = 'Kolkata'
 
     # config.session_store :cookie_store
     # config.middleware.use ActionDispatch::Cookies

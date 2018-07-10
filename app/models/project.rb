@@ -46,21 +46,20 @@ class Project < ApplicationRecord
       user.save
       CreditChecker.create(amount: 1, balance: user.credits, user_id: user.id, project_id: self.id,account_status: "debit") 
     end
+    @u = user.id
   end
 
 
   def self.graph_data since=30.days.ago
     [
-        {
-            name: 'Projects',
-            pointInterval: 1.day * 1000,
-            pointStart: since.to_i * 1000,
-            data: self.where(approved: true, user_id:11).delta_records_since(since)
-         }
+      {
+        name: 'Projects',
+        pointInterval: 1.day * 1000,
+        pointStart: since.to_i * 1000,
+        data: self.where(approved: true, id:self.ids).delta_records_since(since)
+      }
     ]
   end
-
-  
 
 #   def validate_approval
 #     @hash = Hash.new{ |h,k| h[k]=[] }

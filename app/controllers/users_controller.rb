@@ -1,6 +1,5 @@
 class UsersController < ApplicationController
   load_and_authorize_resource
-  #prepend_before_action :authenticate_admin!
   before_action :authenticate_user!
 
   before_action :set_user, only: [:show, :edit, :update, :destroy]

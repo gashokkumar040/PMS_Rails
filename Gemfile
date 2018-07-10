@@ -104,7 +104,10 @@ gem 'groupdate'
 gem 'chartkick'
 gem 'highcharts-rails'
 
-
+gem 'faraday'
+# corrency converter bit coin
+# gem 'faraday'
+gem 'whenever', require: false
 
 
 

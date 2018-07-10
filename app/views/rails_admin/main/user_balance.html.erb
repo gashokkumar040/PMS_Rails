@@ -52,7 +52,7 @@
 
 <body>
   <!-- for high chart area -->
-  <!-- <h1><%= @object.first_name.capitalize%>, Projects</h1> -->
+  <h1><%= @object.email%>, Projects Graph</h1></h1>
   <div id="container"></div>
 
   <!-- for table data -->
@@ -82,70 +82,52 @@
 
   <div style="height: 400px;"></div>
 
-  <!-- custom JS -->
+    <!-- chart details -->
   <script>
    $(function () { 
         var myChart = Highcharts.chart('container', {
             chart: {
-              //zoomType: 'x'
-              type: 'column'
+              zoomType: 'x'
+              // type: 'column'
             },
             title: {
-              text: '<%= @object.first_name.capitalize%>, Projects'
+              text: '<%= @object.first_name.capitalize %>, projects'
             },
-
+            // axis's title names and points
             xAxis: {
-              title: { text: 'Credit Checkers' },
-              categories: <%= CreditChecker.ids%>
+              gridLineWidth: 1,
+              categories: ['credit','debit'],
+              title: { text: 'projects' }
             },
-
-            // yAxis: {
-            //   title: { text: 'Projects' },
-            //   categories: <%= Project.ids.count %>
-            // },
-            yAxis: [{
-                className: 'highcharts-color-0',
-                title: {
-                    text: 'Primary axis'
-                }
-            }, {
-                className: 'highcharts-color-1',
-                opposite: true,
-                title: {
-                    text: 'Secondary axis'
-                }
-            }],
+            yAxis: {
+              gridLineWidth: 1,
+              categories: <%= CreditChecker.ids.count %>,
+              title: { text: 'count' },
+              labels: { overflow: 'justify' }
+            },
+         
+            // tooltip 
             tooltip: {
+              valueSuffix: '',
               formatter: function() {
-                return 'count : <b>' + this.x + ',<br> </b>'+this.series.name +' id: <b>' + this.y + '</b>';
+                return 'account status : <b>' + this.x + ',<br> </b>'+this.series.name +' <b>' + this.y + '</b>';;
               },
-              //crosshairs: [true, false],
-              backgroundColor: '#FCFFC5',
-              borderColor: 'black',
-              borderRadius: 10,
-              borderWidth: 3
             },
             plotOptions: {
-              column: { borderRadius: 5 },
-              series: { 
-                label: { connectorAllowed: false },
-                pointStart: 1 
+              bar: {
+                dataLabels: { enabled: true }
               }
             },
-            // series: [{
-            //   name: 'Credit Checkers',
-            //   data:  <%#= CreditChecker.where("account_status = 'credit' AND user_id = ?",@object.id).ids%>
-            // }]
             series: [{
-                name: 'credit',
-                data: <%= CreditChecker.where("account_status = 'credit' AND user_id = ?",@object.id).ids%>
-            }, {
-                name: 'debit',
-                data: <%= CreditChecker.where("account_status = 'debit' AND user_id = ?",@object.id).ids%>,
-                yAxis: 1
+                name: 'Projects: ',
+                data: [
+                    [<%= CreditChecker.where("account_status = 'credit' AND user_id = ?",@object.id).ids.count%>], 
+                    [<%= CreditChecker.where("account_status = 'debit' AND user_id = ?",@object.id).ids.count%>]
+                ]
             }]
         });
     });
   </script><!-- custom JS end -->
+
 </body>
 </html>

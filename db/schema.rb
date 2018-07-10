@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_03_094810) do
+ActiveRecord::Schema.define(version: 2018_07_10_093601) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -84,6 +84,12 @@ ActiveRecord::Schema.define(version: 2018_07_03_094810) do
     t.string "account_status", default: ""
     t.index ["project_id"], name: "index_credit_checkers_on_project_id"
     t.index ["user_id"], name: "index_credit_checkers_on_user_id"
+  end
+
+  create_table "currency_converters", force: :cascade do |t|
+    t.decimal "BTC_INR"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "organizations", force: :cascade do |t|
