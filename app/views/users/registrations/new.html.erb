@@ -5,48 +5,48 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :Organization %>
+    <%= f.label :Organization %><br>
     <%= f.select(:organization_id, organizations_for_select, :prompt => 'Select') %>
   </div><br>
 
   <div class="field">
-    <%= f.label :first_name %>
+    <%= f.label :first_name %><br>
     <%= f.text_field :first_name, autofocus: true %>
   </div><br/>
 
   <div class="field">
-    <%= f.label :last_name %>
+    <%= f.label :last_name %><br>
     <%= f.text_field :last_name, autofocus: true %>
   </div><br/>
 
   <div class="field">
-    <%= f.label :date_of_birth %>
+    <%= f.label :date_of_birth %><br>
     <%= f.date_field :date_of_birth %>
   </div><br/>
 
   <div class="field">
-    <%= f.label :Gender %>
+    <%= f.label :Gender %><br>
     <%= f.radio_button :is_female, false, :class => 'radio-inline' %> Male
     <%= f.radio_button :is_female, true, :class => 'radio-inline' %>Female
   </div><br/>
 
   <div class="field">
-    <%= f.label :username %>
+    <%= f.label :username %><br>
     <%= f.text_field :username, autofocus: true %>
   </div><br/>
 
   <div class="field">
-    <%= f.label :phonenum %>
+    <%= f.label :phonenum %><br>
     <%= f.text_field :phonenum, autofocus: true %>
   </div><br/>
 
   <div class="field">
-    <%= f.label :email %>
+    <%= f.label :email %><br>
     <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
   </div><br/>
 
   <div class="field">
-    <%= f.label :password %>
+    <%= f.label :password %><br>
     <%= f.password_field :password, autocomplete: "off" %><br/
     <% if @minimum_password_length %>
       <em>(<%= @minimum_password_length %> characters minimum)</em>
@@ -54,20 +54,20 @@
   </div><br/>
 
   <div class="field">
-    <%= f.label :password_confirmation %>
+    <%= f.label :password_confirmation %><br>
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div><br/>
 
-  <%= f.fields_for @user.build_credit_checker do |c| %>
+<!--   <%#= f.fields_for @user.build_credit_checker do |c| %>
     <div class="field">
-      <%= c.label :count%>
-       <!-- add count to count field  -->
+      <%#= c.label :count%>
+       add count to count field 
     </div>
     <div class="field">
-      <%= c.label :history%>
-      <%= c.text_field :history %> 
+      <%#= c.label :history%>
+      <%#= c.text_field :history %> 
     </div>   
-  <% end %>
+  <%# end %> -->
 
   <div class="actions">
     <%= f.submit "Sign up"  %>

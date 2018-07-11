@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_10_093601) do
+ActiveRecord::Schema.define(version: 2018_07_11_111353) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -131,6 +131,19 @@ ActiveRecord::Schema.define(version: 2018_07_10_093601) do
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
+  create_table "transaction_histories", force: :cascade do |t|
+    t.string "currency_type"
+    t.decimal "btc_amount", default: "0.0"
+    t.decimal "inr_balance", default: "0.0"
+    t.decimal "btc_balance", default: "0.0"
+    t.string "inr_status"
+    t.string "btc_status"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_transaction_histories_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name", default: "", null: false
     t.string "email", default: "", null: false
@@ -169,6 +182,15 @@ ActiveRecord::Schema.define(version: 2018_07_10_093601) do
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  create_table "wallets", force: :cascade do |t|
+    t.decimal "inr_balance"
+    t.decimal "btc_balance"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_wallets_on_user_id"
+  end
+
   add_foreign_key "assets", "projects"
   add_foreign_key "assets", "users"
   add_foreign_key "credit_checkers", "projects"
@@ -178,5 +200,7 @@ ActiveRecord::Schema.define(version: 2018_07_10_093601) do
   add_foreign_key "projects", "users"
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
+  add_foreign_key "transaction_histories", "users"
   add_foreign_key "users", "organizations"
+  add_foreign_key "wallets", "users"
 end

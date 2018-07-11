@@ -19,10 +19,10 @@
 
 # Learn more: http://github.com/javan/whenever
 
+# to check every one minute coin changes type in terminal=> tail -f log/prices.log 
 
+set :output, '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/log/prices.log'
 
 every 1.minute do
-  rake "currency:btc_inr"
-  # runner "currency.btc_inr"
-  # rake "my_namespace:rake:currency" #rake currency:btc_inr
+   rake "currency:btc_inr" , :environment => "development"
 end
