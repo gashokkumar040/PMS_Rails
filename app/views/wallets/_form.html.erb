@@ -1,0 +1,29 @@
+<%#= form_with(model: wallet, local: true) do |form| %>
+<%= form_for wallet, :remote => true, :html => { :id => "new_btc" } do |f| %>
+  <% if wallet.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(wallet.errors.count, "error") %> prohibited this wallet from being saved:</h2>
+
+      <ul>
+      <% wallet.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+  <div class="field" id="myInput">
+    <%= f.label :btc_balance %>
+    <%= f.number_field :btc_balance, :class=> 'myInput', :scale => 2, step: :any %>
+  </div>
+
+  <div class="field" id="myInput1">
+    <%= f.label :inr_balance %>
+    <%= f.number_field :inr_balance, :class=> 'myInput1', :scale => 2, step: :any %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Buy BTC"%>
+  </div>
+<% end %>

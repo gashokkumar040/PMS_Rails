@@ -1,0 +1,106 @@
+<h1>New Currency</h1>
+
+<%#= render 'form', currency: @currency %>
+<%= render 'currency', currency: @currency %>
+
+
+<%= link_to 'Back', currencies_path %>
+
+
+
+<%#= @c = Currency.first %>
+
+<style type="text/css">
+
+  .container1 {
+    position: relative;
+    z-index: 1;
+    background: #F0FFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+
+  h1{ text-align: left; }
+  .button{text-align: right}
+
+</style>
+
+<div class="container1">
+  <h1 ><strong>Buy BTC</strong></h1><hr>
+
+  <div class="field" >
+    <label>BTC: </label>
+    <input type="number" id="myInput" name="btc" oninput="myFunction()" value=""><br>
+  </div>
+  <div class="field">
+    <label>INR: </label>
+    <input type="number" id="myInput1" name="inr" oninput="myFunction1()" value=""> 
+  </div>
+
+  <div class="button">
+    <button>Buy</button>
+  </div>
+</div>
+
+<script>
+ 
+// $.ajax(url: '/currencies')
+
+
+$("myInput").keyup(function(){
+  $.ajax({
+    url: '/currencies' + '@c.id'
+  })
+})
+
+
+
+
+
+
+
+//  $.ajax({
+//   type:"GET",
+//   url:"/currencies/convert",
+//   dataType:"json",
+//   data: {},
+//   success:function(result){
+//     alert(result);
+//   }
+// })
+
+
+
+  // $("#myInput").keyup(function(){
+  //   $.ajax({
+  //     type:"GET",
+  //     url:"https://free.currencyconverterapi.com/api/v5/convert?q=btc_inr&compact=ultra",
+  //     dataType:"json",
+  //     data: {},
+  //     success:function(result){
+  //       console.log(result.BTC_INR);
+  //       $("#myInput1").val(result.BTC_INR * $("#myInput").val());
+  //     }
+  //   })
+  // });
+  // $("#myInput1").keyup(function(){
+  //   $.ajax({
+  //     type:"GET",
+  //     url:"https://free.currencyconverterapi.com/api/v5/convert?q=inr_btc&compact=ultra",
+  //     dataType:"json",
+  //     data: {},
+  //     success:function(result){
+  //       console.log(result.INR_BTC);
+  //       $("#myInput").val(result.INR_BTC * $("#myInput1").val());
+  //     }
+  //   })
+  // });
+
+    // $("#myInput1").keyup(function(){
+    //   $("#myInput").val($("#myInput1").val());
+    // });
+
+</script>

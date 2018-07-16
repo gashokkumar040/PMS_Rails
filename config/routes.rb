@@ -1,4 +1,11 @@
 Rails.application.routes.draw do
+  resources :wallets
+  resources :currencies
+ 
+  resources :wallets  
+
+  get 'balance', to: 'wallets#balance', as: :inr_balance
+  resources :transaction_histories
   resources :credit_checkers 
   
   resources :projects do
@@ -16,15 +23,9 @@ Rails.application.routes.draw do
   #resources :admins
   
   resources :users do
-
-     # get 'projects_by_approval_date'
     member do
       get :confirm_email
     end
-    # resources :projects do
-    #   resources :attachments #, except: [:index]
-    #   resources :tasks
-    # end
   end
 
   # namespace :charts do

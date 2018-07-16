@@ -1,0 +1,105 @@
+<%= form_with(model: transaction_history, local: true) do |f| %>
+  <% if transaction_history.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(transaction_history.errors.count, "error") %> prohibited this transaction_history from being saved:
+      </h2>
+
+      <ul>
+      <% transaction_history.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="container1" <%= controller_name%> <%= action_name%> >
+
+    <!-- <div class="field">
+      <%= f.label :currency_type %>
+      <%= f.text_field :currency_type%>
+    </div> -->
+    <div class="field">
+      <%= f.label :btc_amount %>
+      <%= f.number_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
+    </div>
+
+    <div class="field">
+      <%= f.label :inr_amount %>
+      <%= f.number_field :inr_amount, :class=> 'inr', :scale => 2, step: :any%>
+    </div>
+
+   <!--  <div class="field">
+      <%= f.label :inr_balance %>
+      <%= f.number_field :inr_balance, :scale => 2, step: :any%>
+    </div>
+    <div class="field">
+      <%= f.label :btc_balance %>
+      <%= f.number_field :btc_balance, :scale => 2, step: :any%>
+    </div>
+    <div class="field">
+      <%= f.label :inr_status %>
+      <%= f.text_field :inr_status%>
+    </div>
+    <div class="field">
+      <%= f.label :btc_status %>
+      <%= f.text_field :btc_status%>
+    </div> -->
+
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+  </div>
+<% end %>
+
+
+
+<script>
+  $(".btc").keyup(function(){
+    $.ajax({
+      type:"GET",
+      url:"/currencies/1",
+      dataType:"json",
+      success:function(result){
+        console.log(result.btc_inr);
+        $(".inr").val( 
+          (result.btc_inr * $(".btc").val()).toFixed(2)
+          );
+      }
+    })
+  });
+  $(".inr").keyup(function(){ 
+    $.ajax({
+      type:"GET",
+      url:"/currencies/1",
+      dataType:"json",  
+      success:function(result){
+        console.log(result.btc_inr);
+        $(".btc").val( 1 * $(".inr").val() / result.btc_inr);
+      }
+    })
+  });
+
+  // $("#bal").data(
+  //   <%#= @bal- $('.inr').val %>
+  // )
+
+</script>
+
+
+
+<style type="text/css">
+  .container1 {
+    position: relative;
+    z-index: 1;
+    background: #F0FFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  h1{ text-align: left; }
+</style>

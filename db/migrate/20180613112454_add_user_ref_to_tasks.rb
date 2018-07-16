@@ -1,5 +1,5 @@
 class AddUserRefToTasks < ActiveRecord::Migration[5.2]
-  def up
+  def self.up
     add_reference :tasks, :user, foreign_key: true
   end
 

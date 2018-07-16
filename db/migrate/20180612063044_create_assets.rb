@@ -6,7 +6,7 @@ class CreateAssets < ActiveRecord::Migration[5.2]
     end
   end
 
-  def self.down
+  def down
     drop_table :assets
   end
 end

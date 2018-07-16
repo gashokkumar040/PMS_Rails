@@ -3,7 +3,7 @@ class AddUserRefToAssets < ActiveRecord::Migration[5.2]
     add_reference :assets, :user, foreign_key: true
   end
 
-  def self.down
+  def down
     remove_reference(:assets, :user,{:foreign_key=>true})
   end
 end

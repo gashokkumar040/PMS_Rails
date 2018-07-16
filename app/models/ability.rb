@@ -3,13 +3,13 @@ class Ability
 
   def initialize(user)
     user ||= User.new # guest user (not logged in)
-        #resource.class == Admin
-       if user.admin?
+        #user.class == Admin
+       if user.class == Admin
         #can :manage, :all
         can :history, :all
         cannot :approved_projects, :all
         can :approved_projects, Project, approved: true
-      else
+      elsif user.class == User
         can :manage, Project, user_id: user.id 
         can :read, :all
       end

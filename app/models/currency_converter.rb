@@ -1,2 +1,0 @@
-class CurrencyConverter < ApplicationRecord
-end

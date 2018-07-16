@@ -12,7 +12,7 @@ class CreateTasks < ActiveRecord::Migration[5.2]
     end
   end
 
-  def self.down
+  def down
     remove_table :tasks do |t|
       t.string :name
       t.string :subject

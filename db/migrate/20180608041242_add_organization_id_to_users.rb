@@ -1,5 +1,5 @@
 class AddOrganizationIdToUsers < ActiveRecord::Migration[5.2]
-  def up
+  def self.up
     add_reference :users, :organization, foreign_key: true
     #add_column :users, :organization_id, :integer
   end

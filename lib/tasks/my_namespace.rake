@@ -13,10 +13,12 @@ namespace :currency do
     puts "#{a['BTC_INR']}"
     puts "#{response.body}"
 
-    user = CurrencyConverter.first
-    user.update(BTC_INR: a['BTC_INR'])
+    user = Currency.first
+    user.update(btc_inr: a['BTC_INR'])
     puts Time.zone.now
-    # user.update(BTC_INR: 10)
+    # user.update(btc_inr: 10)
+
+
   end
 end
 

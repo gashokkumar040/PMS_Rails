@@ -5,7 +5,7 @@ class AddAttachmentAssetToProjects < ActiveRecord::Migration[5.2]
     end
   end
 
-  def self.down
+  def down
     remove_attachment :projects, :asset
   end
 end

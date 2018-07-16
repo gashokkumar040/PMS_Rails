@@ -7,6 +7,8 @@ class AddUsernameToUsers < ActiveRecord::Migration[5.2]
     add_column :users, :date_of_birth, :date
     add_column :users, :is_female, :boolean, default: false
     add_column :users, :phonenum, :string
+    add_column :users, :credits, :integer,default: 0
+
   end
 
   def self.down
@@ -17,5 +19,7 @@ class AddUsernameToUsers < ActiveRecord::Migration[5.2]
     remove_column :users, :date_of_birth, :date
     remove_column :users, :is_female, :boolean, default: false
     remove_column :users, :phonenum, :string
+    remove_column :users, :credits, :integer,default: 0
+
   end
 end

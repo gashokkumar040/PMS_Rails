@@ -1,0 +1,87 @@
+<%= form_with(model: wallet, local: true, remote: true ) do |form| %>
+
+    <% if wallet.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(wallet.errors.count, "error") %> prohibited this wallet from being saved:</h2>
+
+        <ul>
+        <% wallet.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+  <div class="container1" <%= controller_name%> <%= action_name%> >
+    <h1><strong>Buy BTC</strong></h1><hr>
+
+    <div class="field" id="btc">
+      <%= form.label :btc_balance %>
+      <%= form.number_field :btc_balance, :class=> 'btc', :scale => 2, step: :any %>
+    </div>
+
+    <div class="field" id="inr">
+      <%= form.label :inr_balance %>
+      <%= form.number_field :inr_balance, :class=> 'inr', :scale => 2, step: :any %>
+    </div>
+
+    <div>
+      <% @bal = Wallet.last.inr_balance %>
+      Balance: <span id = "bal"><%= @bal%></span>
+    </div>
+
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+     
+  </div>
+
+<% end %>
+
+<script>
+  $(".btc").keyup(function(){
+    $.ajax({
+      type:"GET",
+      url:"/currencies/1",
+      dataType:"json",
+      success:function(result){
+        console.log(result.btc_inr);
+        $(".inr").val( 
+          (result.btc_inr * $(".btc").val()).toFixed(2)
+          );
+      }
+    })
+  });
+  $(".inr").keyup(function(){ 
+    $.ajax({
+      type:"GET",
+      url:"/currencies/1",
+      dataType:"json",  
+      success:function(result){
+        console.log(result.btc_inr);
+        $(".btc").val( 1 * $(".inr").val() / result.btc_inr);
+      }
+    })
+  });
+
+  // $("#bal").data(
+  //   <%#= @bal- $('.inr').val %>
+  // )
+
+</script>
+
+
+
+<style type="text/css">
+  .container1 {
+    position: relative;
+    z-index: 1;
+    background: #F0FFFF;
+    max-width: 360px;
+    margin: 0 auto 100px;
+    padding: 45px;
+    text-align: center;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+  }
+  h1{ text-align: left; }
+</style>

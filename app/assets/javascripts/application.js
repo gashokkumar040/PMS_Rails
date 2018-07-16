@@ -24,5 +24,47 @@
 //= require highcharts/highcharts
 //= require highcharts/modules/exporting
 
-//= require_tree .
+//= require_tree 
 
+// $(document).ready(function(){
+//   $('').on('click',function(){
+//     $.ajax({
+//       url: '/currencies/'+this.parentElement.id,
+//       type: 'GET',
+//       success: function(r){
+
+//       }
+//     });
+
+//   });
+// });
+
+
+
+// $(document).ready(function(){
+//   $("#myInput").keyup(function(){
+//     $.ajax({
+//       type:"GET",
+//       url:'/currencies/1',//+this.parentElement.id,
+//       dataType:"json",
+//       success:function(result){
+//         console.log(result.btc_inr);
+//         $("#myInput1").val(result.btc_inr * $("#myInput").val());
+//       }
+//     })
+//   });
+
+//   $("#myInput1").keyup(function(){ 
+//     $.ajax({
+//       type:"GET",
+//       url:'/currencies/1',//+this.parentElement.id,
+//       dataType:"json",
+      
+//       success:function(result){
+//         console.log(result.btc_inr);
+//         $("#myInput").val(1 * $("#myInput1").val() / result.btc_inr);
+//       }
+//     });
+//   });
+
+// });

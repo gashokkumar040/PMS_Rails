@@ -1,0 +1,50 @@
+<style type="text/css">
+  body{
+    background-color: lightyellow;
+    text-align: center;
+    width: 100%;
+  }
+  table {
+    padding: 1px auto; 
+    margin :auto;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  th{
+    background-color:  #00f29f;
+  }
+tr:nth-child(even) {background-color:lightgray;}
+</style>
+
+
+<p id="notice"><%= notice %></p>
+
+<h1>Wallet</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>BTC Balance</th>
+      <th>INR Balance</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @wallets.each do |w| %>
+      <tr>
+        <td><%= w.btc_balance %></td>
+        <td><%= w.inr_balance %></td>
+        <td><%= link_to 'Show', w %></td>
+        <td><%= link_to 'Edit', edit_wallet_path(w) %></td>
+        <td><%= link_to 'Destroy', w, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'Buy BTC', new_wallet_path %>

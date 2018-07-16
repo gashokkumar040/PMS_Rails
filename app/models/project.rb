@@ -50,16 +50,16 @@ class Project < ApplicationRecord
   end
 
 
-  def self.graph_data since=30.days.ago
-    [
-      {
-        name: 'Projects',
-        pointInterval: 1.day * 1000,
-        pointStart: since.to_i * 1000,
-        data: self.where(approved: true, id:self.ids).delta_records_since(since)
-      }
-    ]
-  end
+  # def self.graph_data since=30.days.ago
+  #   [
+  #     {
+  #       name: 'Projects',
+  #       pointInterval: 1.day * 1000,
+  #       pointStart: since.to_i * 1000,
+  #       data: self.where(approved: true, id:self.ids).delta_records_since(since)
+  #     }
+  #   ]
+  # end
 
 #   def validate_approval
 #     @hash = Hash.new{ |h,k| h[k]=[] }

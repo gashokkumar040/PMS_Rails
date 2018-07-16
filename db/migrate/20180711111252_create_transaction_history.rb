@@ -1,7 +1,8 @@
 class CreateTransactionHistory < ActiveRecord::Migration[5.2]
-  def up
+  def self.up
     create_table :transaction_histories do |t|
-      t.string :currency_type 
+      t.string :currency_type, default: "inr" 
+      t.decimal :inr_amount,default: 0.0
       t.decimal :btc_amount,default: 0.0
       t.decimal :inr_balance,default: 0.0
       t.decimal :btc_balance,default: 0.0

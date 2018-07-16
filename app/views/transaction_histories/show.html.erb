@@ -1,0 +1,20 @@
+<p id="notice"><%= notice %></p>
+
+
+<p>
+  <strong>currency_type: </strong>
+  <%= @transaction_history.currency_type%>
+</p>
+<p>
+  <strong>btc_amount: </strong>
+  <%= @transaction_history.btc_amount%>
+</p>
+
+<p>
+  <strong>inr_amount: </strong>
+  <%= @transaction_history.inr_amount%>
+</p>
+
+
+<%= link_to 'Edit', edit_transaction_history_path(@transaction_history) %> |
+<%= link_to 'Back', transaction_histories_path %>

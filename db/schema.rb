@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_11_111353) do
+ActiveRecord::Schema.define(version: 2018_07_16_093823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,7 +59,6 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
     t.string "unconfirmed_email"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "approve"
     t.index ["confirmation_token"], name: "index_admins_on_confirmation_token", unique: true
     t.index ["email"], name: "index_admins_on_email", unique: true
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
@@ -76,18 +75,19 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
 
   create_table "credit_checkers", force: :cascade do |t|
     t.integer "balance"
+    t.text "history"
+    t.integer "amount", default: 0
+    t.string "account_status", default: ""
     t.bigint "project_id"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "amount", default: 0
-    t.string "account_status", default: ""
     t.index ["project_id"], name: "index_credit_checkers_on_project_id"
     t.index ["user_id"], name: "index_credit_checkers_on_user_id"
   end
 
-  create_table "currency_converters", force: :cascade do |t|
-    t.decimal "BTC_INR"
+  create_table "currencies", force: :cascade do |t|
+    t.decimal "btc_inr"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -111,8 +111,8 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
     t.string "asset_content_type"
     t.integer "asset_file_size"
     t.datetime "asset_updated_at"
+    t.datetime "approved_at"
     t.boolean "approved", default: false
-    t.datetime "approved_at", default: -> { "CURRENT_TIMESTAMP" }
     t.index ["organization_id"], name: "index_projects_on_organization_id"
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
@@ -132,7 +132,8 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
   end
 
   create_table "transaction_histories", force: :cascade do |t|
-    t.string "currency_type"
+    t.string "currency_type", default: "inr"
+    t.decimal "inr_amount", default: "0.0"
     t.decimal "btc_amount", default: "0.0"
     t.decimal "inr_balance", default: "0.0"
     t.decimal "btc_balance", default: "0.0"
@@ -141,7 +142,9 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "wallet_id"
     t.index ["user_id"], name: "index_transaction_histories_on_user_id"
+    t.index ["wallet_id"], name: "index_transaction_histories_on_wallet_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -168,7 +171,6 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
     t.string "phonenum"
     t.boolean "email_confirmed", default: false
     t.string "confirm_token"
-    t.boolean "admin", default: false
     t.bigint "organization_id"
     t.string "gauth_secret"
     t.string "gauth_enabled", default: "f"
@@ -183,8 +185,8 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
   end
 
   create_table "wallets", force: :cascade do |t|
-    t.decimal "inr_balance"
-    t.decimal "btc_balance"
+    t.decimal "inr_balance", default: "0.0"
+    t.decimal "btc_balance", default: "0.0"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -201,6 +203,7 @@ ActiveRecord::Schema.define(version: 2018_07_11_111353) do
   add_foreign_key "tasks", "projects"
   add_foreign_key "tasks", "users"
   add_foreign_key "transaction_histories", "users"
+  add_foreign_key "transaction_histories", "wallets"
   add_foreign_key "users", "organizations"
   add_foreign_key "wallets", "users"
 end

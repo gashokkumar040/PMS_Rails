@@ -1,6 +1,6 @@
 class AddOrganizationIdToProject < ActiveRecord::Migration[5.2]
   
-  def up
+  def self.up
     add_reference :projects, :organization, foreign_key: true
   end
 
