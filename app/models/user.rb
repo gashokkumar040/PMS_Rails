@@ -41,7 +41,7 @@ class User < ApplicationRecord
   has_many :assets
   belongs_to :organization
   has_many :transaction_histories
-  has_many :wallets
+  has_one :wallet
   
   devise :google_authenticatable, :database_authenticatable, :registerable,:confirmable,
          :recoverable, :rememberable, :trackable, :validatable

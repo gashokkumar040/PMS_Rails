@@ -23,6 +23,10 @@
 
 set :output, '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/log/prices.log'
 
+# every 1.hour do
+#    rake "currency:btc_inr" , :environment => "development"
+# end
+
 every 1.minute do
    rake "currency:btc_inr" , :environment => "development"
 end

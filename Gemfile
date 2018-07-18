@@ -71,7 +71,6 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 #adding specific gems
-#gem "administrate"
 gem 'rails_admin', '~> 1.3'
 gem 'therubyracer'
 
@@ -81,9 +80,7 @@ gem 'cancancan', '~> 2.0'
 #for two-factor-authentication
 gem 'devise_google_authenticator', :path => '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Three/lib/devise_google_authenticator-master 2'
 
-
-#gem 'google-authenticator-rails'
-
+# to print db data in the table format in console
 gem "table_print"
 
 #file attachment gems
@@ -93,8 +90,6 @@ gem 'mini_magick'
 #file attachment mail
 gem 'receipts'
 
-# highcharts-rails taken from url: https://github.com/PerfectlyNormal/highcharts-rails
-# gem "highcharts-rails"
 
 # highcharts for rails_admin taken from url: https://github.com/pgeraghty/rails_admin_charts
 gem 'rails_admin_charts'
@@ -104,9 +99,8 @@ gem 'groupdate'
 gem 'chartkick'
 gem 'highcharts-rails'
 
-gem 'faraday'
 # corrency converter bit coin
-# gem 'faraday'
+gem 'faraday'
 gem 'whenever', require: false
 
 

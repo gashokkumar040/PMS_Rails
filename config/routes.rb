@@ -1,8 +1,17 @@
 Rails.application.routes.draw do
-  resources :wallets
-  resources :currencies
+  # get 'wallets/show_btc'
+  resources :wallets 
+  get 'buy_btc', to:'wallets#buy_btc', as: :buy_btc
+  post 'buy_btc', to:'wallets#save_btc', as: :save_btc
+
+
+  # get 'buy_btc', to:'transaction_histories#buy_btc', as: :buy_btc
+  # post 'buy_btc', to:'transaction_histories#save_btc', as: :save_btc
+
+  
+  resources :currencies#, only: [:show]
  
-  resources :wallets  
+  # resources :wallets
 
   get 'balance', to: 'wallets#balance', as: :inr_balance
   resources :transaction_histories
@@ -37,6 +46,12 @@ Rails.application.routes.draw do
   #root to: "users#index"
 
   root to: 'projects#index'
+
+
+
+
+
+ 
 
   # get ':controller(/:action(/:id(.:format)))'
 

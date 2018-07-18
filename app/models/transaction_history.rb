@@ -15,4 +15,5 @@ class TransactionHistory < ApplicationRecord
   validates :btc_status,    presence: true
 
 
+
 end

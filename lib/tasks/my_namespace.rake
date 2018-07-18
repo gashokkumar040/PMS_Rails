@@ -13,12 +13,16 @@ namespace :currency do
     puts "#{a['BTC_INR']}"
     puts "#{response.body}"
 
+    # user = Currency.first
+    # user.btc_inr = a['BTC_INR']
+    # user.save
+
     user = Currency.first
     user.update(btc_inr: a['BTC_INR'])
     puts Time.zone.now
     # user.update(btc_inr: 10)
 
-
+    # rake currency:btc_inr
   end
 end
 

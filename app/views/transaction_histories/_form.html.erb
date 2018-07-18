@@ -15,10 +15,10 @@
 
   <div class="container1" <%= controller_name%> <%= action_name%> >
 
-    <!-- <div class="field">
+    <div class="field">
       <%= f.label :currency_type %>
       <%= f.text_field :currency_type%>
-    </div> -->
+    </div>
     <div class="field">
       <%= f.label :btc_amount %>
       <%= f.number_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
@@ -29,7 +29,7 @@
       <%= f.number_field :inr_amount, :class=> 'inr', :scale => 2, step: :any%>
     </div>
 
-   <!--  <div class="field">
+    <div class="field">
       <%= f.label :inr_balance %>
       <%= f.number_field :inr_balance, :scale => 2, step: :any%>
     </div>
@@ -44,7 +44,7 @@
     <div class="field">
       <%= f.label :btc_status %>
       <%= f.text_field :btc_status%>
-    </div> -->
+    </div>
 
 
   <div class="actions">

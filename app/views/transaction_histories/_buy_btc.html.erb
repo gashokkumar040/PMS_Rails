@@ -1,42 +1,33 @@
-<%= form_with(model: wallet, local: true ) do |form| %>
-
-    <% if wallet.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(wallet.errors.count, "error") %> prohibited this wallet from being saved:</h2>
-
-        <ul>
-        <% wallet.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
-      </div>
-    <% end %>
+<%= form_for(save_btc_path, local: true ) do |form| %>
 
   <div class="container1" <%= controller_name%> <%= action_name%> >
     <h1><strong>Buy BTC</strong></h1><hr>
 
-    <div class="field" id="btc">
-      <%= form.label :btc_balance %>
-      <%= form.number_field :btc_balance, :class=> 'btc', :scale => 2, step: :any %>
+
+
+
+    <div class="field">
+      <%= form.label :btc_amount %>
+      <%= form.number_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
     </div>
 
-    <div class="field" id="inr">
-      <%= form.label :inr_balance %>
-      <%= form.number_field :inr_balance, :class=> 'inr', :scale => 2, step: :any %>
+    <div class="field">
+      <%= form.label :inr_amount %>
+      <%= form.number_field :inr_amount, :class=> 'inr', :scale => 2, step: :any%>
     </div>
 
-   <!--  <div>
-      <%# @bal = Wallet.last.inr_balance %>
+
+    <div>
       Balance: <span id = "bal"><%= @bal%></span>
     </div>
- -->
+
     <div class="actions">
       <%= form.submit %>
     </div>
      
   </div>
 
-<% end %>
+
 
 <script>
   $(".btc").keyup(function(){
@@ -70,7 +61,7 @@
 
 </script>
 
-
+<% end %>
 
 <style type="text/css">
   .container1 {

@@ -1,5 +1,5 @@
 <%#= form_with(model: wallet, local: true) do |form| %>
-<%= form_for wallet, :remote => true, :html => { :id => "new_btc" } do |f| %>
+<%= form_for wallet, :html => { :id => "new_btc" } do |f| %>
   <% if wallet.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(wallet.errors.count, "error") %> prohibited this wallet from being saved:</h2>

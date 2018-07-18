@@ -3,7 +3,7 @@ class Project < ApplicationRecord
   has_many :credit_checkers, dependent: :destroy
   has_many :tasks #, dependent: :destroy
   has_many :assets 
-  
+
   include RailsAdminCharts
 
   attr_accessor :credit_checker_fields, :user_fields

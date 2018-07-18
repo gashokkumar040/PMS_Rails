@@ -65,6 +65,18 @@ class TransactionHistoriesController < ApplicationController
     end
   end
 
+
+  def buy_btc
+    @bal = current_user.wallet.inr_balance
+  end
+
+  def save_btc
+    render :save_btc
+    # current_user.transaction_history.update(transaction_history_params)
+    # @transaction_history.update(transaction_history_params)    
+    @transaction_history = current_user.wallet.transaction_histories.update(transaction_history_params)
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_transaction_history
