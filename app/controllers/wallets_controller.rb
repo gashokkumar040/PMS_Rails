@@ -84,10 +84,13 @@ class WalletsController < ApplicationController
 
       respond_to do |format|
         if @btc_amount >= 0.03
-          if user_wallet.save 
+          if user_wallet.save  
             # @history = user_wallet.transaction_history.create(transaction_history_params)
             TransactionHistory.create(currency_type: "inr", inr_amount: @inr_amount, inr_balance: @inr_balance, inr_status: 'debit', user_id: current_user.id,  wallet_id: user_wallet.id)
             TransactionHistory.create(currency_type: "btc", btc_amount: @btc_amount, btc_balance: @btc_balance, btc_status: 'credit', user_id: current_user.id,  wallet_id: user_wallet.id)
+            
+            # user_wallet.transaction_histories.build(currency_type: "inr", inr_amount: @inr_amount, inr_balance: @inr_balance, inr_status: 'debit', user_id: current_user.id,  wallet_id: user_wallet.id)
+            # user_wallet.transaction_histories.build(currency_type: "btc", btc_amount: @btc_amount, btc_balance: @btc_balance, btc_status: 'credit', user_id: current_user.id,  wallet_id: user_wallet.id)
                   
             format.html { redirect_to wallets_path, notice: 'Added purchased BTC to your wallet...check your wallet' }
             puts "========="
@@ -97,14 +100,14 @@ class WalletsController < ApplicationController
           end
         else
           puts "****** please purchase more than 0.03 btc amount *****"
-          format.html { redirect_to buy_btc_path, notice: '****** please purchase more than 0.03 btc amount *****' }
+          format.html { redirect_to buy_btc_path, alert: "****** please purchase more than 0.03 btc amount and less than #{@inr_balance} *****" }
         end
       end
 
     else
       respond_to do |format|
         puts "you don't have a enough balance... please add less than #{@inr_balance} this amount..."
-        format.html { redirect_to buy_btc_path, notice: 'you dont have enough balance to buy btc... please enter ' }
+        format.html { redirect_to buy_btc_path, alert: "you dont have a enough balance... please enter less than #{@inr_balance} this amount... and more than 16000" }
       end
     end
 

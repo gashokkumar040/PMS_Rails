@@ -1,13 +1,13 @@
 <p id="notice"><%= notice %></p>
 
 
-<!-- <p><strong>BTC: </strong>
-  <%#= @wallet.btc_balance%>
-</p> -->
+<p><strong>BTC: </strong>
+  <%= @wallet.btc_balance%>
+</p>
 
-<!-- <p><strong>INR: </strong>
-  <%#= @wallet.inr_balance%>
-</p> -->
+<p><strong>INR: </strong>
+  <%= @wallet.inr_balance%>
+</p>
 
 <%#= link_to 'Buy', new_wallet_path(@wallet), method: :patch, remote: true %>
 
@@ -16,7 +16,7 @@
 
 
 
-<%= render 'wallet', wallet: @wallet %>
+<%#= render 'wallet', wallet: @wallet %>
 
 
 <%= link_to 'Back', wallets_path %>
