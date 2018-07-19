@@ -1,8 +1,8 @@
 class CreateWallets < ActiveRecord::Migration[5.2]
-  def self.up
+  def up
     create_table :wallets do |t|
-      t.decimal :inr_balance,default: 0.0, scale: 2,
-      t.decimal :btc_balance,default: 0.0, scale: 2,
+      t.decimal :inr_balance,default: 0.0
+      t.decimal :btc_balance,default: 0.0
       t.references :user, foreign_key: true
 
       t.timestamps
@@ -10,6 +10,13 @@ class CreateWallets < ActiveRecord::Migration[5.2]
   end
 
   def down
-    drop_table :wallets
+    drop_table :wallets do |t|
+      t.decimal :inr_balance,default: 0.0
+      t.decimal :btc_balance,default: 0.0
+      t.references :user, foreign_key: true
+
+      t.timestamps
+    end
+
   end
 end

@@ -70,6 +70,7 @@ class ApplicationController < ActionController::Base
     def rails_admin_path?
       controller_path =~ /rails_admin/ && Rails.env.development?
     end
+
     # ====================
 end
 

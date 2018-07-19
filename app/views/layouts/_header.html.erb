@@ -10,12 +10,14 @@
 
       <div class="nav-collapse span8">
         <ul class="nav navbar-right">
-          <!-- <li><%= link_to "PMS App", users_path %></li> -->
+          <!-- <li><%#= link_to "PMS App", users_path %></li> -->
          <li><%= link_to 'Projects', root_path %></li>
           <% if current_user %>
             <li><%= link_to 'Edit Profile',edit_user_registration_path %></li>
-            <li><%= link_to "Currency", currencies_path  %></li>
+            <li><%= link_to "TransactionHistory", transaction_histories_path  %></li>
             <li><%= link_to "Wallet" , wallets_path %></li>
+            <li><%= link_to 'buy_btc', buy_btc_path %></li>
+            <li><%= link_to 'sell_btc', sell_btc_path %></li>
             <li><%= link_to 'Logout', destroy_user_session_path, method: :delete %></li>
             <li><%= link_to "Contact Us" %></li>
 

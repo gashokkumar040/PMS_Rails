@@ -1,7 +1,7 @@
-<%= form_for(save_btc_path, local: true ) do |form| %>
+<%= form_for(save_sell_btc_path, local: true ) do |form| %>
 
-  <div class="container1" >
-    <h1><strong>Buy BTC</strong></h1><hr>
+  <div class="container1" <%= controller_name%> <%= action_name%> >
+    <h1><strong>Sell BTC</strong></h1><hr>
 
     <div class="field" id="btc">
       <%= form.label :btc_amount %>
@@ -15,7 +15,7 @@
 
 
     <div>
-      INR Balance: <span id = "bal"><%= @bal%></span>
+      BTC Balance: <span id = "bal"><%= @bal%></span>
     </div>
 
     <div class="actions">

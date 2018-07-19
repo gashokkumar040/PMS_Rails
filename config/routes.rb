@@ -1,25 +1,21 @@
 Rails.application.routes.draw do
-  # get 'wallets/show_btc'
   resources :wallets 
   get 'buy_btc', to:'wallets#buy_btc', as: :buy_btc
   post 'buy_btc', to:'wallets#save_btc', as: :save_btc
 
+  #to sell btc 
+  get 'sell_btc', to:'wallets#sell_btc', as: :sell_btc
+  post 'sell_btc', to:'wallets#save_sell_btc', as: :save_sell_btc
 
-  # get 'buy_btc', to:'transaction_histories#buy_btc', as: :buy_btc
-  # post 'buy_btc', to:'transaction_histories#save_btc', as: :save_btc
-
-  
-  resources :currencies#, only: [:show]
+  resources :currencies
  
-  # resources :wallets
-
-  get 'balance', to: 'wallets#balance', as: :inr_balance
+  #get 'balance', to: 'wallets#balance', as: :inr_balance
   resources :transaction_histories
   resources :credit_checkers 
   
   resources :projects do
-    resources :attachments #, except: [:index]
-    resources :tasks #,  controller: 'projects/tasks' #, model: 'projects/task'
+    resources :attachments 
+    resources :tasks 
   end
 
   resources :organizations

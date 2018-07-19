@@ -2,13 +2,13 @@ class Wallet < ApplicationRecord
   belongs_to :user
   has_many :transaction_histories
 
-  accepts_nested_attributes_for :transaction_histories
+  # accepts_nested_attributes_for :transaction_histories
 
-  attr_accessor :transaction_histories_fields
+  # attr_accessor :transaction_histories_fields
 
-  validates :user,         presence: true
-  validates :inr_balance,  presence: true, numericality: true
-  validates :btc_balance,  presence: true
+  # validates :user,         presence: true
+  # validates :inr_balance,  presence: true, numericality: true
+  # validates :btc_balance,  presence: true
 
   # before_save :create_history, on: :update
 

@@ -74,44 +74,89 @@ class WalletsController < ApplicationController
 
     if @inr_balance  > @inr_amount 
       
-      @btc_balance += @btc_amount
-      @inr_balance -= @inr_amount
+      # @btc_balance += @btc_amount
+      # @inr_balance -= @inr_amount
 
       user_wallet = current_user.wallet
 
-      user_wallet.inr_balance = @inr_balance
-      user_wallet.btc_balance = @btc_balance
+      # user_wallet.inr_balance = @inr_balance
+      # user_wallet.btc_balance = @btc_balance
+
+      user_wallet.inr_balance -= @inr_amount
+      user_wallet.btc_balance += @btc_amount
 
       respond_to do |format|
-        if @btc_amount >= 0.03
+        if @btc_amount >= 0.0001
           if user_wallet.save  
             # @history = user_wallet.transaction_history.create(transaction_history_params)
-            TransactionHistory.create(currency_type: "inr", inr_amount: @inr_amount, inr_balance: @inr_balance, inr_status: 'debit', user_id: current_user.id,  wallet_id: user_wallet.id)
-            TransactionHistory.create(currency_type: "btc", btc_amount: @btc_amount, btc_balance: @btc_balance, btc_status: 'credit', user_id: current_user.id,  wallet_id: user_wallet.id)
-            
-            # user_wallet.transaction_histories.build(currency_type: "inr", inr_amount: @inr_amount, inr_balance: @inr_balance, inr_status: 'debit', user_id: current_user.id,  wallet_id: user_wallet.id)
-            # user_wallet.transaction_histories.build(currency_type: "btc", btc_amount: @btc_amount, btc_balance: @btc_balance, btc_status: 'credit', user_id: current_user.id,  wallet_id: user_wallet.id)
-                  
-            format.html { redirect_to wallets_path, notice: 'Added purchased BTC to your wallet...check your wallet' }
+            TransactionHistory.create(btc_per_transaction:Currency.first.btc_inr,transaction_type: 'sell',currency_type: "inr", inr_amount: @inr_amount, inr_balance: @inr_balance, currency_status: 'debit', user_id: current_user.id,  wallet_id: user_wallet.id)
+            TransactionHistory.create(btc_per_transaction:Currency.first.btc_inr,transaction_type: 'buy',currency_type: "btc", btc_amount: @btc_amount, btc_balance: @btc_balance, currency_status: 'credit', user_id: current_user.id,  wallet_id: user_wallet.id)
+            format.html { redirect_to transaction_histories_path, notice: 'Added purchased BTC to your wallet...check your wallet' }
             puts "========="
             puts "after save btc_balance = #{@btc_balance}"
             puts "after save inr_balance = #{@inr_balance}"
             puts "========="
           end
         else
-          puts "****** please purchase more than 0.03 btc amount *****"
-          format.html { redirect_to buy_btc_path, alert: "****** please purchase more than 0.03 btc amount and less than #{@inr_balance} *****" }
+          puts "****** please purchase more than 0.0001 btc amount *****"
+          format.html { redirect_to buy_btc_path, alert: "****** please purchase more than 0.0001 btc amount or less than #{@inr_balance} *****" }
         end
       end
 
     else
       respond_to do |format|
         puts "you don't have a enough balance... please add less than #{@inr_balance} this amount..."
-        format.html { redirect_to buy_btc_path, alert: "you dont have a enough balance... please enter less than #{@inr_balance} this amount... and more than 16000" }
+        format.html { redirect_to buy_btc_path, alert: "you dont have a enough balance... please enter less than #{@inr_balance} this amount... or more than 16000" }
       end
     end
 
   end
+
+  def sell_btc
+    @bal = current_user.wallet.btc_balance 
+  end
+
+  def save_sell_btc
+    @inr_amount = params["/sell_btc"]["inr_amount"].to_f
+    @btc_amount = params["/sell_btc"]["btc_amount"].to_f
+    @inr_balance = current_user.wallet.inr_balance
+    @btc_balance = current_user.wallet.btc_balance
+    # ========
+    if @btc_balance  > @btc_amount 
+
+      user_wallet = current_user.wallet
+
+      user_wallet.inr_balance += @inr_amount
+      user_wallet.btc_balance -= @btc_amount
+
+      respond_to do |format|
+        if @btc_amount >= 0.0001
+          if user_wallet.save  
+            TransactionHistory.create(btc_per_transaction:Currency.first.btc_inr,transaction_type: 'buy',currency_type: "inr", inr_amount: @inr_amount, inr_balance: @inr_balance, currency_status: 'credit', user_id: current_user.id,  wallet_id: user_wallet.id)
+            TransactionHistory.create(btc_per_transaction:Currency.first.btc_inr,transaction_type: 'sell',currency_type: "btc", btc_amount: @btc_amount, btc_balance: @btc_balance, currency_status: 'debit', user_id: current_user.id,  wallet_id: user_wallet.id)
+            format.html { redirect_to transaction_histories_path, notice: 'You selled #{@btc_amount} BTC, Added equivalent inr_amount to your wallet...check your wallet' }
+            puts "========="
+            puts "after save btc_balance = #{@btc_balance}"
+            puts "after save inr_balance = #{@inr_balance}"
+            puts "========="
+          end
+        else
+          puts "****** please sell more than 0.0001 btc amount *****"
+          format.html { redirect_to sell_btc_path, alert: "****** please sell more than 0.0001 btc amount or less than #{@inr_balance} inr_amount*****" }
+        end
+      end
+
+    else
+      respond_to do |format|
+        puts "you don't have a enough balance... please add less than #{@inr_balance} this amount..."
+        format.html { redirect_to sell_btc_path, alert: "you dont have a enough btc balance... please enter less than #{@btc_balance} ... or if you enter in inr, enter more than 16000" }
+      end
+    end
+    # ========
+
+  end
+
+
 
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -125,6 +170,6 @@ class WalletsController < ApplicationController
     end
 
     def transaction_history_params
-      params.require(:transaction_history).permit(:currency_type,:btc_amount,:inr_amount,:btc_balance, :inr_balance,:user_id,:inr_status,:btc_status,:wallet_id)
+      params.require(:transaction_history).permit(:currency_type,:btc_amount,:inr_amount,:btc_balance, :inr_balance,:user_id,:currency_status,:wallet_id)
     end
 end
