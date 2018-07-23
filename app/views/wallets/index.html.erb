@@ -1,6 +1,6 @@
 
  <!-- <h1><%#= current_user.email %>, Graph</h1> -->
-<div id="container_chart"></div><br>
+<!-- <div id="container_chart"></div><br> -->
 
 
 <h1>Wallet</h1>
@@ -28,8 +28,8 @@
 
 <!-- ========= -->
 
-<!-- styles for this page -->
-<link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css">
+<!-- styles for this page --><!-- 
+<link rel="stylesheet" type="text/css" href="https://code.highcharts.com/css/highcharts.css"> -->
 
 <style type="text/css">
     /* high chart styles */
@@ -71,11 +71,11 @@ tr:nth-child(even) {background-color:lightgray;}
 
 
 <!-- JS libraries end -->
-<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<!-- <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script src="https://code.highcharts.com/highcharts.js"></script>
-  
+   -->
 <!-- custom JS -->
-  <script>
+ <!--  <script>
    $(function () { 
         var myChart = Highcharts.chart('container_chart', {
             chart: { 
@@ -92,7 +92,7 @@ tr:nth-child(even) {background-color:lightgray;}
             },
             yAxis: {
               // min: 0,
-              categories: <%= TransactionHistory.ids.count %>,
+              categories: <%#= TransactionHistory.ids.count %>,
               title: { text: 'TransactionHistory count' }
             },
             tooltip: {
@@ -114,11 +114,11 @@ tr:nth-child(even) {background-color:lightgray;}
             series: [ 
               {
                 name: 'currency_type: inr',
-                data: <%= TransactionHistory.where("currency_type = 'inr' AND user_id = ?",current_user.id).ids %>
+                data: <%#= TransactionHistory.where("currency_type = 'inr' AND user_id = ?",current_user.id).ids %>
               },
               {
                 name: 'currency_type: btc',
-                data: <%= TransactionHistory.where("currency_type = 'btc' AND user_id = ?",current_user.id).ids %>
+                data: <%#= TransactionHistory.where("currency_type = 'btc' AND user_id = ?",current_user.id).ids %>
               }
             ],
             responsive: {
@@ -135,4 +135,4 @@ tr:nth-child(even) {background-color:lightgray;}
             }
         });//high chart end
     });//function end
-  </script>
+  </script> -->

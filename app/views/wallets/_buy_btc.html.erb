@@ -1,34 +1,47 @@
 <%= form_for(save_btc_path, local: true ) do |form| %>
 
   <div class="container1" >
+    <p id="msg"></p>
     <h1><strong>Buy BTC</strong></h1><hr>
+
 
     <div class="field" id="btc">
       <%= form.label :btc_amount %>
-      <%= form.number_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
+      <%= form.text_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
     </div>
 
     <div class="field" id="inr">
       <%= form.label :inr_amount %>
-      <%= form.number_field :inr_amount, :class=> 'inr', :scale => 2, step: :any %>
+      <%= form.text_field :inr_amount, :class=> 'inr', :scale => 2, step: :any %>
     </div>
 
-
     <div>
-      INR Balance: <span id = "bal"><%= @bal%></span>
+      INR Balance: <span id = "bal"><%= @bal %></span> <span id="else"></span>
     </div>
 
     <div class="actions">
-      <%= form.submit%>
+      <%= form.submit "buy_btc" %>
     </div>
      
   </div>
-
 <% end %>
 
 
 <script>
+
+  var btc_val = $('.btc').val();
+  var inr_val = $('.inr').val();
+  var inr_bal = <%= @bal%>;
+  var btc_pt  = <%= Currency.first.btc_inr%>;
+
+  $("#bal").show();
+
+  // btc value input
   $(".btc").keyup(function(){
+    $("#bal").hide();
+    $("#else").html(inr_bal - $(".btc").val() * btc_pt );
+
+
     $.ajax({
       type:"GET",
       url:"/currencies/1",
@@ -40,8 +53,25 @@
           );
       }
     })
+
+    if(( $('.btc').val() > (1 * inr_bal/btc_pt) )){
+      $("#msg").html("you dont have a sufficient inr balance to buy btc");
+      $('#msg').css('color','red');
+      $("#msg").show();
+      $(".actions").hide();
+      $("#else").html(0);
+    }else{
+      $("#msg").hide();
+      $(".actions").show();
+    }
+
   });
+
+  // inr value input
   $(".inr").keyup(function(){ 
+     $("#bal").hide();
+     $("#else").html(inr_bal - $(".inr").val());
+
     $.ajax({
       type:"GET",
       url:"/currencies/1",
@@ -53,10 +83,22 @@
          );
       }
     })
+
+
+    if(($('.inr').val() > inr_bal)){
+      $("#msg").html("you dont have a sufficient inr balance to buy btc");
+      $('#msg').css('color','red');
+      $("#msg").show();
+      $(".actions").hide();
+     $("#else").html(0);
+
+    }else{
+      $("#msg").hide();
+      $(".actions").show();
+    }
+
   });
-
 </script>
-
 
 <style type="text/css">
   .container1 {

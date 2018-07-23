@@ -174,6 +174,24 @@ RailsAdmin.config do |config|
     field :account_status
 
   end
+
+  config.model TransactionHistory do
+    field :id
+    field :btc_per_transaction
+    field :transaction_type
+    field :currency_type
+    field :currency_status
+
+    field :inr_amount
+    field :btc_amount
+    field :inr_balance
+    field :btc_balance
+
+
+    field :user
+    field :wallet
+
+  end
   # ============= Horizontal Scrolling columns ========= 
   # # Use default horizontal scroll settings of 3 frozen columns (checkboxes, links/actions, ID) with a border on the right:
   # config.horizontal_scroll_list = true

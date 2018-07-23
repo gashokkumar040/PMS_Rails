@@ -1,3 +1,5 @@
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+
 <style type="text/css">
   body{
     background-color: lightyellow;
@@ -15,52 +17,82 @@
   th{
     background-color:  #00f29f;
   }
+
+    #inr_div{
+      /*background:#999;*/
+      display:none;
+    }
+    #btc_div{
+      /*background:#999;*/
+      display:none;
+    }
 /*tr:nth-child(even) {background-color:lightgray;}*/
 </style>
 
+<script type="text/javascript">
+
+$(document).ready(function(){
+    $("#inr_btn").click(function(){
+        $("#btc_div").hide();
+        $("#inr_div").toggle();
+    });
+
+    $("#btc_btn").click(function(){
+        $("#inr_div").hide();
+        $("#btc_div").toggle();
+    });
+
+});
+
+</script>
 
 
+<button id="inr_btn">INR History</button>
+<button id="btc_btn">BTC History</button>
+
+<div id="inr_div">
 <h1>Currency_type: INR </h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>BTC per Transaction</th>
-      <th>Transaction Type</th>
-      <th>Transaction date</th>     
-      <th>inr_amount</th>
-      <th>inr_balance</th>
-      <th>currency_status</th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @transaction_histories.each do |transaction_history| %>
-
+  <table id="inr_tbl">
+    <thead>
       <tr>
-        <% if transaction_history.currency_type == 'inr'%>
-        <td><%= transaction_history.btc_per_transaction%></td>
-        <td><%= transaction_history.transaction_type%></td>
-        <td><%= transaction_history.created_at.time%></td>
-        <td><%= transaction_history.inr_amount%></td>
-        <td><%= transaction_history.inr_balance%></td>
-        <td><%= transaction_history.currency_status%></td>
-        <% end %>      
+        <th>Transaction date</th>  
+        <th>BTC per Transaction</th>
+        <th>Transaction Type</th>
+        <th>inr_amount</th>
+        <th>inr_balance</th>
+        <th>currency_status</th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @transaction_histories.each do |transaction_history| %>
+
+        <tr>
+          <% if transaction_history.currency_type == 'inr'%>
+          <td><%= transaction_history.created_at.time%></td>
+          <td><%= transaction_history.btc_per_transaction%></td>
+          <td><%= transaction_history.transaction_type%></td>
+          <td><%= transaction_history.inr_amount%></td>
+          <td><%= transaction_history.inr_balance%></td>
+          <td><%= transaction_history.currency_status%></td>
+          <% end %>      
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
 
 <br>
-
+<div id="btc_div">
 <h1>Currency_type: BTC </h1>
 
-<table>
+<table id="btc">
   <thead>
     <tr>
+      <th>Transaction date</th>
       <th>BTC per Transaction</th>
       <th>Transaction Type</th>
-      <th>Transaction date</th>
       <th>btc_amount</th>
       <th>btc_balance</th>
       <th>currency_status</th>
@@ -71,9 +103,9 @@
     <% @transaction_histories.each do |transaction_history| %>
       <tr>
         <% if transaction_history.currency_type == 'btc'%>
+        <td><%= transaction_history.created_at.time%></td>
         <td><%= transaction_history.btc_per_transaction%></td>
         <td><%= transaction_history.transaction_type%></td>
-        <td><%= transaction_history.created_at.time%></td>
         <td><%= transaction_history.btc_amount%></td>
         <td><%= transaction_history.btc_balance%></td>
         <td><%= transaction_history.currency_status%></td>      
@@ -82,7 +114,7 @@
     <% end %>
   </tbody>
 </table>
-
+</div>
 
 <%#= link_to 'buy_btc', buy_btc_path %>
 

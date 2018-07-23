@@ -5,7 +5,7 @@ class TransactionHistoriesController < ApplicationController
   # GET /transaction_histories
   # GET /transaction_histories.json
   def index
-    @transaction_histories = TransactionHistory.all
+    @transaction_histories = TransactionHistory.all.order("created_at DESC")
     @currency = Currency.first
   end
 

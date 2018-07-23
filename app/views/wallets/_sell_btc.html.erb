@@ -1,25 +1,27 @@
 <%= form_for(save_sell_btc_path, local: true ) do |form| %>
 
-  <div class="container1" <%= controller_name%> <%= action_name%> >
+  <div class="container1">
+    <p id="inr_msg"></p>
+    <p id="msg"></p>
+
     <h1><strong>Sell BTC</strong></h1><hr>
 
     <div class="field" id="btc">
       <%= form.label :btc_amount %>
-      <%= form.number_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
+      <%= form.text_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
     </div>
 
     <div class="field" id="inr">
       <%= form.label :inr_amount %>
-      <%= form.number_field :inr_amount, :class=> 'inr', :scale => 2, step: :any %>
+      <%= form.text_field :inr_amount, :class=> 'inr', :scale => 2, step: :any %>
     </div>
 
-
     <div>
-      BTC Balance: <span id = "bal"><%= @bal%></span>
+      BTC Balance: <span id = "bal"><%= @bal%></span> <span id="else"></span>
     </div>
 
     <div class="actions">
-      <%= form.submit%>
+      <%= form.submit "sell_btc" %>
     </div>
      
   </div>
@@ -28,32 +30,96 @@
 
 
 <script>
+  var btc_val = $('.btc').val();
+  var inr_val = $('.inr').val();
+  var btc_bal = <%= @bal%>;
+  var btc_pt  = <%= Currency.first.btc_inr%>;
+  console.log(btc_bal);
+
+  $("#bal").show();
+
   $(".btc").keyup(function(){
+    $("#bal").hide();
+    $("#else").html(btc_bal  - $('.btc').val());
+
     $.ajax({
       type:"GET",
       url:"/currencies/1",
       dataType:"json",
       success:function(result){
-        console.log(result.btc_inr);
+        // console.log(result.btc_inr);
         $(".inr").val( 
           (result.btc_inr * $(".btc").val()).toFixed(2)
           );
       }
-    })
+    });
+
+    if(($('.btc').val() > btc_bal)){
+      $("#msg").html("you dont have a sufficient btc to sell");
+      $('#msg').css('color','red');
+      $("#msg").show();
+      $(".actions").hide();
+      
+      $("#else").show();
+      if((btc_bal  - $('.btc').val())<0){
+        $("#else").html(0);
+      }else{
+        $("#else").html(btc_bal  - $('.btc').val());
+      }
+
+    }else{
+      $("#msg").hide();
+      $(".actions").show();
+    }
+
   });
+
   $(".inr").keyup(function(){ 
+    $("#bal").hide();
+    $("#else").html(btc_bal - ($('.inr').val() / btc_pt));
+
     $.ajax({
       type:"GET",
       url:"/currencies/1",
       dataType:"json",  
       success:function(result){
-        console.log(result.btc_inr);
+        // console.log(result.btc_inr);
         $(".btc").val(
          (1 * $(".inr").val() / result.btc_inr).toFixed(8)
          );
       }
-    })
+    });
+
+
+    if(($('.inr').val() > btc_bal * btc_pt)){
+      $("#msg").html("you dont have a sufficient btc to sell");
+      $('#msg').css('color','red');
+      $("#msg").show();
+      $(".actions").hide();
+      $("#bal").hide();
+      $("#else").show();
+      if( (btc_bal - ($('.inr').val() / btc_pt)) < 0 ){
+        $("#else").html(0);
+      }else{
+        $("#else").html(btc_bal - ($('.inr').val() / btc_pt));
+      }
+    }else{
+      $("#msg").hide();
+      $(".actions").show();
+      $("#bal").hide();
+      $("#else").html(btc_bal - ($('.inr').val() / btc_pt));
+
+
+    }
+
+
+
+
+
+
+
   });
+
 
 </script>
 
@@ -71,3 +137,5 @@
   }
   h1{ text-align: left; }
 </style>
+
+

@@ -1,3 +1,4 @@
+# this file called in ../config/schedule.rb
 require 'faraday'
 
 namespace :currency do
@@ -18,12 +19,26 @@ namespace :currency do
     # user.save
 
     user = Currency.first
-    user.update(btc_inr: a['BTC_INR'])
+    # user.update(btc_inr: a['BTC_INR'])
+    user.update(btc_inr: a['BTC_INR'] * rand(1 .. 3))
     puts Time.zone.now
     # user.update(btc_inr: 10)
 
-    # rake currency:btc_inr
+
   end
 end
+
+
+
+
+
+
+
+
+
+
+
+    # to run this in console type below code in project directory path
+    # rake currency:btc_inr
 
 

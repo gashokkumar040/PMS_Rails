@@ -27,6 +27,13 @@ set :output, '/Users/ashok/Desktop/Rails-PostgreSQL-Projects/Backup_11:05/PMS_Th
 #    rake "currency:btc_inr" , :environment => "development"
 # end
 
-every 1.minute do
+# every 1.minute do
+#   # this rake file implemented in ..lib/tasks/my_namespace.rake
+#    rake "currency:btc_inr" , :environment => "development"
+# end
+
+
+every 5.minutes do
+  # this rake file implemented in ..lib/tasks/my_namespace.rake
    rake "currency:btc_inr" , :environment => "development"
 end

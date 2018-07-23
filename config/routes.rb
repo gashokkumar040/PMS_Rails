@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   get 'sell_btc', to:'wallets#sell_btc', as: :sell_btc
   post 'sell_btc', to:'wallets#save_sell_btc', as: :save_sell_btc
 
+  namespace :charts do
+    get 'new_users'
+    
+  end
+
   resources :currencies
  
   #get 'balance', to: 'wallets#balance', as: :inr_balance
