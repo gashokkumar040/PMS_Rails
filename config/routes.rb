@@ -8,13 +8,12 @@ Rails.application.routes.draw do
   post 'sell_btc', to:'wallets#save_sell_btc', as: :save_sell_btc
 
   namespace :charts do
-    get 'new_users'
-    
+    get 'new_btc'
+    get "by_month_btc"
   end
 
   resources :currencies
  
-  #get 'balance', to: 'wallets#balance', as: :inr_balance
   resources :transaction_histories
   resources :credit_checkers 
   

@@ -12,8 +12,7 @@
 
 admin_user:  
   name: ashok
-  email: gashokkumar040@gmail.com
-  password_digest: 9000243312
+  
   role: 'admin'
 
 regular_user:

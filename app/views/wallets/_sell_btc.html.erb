@@ -1,23 +1,30 @@
 <%= form_for(save_sell_btc_path, local: true ) do |form| %>
 
   <div class="container1">
-    <p id="inr_msg"></p>
     <p id="msg"></p>
 
     <h1><strong>Sell BTC</strong></h1><hr>
 
     <div class="field" id="btc">
       <%= form.label :btc_amount %>
-      <%= form.text_field :btc_amount, :class=> 'btc', :scale => 2, step: :any %>
+      <%= form.text_field :btc_amount, :class=> 'btc', :scale => 2, step: :any ,autocomplete: "off"%>
     </div>
 
     <div class="field" id="inr">
       <%= form.label :inr_amount %>
-      <%= form.text_field :inr_amount, :class=> 'inr', :scale => 2, step: :any %>
+      <%= form.text_field :inr_amount, :class=> 'inr', :scale => 2, step: :any,autocomplete: "off" %>
     </div>
 
-    <div>
-      BTC Balance: <span id = "bal"><%= @bal%></span> <span id="else"></span>
+    <div style="text-align: left;">
+      <b>INR Balance: </b><span id = "bal"><%= Wallet.first.inr_balance%></span> 
+    </div>
+
+    <div style="text-align: left;">
+      <b>BTC Balance:</b> <span id = "bal"><%= @bal%></span> 
+    </div>
+
+    <div style="text-align: left;">
+      <b>Remaining Balance:</b> <span id="else"></span>
     </div>
 
     <div class="actions">
@@ -33,15 +40,12 @@
   var btc_val = $('.btc').val();
   var inr_val = $('.inr').val();
   var btc_bal = <%= @bal%>;
+  var inr_bal = <%= Wallet.first.inr_balance %>;
   var btc_pt  = <%= Currency.first.btc_inr%>;
-  console.log(btc_bal);
+  $("#else").html(btc_bal);
 
-  $("#bal").show();
 
   $(".btc").keyup(function(){
-    $("#bal").hide();
-    $("#else").html(btc_bal  - $('.btc').val());
-
     $.ajax({
       type:"GET",
       url:"/currencies/1",
@@ -54,69 +58,75 @@
       }
     });
 
-    if(($('.btc').val() > btc_bal)){
-      $("#msg").html("you dont have a sufficient btc to sell");
+    $("#else").html(btc_bal - $('.btc').val());
+
+    if (($('.btc').val() < 0.0001) ) {
+      $("#msg").html("you need to sell between <b> <q> 0.0001 BTC </q></b> and <b><q> <%= Wallet.first.btc_balance %> BTC </q></b>");
       $('#msg').css('color','red');
       $("#msg").show();
       $(".actions").hide();
-      
-      $("#else").show();
-      if((btc_bal  - $('.btc').val())<0){
-        $("#else").html(0);
-      }else{
-        $("#else").html(btc_bal  - $('.btc').val());
-      }
-
     }else{
-      $("#msg").hide();
-      $(".actions").show();
+
+        if(($('.btc').val() > btc_bal)){
+          $("#msg").html("<i><b>you dont have a sufficient btc to sell</b></i>");
+          $('#msg').css('color','red');
+          $("#msg").show();
+          $(".actions").hide();
+          
+          $("#else").show();
+          if((btc_bal  - $('.btc').val())<0){
+            $("#else").html(0);
+          }else{
+            $("#else").html(btc_bal  - $('.btc').val());
+          }
+
+        }else{
+          $("#msg").hide();
+          $(".actions").show();
+        }
+
     }
 
   });
 
   $(".inr").keyup(function(){ 
-    $("#bal").hide();
-    $("#else").html(btc_bal - ($('.inr').val() / btc_pt));
+    $("#else").html(inr_bal - $(".inr").val());
 
     $.ajax({
       type:"GET",
       url:"/currencies/1",
       dataType:"json",  
       success:function(result){
-        // console.log(result.btc_inr);
         $(".btc").val(
-         (1 * $(".inr").val() / result.btc_inr).toFixed(8)
+            (1 * $(".inr").val() / result.btc_inr).toFixed(8)
          );
       }
     });
 
-
-    if(($('.inr').val() > btc_bal * btc_pt)){
-      $("#msg").html("you dont have a sufficient btc to sell");
+    if(($(".inr").val() < 110.44 )){
+      $("#msg").html("you need to sell between <b> <q> 110.44 BTC </q></b> and <b><q> <%= Wallet.first.inr_balance %> BTC </q></b>");
       $('#msg').css('color','red');
       $("#msg").show();
       $(".actions").hide();
-      $("#bal").hide();
-      $("#else").show();
-      if( (btc_bal - ($('.inr').val() / btc_pt)) < 0 ){
-        $("#else").html(0);
-      }else{
-        $("#else").html(btc_bal - ($('.inr').val() / btc_pt));
-      }
     }else{
-      $("#msg").hide();
-      $(".actions").show();
-      $("#bal").hide();
-      $("#else").html(btc_bal - ($('.inr').val() / btc_pt));
-
+      if(($('.inr').val() > inr_bal)){
+        $("#msg").html("you dont have a sufficient btc to sell");
+        $('#msg').css('color','red');
+        $("#msg").show();
+        $(".actions").hide();
+        $("#else").show();
+        if( (btc_bal - ($('.inr').val() / btc_pt)) < 0 ){
+          $("#else").html(0);
+        }else{
+          $("#else").html(inr_bal - $(".inr").val());
+        }
+      }else{
+        $("#msg").hide();
+        $(".actions").show();
+        $("#else").html(inr_bal - $(".inr").val());
+      }
 
     }
-
-
-
-
-
-
 
   });
 
